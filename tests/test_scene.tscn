@@ -14,6 +14,7 @@ offset_top = 72.0
 offset_right = 24.0
 offset_bottom = 95.0
 text = "Woaw"
+metadata/_edit_use_anchors_ = true
 
 [node name="Icon2" type="Sprite2D" parent="."]
 position = Vector2(226, 373)
@@ -25,9 +26,10 @@ offset_top = 72.0
 offset_right = 24.0
 offset_bottom = 95.0
 text = "Woaw"
+metadata/_edit_use_anchors_ = true
 
 [node name="Icon3" type="Sprite2D" parent="."]
-position = Vector2(648, 327)
+position = Vector2(477, 249)
 texture = ExtResource("1_64xw0")
 
 [node name="Label" type="Label" parent="Icon3"]
@@ -36,3 +38,28 @@ offset_top = 72.0
 offset_right = 24.0
 offset_bottom = 95.0
 text = "Woaw"
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon4" type="Sprite2D" parent="."]
+position = Vector2(633, 472)
+texture = ExtResource("1_64xw0")
+
+[node name="Label" type="Label" parent="Icon4"]
+offset_left = -24.0
+offset_top = 72.0
+offset_right = 24.0
+offset_bottom = 95.0
+text = "Woaw"
+metadata/_edit_use_anchors_ = true
+
+[node name="Icon5" type="Sprite2D" parent="."]
+position = Vector2(720, 125)
+texture = ExtResource("1_64xw0")
+
+[node name="Label" type="Label" parent="Icon5"]
+offset_left = -24.0
+offset_top = 72.0
+offset_right = 24.0
+offset_bottom = 95.0
+text = "Woaw"
+metadata/_edit_use_anchors_ = true
