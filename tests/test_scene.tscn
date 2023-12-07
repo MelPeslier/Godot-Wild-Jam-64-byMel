@@ -40,3 +40,7 @@ offset_right = 24.0
 offset_bottom = 95.0
 text = "Woaw"
 metadata/_edit_use_anchors_ = true
+
+[node name="Icon3" type="Sprite2D" parent="."]
+position = Vector2(783, 450)
+texture = ExtResource("1_64xw0")
