@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfvd1raxmb250"]
+
+[ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="1_64xw0"]
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(229, 124)
+texture = ExtResource("1_64xw0")
+
+[node name="Label" type="Label" parent="Icon"]
+offset_left = -24.0
+offset_top = 72.0
+offset_right = 24.0
+offset_bottom = 95.0
+text = "Woaw"
