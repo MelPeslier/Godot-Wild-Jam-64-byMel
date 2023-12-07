@@ -16,6 +16,18 @@ offset_bottom = 95.0
 text = "Woaw"
 metadata/_edit_use_anchors_ = true
 
+[node name="Icon6" type="Sprite2D" parent="."]
+position = Vector2(966, 351)
+texture = ExtResource("1_64xw0")
+
+[node name="Label" type="Label" parent="Icon6"]
+offset_left = -24.0
+offset_top = 72.0
+offset_right = 24.0
+offset_bottom = 95.0
+text = "Woaw"
+metadata/_edit_use_anchors_ = true
+
 [node name="Icon2" type="Sprite2D" parent="."]
 position = Vector2(226, 373)
 texture = ExtResource("1_64xw0")
