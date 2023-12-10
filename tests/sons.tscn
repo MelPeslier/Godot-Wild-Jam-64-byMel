@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://chlak3t8ltmop"]
-
-[ext_resource type="AudioStream" uid="uid://2mcc3yhv34pf" path="res://tests/OK.mp3" id="1_hlgi5"]
-
-[node name="Sons" type="Node2D"]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_hlgi5")
