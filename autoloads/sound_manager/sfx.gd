@@ -20,21 +20,21 @@ func _ready() -> void:
 func _get_configuration_warnings() -> PackedStringArray:
 	var warning: PackedStringArray = []
 	var tab = "\n      + "
-	
+
 	if sound_list.size() == 0:
 		warning.push_back("No sound :")
 		warning[-1] += tab + "Add sounds in the export list."
-	
+
 	if sound_list.size() < Sounds.size():
 		warning.push_back("There is less sounds than enum options :")
 		warning[-1] += tab + "Add sounds in the export list."
 		warning[-1] += tab + "Remove enum options from the script."
-	
+
 	elif sound_list.size() > Sounds.size():
 		warning.push_back("There is more sounds than enum options :")
 		warning[-1] += tab + "Add enum options in the script."
 		warning[-1] += tab + "Remove some sound from the export list."
-	
+
 	return warning
 
 

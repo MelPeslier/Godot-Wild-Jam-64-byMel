@@ -1,11 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://be5wo3ytvi6t"]
+[gd_scene load_steps=2 format=3 uid="uid://be5wo3ytvi6t"]
 
 [ext_resource type="Script" path="res://autoloads/sound_manager/sfx.gd" id="1_c4qcj"]
-[ext_resource type="AudioStream" uid="uid://hpjh780d2sv7" path="res://audio/menu/bong_001.ogg" id="2_wa8yv"]
-[ext_resource type="AudioStream" uid="uid://cdoq26aqq56ou" path="res://audio/nature/deep_water_buble.wav" id="3_jjmre"]
-[ext_resource type="AudioStream" uid="uid://b8kgjgogsu382" path="res://audio/menu/menu_scroll.wav" id="4_0pui4"]
 
 [node name="SFX" type="Node"]
 script = ExtResource("1_c4qcj")
-sound_list = Array[AudioStream]([ExtResource("2_wa8yv"), ExtResource("3_jjmre"), ExtResource("4_0pui4")])
 bus_name = "SFX"
