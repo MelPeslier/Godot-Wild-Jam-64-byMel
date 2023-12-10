@@ -10,8 +10,16 @@ config_version=5
 
 [application]
 
-config/name="JamLolaCyrilMel"
+config/name="GameName"
+config/version="0.1"
 config/tags=PackedStringArray("jam")
-run/main_scene="res://tests/test_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1536
+window/size/window_height_override=864
+window/stretch/mode="canvas_items"

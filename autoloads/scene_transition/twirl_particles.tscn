@@ -1,0 +1,97 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgnke1armkcei"]
+
+[ext_resource type="Texture2D" uid="uid://bk7e7chqr5qdn" path="res://shared/vfx/particles/star_07.png" id="1_4fqfg"]
+[ext_resource type="Script" path="res://autoloads/scene_transition/twirl_particles.gd" id="2_8ywqj"]
+
+[sub_resource type="Gradient" id="Gradient_phbvj"]
+offsets = PackedFloat32Array(0, 0.156997, 0.863481, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 0.427451, 1, 1, 1, 0.427451, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_62gko"]
+gradient = SubResource("Gradient_phbvj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xfcnm"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+spread = 30.0
+initial_velocity_min = 40.0
+initial_velocity_max = 60.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.06
+color_ramp = SubResource("GradientTexture1D_62gko")
+
+[sub_resource type="Animation" id="Animation_jegfk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_afcbc"]
+resource_name = "START"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xeu8h"]
+_data = {
+"RESET": SubResource("Animation_jegfk"),
+"START": SubResource("Animation_afcbc")
+}
+
+[node name="TwirlParticles" type="GPUParticles2D"]
+modulate = Color(1, 1, 1, 0)
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_xfcnm")
+texture = ExtResource("1_4fqfg")
+lifetime = 5.0
+script = ExtResource("2_8ywqj")
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xeu8h")
+}
