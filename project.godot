@@ -16,6 +16,12 @@ config/tags=PackedStringArray("jam")
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SceneTransition="*res://autoloads/scene_transition/scene_transition.tscn"
+Music="*res://autoloads/sound_manager/music.gd"
+Sfx="*res://autoloads/sound_manager/sfx.tscn"
+
 [display]
 
 window/size/viewport_width=1920
