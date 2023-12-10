@@ -29,3 +29,7 @@ window/size/viewport_height=1080
 window/size/window_width_override=1536
 window/size/window_height_override=864
 window/stretch/mode="canvas_items"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.fr.translation")
