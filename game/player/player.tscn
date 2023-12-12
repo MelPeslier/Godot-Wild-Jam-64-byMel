@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://wwp0yu0jt73k"]
+[gd_scene load_steps=19 format=3 uid="uid://wwp0yu0jt73k"]
 
 [ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
 [ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="2_pjxeu"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://game/player/components/states/fall.gd" id="7_o7w6p"]
 [ext_resource type="Script" path="res://game/player/components/states/dash.gd" id="8_3twcc"]
 [ext_resource type="Script" path="res://game/player/components/movements/player_movement_component.gd" id="9_4mvqj"]
+[ext_resource type="Script" path="res://game/player/player_attacks.gd" id="10_ievp6"]
+[ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="10_ky47a"]
 
 [sub_resource type="Animation" id="Animation_2i5om"]
 length = 0.001
@@ -198,6 +200,27 @@ player_movement_state = 1
 [node name="dash_reload_timer" type="Timer" parent="Components/MovementStateMachine/dash"]
 wait_time = 0.3
 one_shot = true
+
+[node name="knocked" type="Node" parent="Components/MovementStateMachine"]
+
+[node name="Attacks" type="Node" parent="Components"]
+script = ExtResource("10_ievp6")
+
+[node name="left_slash" type="Node" parent="Components/Attacks"]
+
+[node name="right_slash" type="Node" parent="Components/Attacks"]
+
+[node name="double_slash" type="Node" parent="Components/Attacks"]
+
+[node name="big_slash" type="Node" parent="Components/Attacks"]
+
+[node name="finisher" type="Node" parent="Components/Attacks"]
+
+[node name="burst" type="Node" parent="Components/Attacks"]
+
+[node name="HealthComponent" type="Node" parent="Components"]
+script = ExtResource("10_ky47a")
+max_health = 3
 
 [node name="Label" type="Label" parent="."]
 offset_left = -54.0

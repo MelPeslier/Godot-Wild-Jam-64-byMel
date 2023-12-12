@@ -17,6 +17,10 @@ run/main_scene="res://game/tiles/test_tile_map.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://shared/sound/audio_bus_layout.tres"
+
 [autoload]
 
 SceneTransition="*res://autoloads/scene_transition/scene_transition.tscn"
@@ -48,6 +52,11 @@ folder_colors={
 "res://shared/vfx/": "green"
 }
 
+[gui]
+
+theme/custom="res://ui/theme.tres"
+theme/custom_font="res://ui/fonts/Almendra/Almendra-Regular.ttf"
+
 [input]
 
 move_left={
@@ -75,3 +84,8 @@ dash={
 [internationalization]
 
 locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.fr.translation")
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="hurtbox"
