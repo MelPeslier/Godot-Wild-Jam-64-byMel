@@ -48,6 +48,7 @@ folder_colors={
 "res://game/player/sound/": "purple",
 "res://shared/art/": "orange",
 "res://shared/components/": "blue",
+"res://shared/materials/": "yellow",
 "res://shared/sound/": "pink",
 "res://shared/vfx/": "green"
 }

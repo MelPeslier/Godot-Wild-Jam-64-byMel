@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bagbhrpaffdch"]
 
 [ext_resource type="Script" path="res://autoloads/scene_transition/scene_transition.gd" id="1_61uoq"]
-[ext_resource type="Texture2D" uid="uid://c7o5yijk6blfx" path="res://shared/vfx/particles/twirl_01.png" id="2_hrkrw"]
+[ext_resource type="Texture2D" uid="uid://c7o5yijk6blfx" path="res://shared/art/particles/twirl_01.png" id="2_hrkrw"]
 
 [sub_resource type="Animation" id="Animation_lxkji"]
 resource_name = "APPEAR"

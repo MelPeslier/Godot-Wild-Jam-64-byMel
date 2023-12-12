@@ -9,11 +9,10 @@ enum MovementState{
 	FALL
 }
 
-var current_movement_state: MovementState
-
 @export var movement_state_machine: StateMachine
 @export var movement_animator: AnimationPlayer
 @export var player_movement_component: MovementComponent
+@export var attacks: PlayerAttacks
 
 @export_category("jump")
 @export_range(0, 2000, 1) var max_fall_speed: float = 1
@@ -37,6 +36,8 @@ var current_movement_state: MovementState
 @export_range(0, 2000, 1) var dash_speed: float = 1
 @export var dash_time: float = 1
 @export var dash_reload_timer: Timer
+
+var current_movement_state: MovementState
 
 var gravity: float = 0
 var fall_gravity: float = 0
@@ -66,12 +67,14 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	movement_state_machine.process_unhandled_input(event)
+	attacks.process_unhandled_input(event)
 
 
 func _physics_process(delta: float) -> void:
 	#FIXME remove it, it's only here to tweak values in editor and to see changes in real-time
 	update_physics_data()
 	movement_state_machine.process_physics(delta)
+	attacks.process_physics(delta)
 
 
 func _process(delta: float) -> void:

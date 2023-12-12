@@ -1,3 +1,4 @@
+class_name PlayerAttacks
 extends Node2D
 
 @export var attack_input_component: AttackInputComponent
@@ -19,11 +20,11 @@ var attack_index: int = 0
 
 var combo_timer: float:
 	set(val):
-		combo_timer = maxf(0, val)
+		combo_timer = maxf(-0.1, val)
 
 var attack_interval_timer: float:
 	set(val):
-		attack_interval_timer = maxf(0, val)
+		attack_interval_timer = maxf(-0.1, val)
 
 var attack: Attack
 var is_basic_attack := false
@@ -40,17 +41,18 @@ func process_physics(delta: float) -> void:
 	if attack_interval_timer > 0:
 		if attack_interval_timer - attack_buffer_time > 0:
 			attack = null
-			return
+		return
 
 	if not attack: return
 
 	if is_basic_attack:
 		# Switch to next attack if in conbo time
 		if combo_timer > 0:
-			attack_index = (attack_index + 1) % (pattern[pattern_index].size() -1)
+			attack_index = (attack_index + 1) % (pattern[pattern_index].size())
 			# When we finish a pattern, we switch to the other pattern
 			if attack_index == 0:
-				pattern_index = (pattern_index + 1) % (pattern.size() -1)
+				pattern_index = (pattern_index + 1) % (pattern.size())
+
 		else:
 			attack_index = 0
 
@@ -61,6 +63,7 @@ func process_physics(delta: float) -> void:
 
 	attack_interval_timer = attack_interval_time
 	attack.play()
+	print("attaque: ", attack.name)
 	attack = null
 
 

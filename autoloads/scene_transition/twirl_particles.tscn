@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dgnke1armkcei"]
 
-[ext_resource type="Texture2D" uid="uid://bk7e7chqr5qdn" path="res://shared/vfx/particles/star_07.png" id="1_4fqfg"]
+[ext_resource type="Texture2D" uid="uid://bk7e7chqr5qdn" path="res://shared/art/particles/star_07.png" id="1_4fqfg"]
 [ext_resource type="Script" path="res://autoloads/scene_transition/twirl_particles.gd" id="2_8ywqj"]
 
 [sub_resource type="Gradient" id="Gradient_phbvj"]

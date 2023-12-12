@@ -1,18 +1,18 @@
-[gd_scene load_steps=28 format=3 uid="uid://wwp0yu0jt73k"]
+[gd_scene load_steps=33 format=3 uid="uid://wwp0yu0jt73k"]
 
 [ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
 [ext_resource type="Texture2D" uid="uid://s1dldeyjskp3" path="res://game/player/art/player.png" id="2_g48ii"]
 [ext_resource type="Script" path="res://shared/components/states/state_machine.gd" id="3_srg45"]
+[ext_resource type="PackedScene" uid="uid://js880yl0yn0y" path="res://shared/vfx/attacks/slash/slash.tscn" id="4_2d242"]
 [ext_resource type="Script" path="res://game/player/components/states/idle.gd" id="4_5fj6c"]
 [ext_resource type="Script" path="res://game/player/components/states/walk.gd" id="5_55t5u"]
-[ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="5_lbcmx"]
 [ext_resource type="Script" path="res://game/player/components/states/jump.gd" id="6_afeky"]
 [ext_resource type="Script" path="res://game/player/components/states/fall.gd" id="7_o7w6p"]
 [ext_resource type="Script" path="res://game/player/components/states/dash.gd" id="8_3twcc"]
 [ext_resource type="Script" path="res://game/player/components/movements/player_movement_component.gd" id="9_4mvqj"]
 [ext_resource type="Script" path="res://game/player/player_attacks.gd" id="10_ievp6"]
 [ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="10_ky47a"]
-[ext_resource type="Script" path="res://shared/components/attacks/attak.gd" id="11_jqg7y"]
+[ext_resource type="Script" path="res://shared/vfx/attacks/attack.gd" id="11_jqg7y"]
 [ext_resource type="Script" path="res://game/player/components/attacks/player_attack_input_component.gd" id="12_idt88"]
 [ext_resource type="Script" path="res://game/player/components/states/knocked.gd" id="14_igfwd"]
 
@@ -123,22 +123,45 @@ _data = {
 "walk": SubResource("Animation_xv3bq")
 }
 
-[sub_resource type="Animation" id="Animation_x0ix0"]
+[sub_resource type="Animation" id="Animation_vp72r"]
 resource_name = "attack"
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_o42yb"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bu351"]
 _data = {
-"attack": SubResource("Animation_x0ix0")
+"attack": SubResource("Animation_vp72r")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aaq46"]
+[sub_resource type="Animation" id="Animation_xihxc"]
+resource_name = "attack"
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component", "dash_reload_timer")]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i17jc"]
+_data = {
+"attack": SubResource("Animation_xihxc")
+}
+
+[sub_resource type="Animation" id="Animation_wm6i4"]
+resource_name = "attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vd0vm"]
+_data = {
+"attack": SubResource("Animation_wm6i4")
+}
+
+[sub_resource type="Animation" id="Animation_r6ald"]
+resource_name = "attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3lqss"]
+_data = {
+"attack": SubResource("Animation_r6ald")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component", "attacks", "dash_reload_timer")]
 position = Vector2(-2, -64)
 script = ExtResource("1_djp00")
 movement_state_machine = NodePath("Components/MovementStateMachine")
 movement_animator = NodePath("movement_animator")
 player_movement_component = NodePath("Components/player_movement_component")
+attacks = NodePath("Attacks")
 max_fall_speed = 1000.0
 min_jump_coef = 0.35
 jump_height = 360.0
@@ -174,60 +197,58 @@ libraries = {
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Attacks" type="Node2D" parent="." node_paths=PackedStringArray("attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
+[node name="Attacks" type="Node2D" parent="." node_paths=PackedStringArray("attack_input_component", "attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
 script = ExtResource("10_ievp6")
-attack_pattern_1 = [NodePath("left_slash"), NodePath("right_slash"), NodePath("double_slash")]
-attack_pattern_2 = [NodePath("right_slash"), NodePath("left_slash"), NodePath("big_slash")]
+attack_input_component = NodePath("player_attack_input_component")
+attack_pattern_1 = [NodePath("slash"), NodePath("slash"), NodePath("double_slash")]
+attack_pattern_2 = [NodePath("slash"), NodePath("slash"), NodePath("big_slash")]
 finisher = NodePath("finisher")
 burst = NodePath("burst")
+combo_time = 0.45
+attack_interval_time = 0.5
+attack_buffer_time = 0.25
 
-[node name="left_slash" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
-position = Vector2(90, 0)
+[node name="slash" parent="Attacks" instance=ExtResource("4_2d242")]
+
+[node name="double_slash" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
 script = ExtResource("11_jqg7y")
 animator = NodePath("Animator")
 
-[node name="Animator" type="AnimationPlayer" parent="Attacks/left_slash"]
-root_node = NodePath("../../..")
-libraries = {
-"": SubResource("AnimationLibrary_o42yb")
-}
-
-[node name="HitboxComponent" type="Area2D" parent="Attacks/left_slash"]
-script = ExtResource("5_lbcmx")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attacks/left_slash/HitboxComponent"]
-shape = SubResource("RectangleShape2D_aaq46")
-disabled = true
-
-[node name="right_slash" type="Node2D" parent="Attacks"]
-script = ExtResource("11_jqg7y")
-
-[node name="Animator" type="AnimationPlayer" parent="Attacks/right_slash"]
-root_node = NodePath("../../..")
-
-[node name="double_slash" type="Node2D" parent="Attacks"]
-script = ExtResource("11_jqg7y")
-
 [node name="Animator" type="AnimationPlayer" parent="Attacks/double_slash"]
 root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_bu351")
+}
 
-[node name="big_slash" type="Node2D" parent="Attacks"]
+[node name="big_slash" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
 script = ExtResource("11_jqg7y")
+animator = NodePath("Animator")
 
 [node name="Animator" type="AnimationPlayer" parent="Attacks/big_slash"]
 root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_i17jc")
+}
 
-[node name="finisher" type="Node2D" parent="Attacks"]
+[node name="finisher" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
 script = ExtResource("11_jqg7y")
+animator = NodePath("Animator")
 
 [node name="Animator" type="AnimationPlayer" parent="Attacks/finisher"]
 root_node = NodePath("../../../..")
+libraries = {
+"": SubResource("AnimationLibrary_vd0vm")
+}
 
-[node name="burst" type="Node2D" parent="Attacks"]
+[node name="burst" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
 script = ExtResource("11_jqg7y")
+animator = NodePath("Animator")
 
 [node name="Animator" type="AnimationPlayer" parent="Attacks/burst"]
 root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_3lqss")
+}
 
 [node name="player_attack_input_component" type="Node" parent="Attacks"]
 script = ExtResource("12_idt88")
