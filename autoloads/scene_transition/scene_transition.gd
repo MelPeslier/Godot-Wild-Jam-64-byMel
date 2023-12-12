@@ -3,7 +3,7 @@ extends CanvasLayer
 @export var animator: AnimationPlayer
 @export var particles_spaw: Marker2D
 
-@onready var twirl_particles = preload("res://autoloads/scene_transition/twirl_particles.tscn")
+@onready var twirl_particles: PackedScene = preload("res://autoloads/scene_transition/twirl_particles.tscn")
 @onready var control_root: Control = $ControlRoot
 
 

@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warning: PackedStringArray = []
-	var tab = "\n      + "
+	var tab: String = "\n      + "
 
 	if sound_list.size() == 0:
 		warning.push_back("No sound :")

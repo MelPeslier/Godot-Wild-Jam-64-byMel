@@ -1,0 +1,198 @@
+[gd_scene load_steps=17 format=3 uid="uid://wwp0yu0jt73k"]
+
+[ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
+[ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="2_pjxeu"]
+[ext_resource type="Script" path="res://shared/components/states/state_machine.gd" id="3_srg45"]
+[ext_resource type="Script" path="res://game/player/components/states/idle.gd" id="4_5fj6c"]
+[ext_resource type="Script" path="res://game/player/components/states/walk.gd" id="5_55t5u"]
+[ext_resource type="Script" path="res://game/player/components/states/jump.gd" id="6_afeky"]
+[ext_resource type="Script" path="res://game/player/components/states/fall.gd" id="7_o7w6p"]
+[ext_resource type="Script" path="res://game/player/components/states/dash.gd" id="8_3twcc"]
+[ext_resource type="Script" path="res://game/player/components/movements/player_movement_component.gd" id="9_4mvqj"]
+
+[sub_resource type="Animation" id="Animation_2i5om"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+
+[sub_resource type="Animation" id="Animation_nma3o"]
+resource_name = "dash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["dash"]
+}
+
+[sub_resource type="Animation" id="Animation_i6lj1"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["fall"]
+}
+
+[sub_resource type="Animation" id="Animation_lcium"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+
+[sub_resource type="Animation" id="Animation_svtjq"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["jump"]
+}
+
+[sub_resource type="Animation" id="Animation_xv3bq"]
+resource_name = "walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["walk"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nb7be"]
+_data = {
+"RESET": SubResource("Animation_2i5om"),
+"dash": SubResource("Animation_nma3o"),
+"fall": SubResource("Animation_i6lj1"),
+"idle": SubResource("Animation_lcium"),
+"jump": SubResource("Animation_svtjq"),
+"walk": SubResource("Animation_xv3bq")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component")]
+script = ExtResource("1_djp00")
+movement_state_machine = NodePath("Components/MovementStateMachine")
+movement_animator = NodePath("movement_animator")
+player_movement_component = NodePath("Components/player_movement_component")
+max_fall_speed = 1000.0
+jump_height = 360.0
+jump_time_to_peak = 1.0
+jump_time_to_descent = 0.5
+next_jumps_coef = 0.9
+jump_buffer_time = 0.1
+jump_coyote_time = 0.1
+walk_speed = 534.0
+walk_acceleration_time = 0.137
+walk_deceleration_time = 0.269
+dashes_number = 0
+dash_buffer_time = 0.1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-33, 57, 33, 57, 33, -16, 0, -58, -33, -15)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.53125, 0.90625)
+texture = ExtResource("2_pjxeu")
+metadata/_edit_lock_ = true
+
+[node name="movement_animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nb7be")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Components" type="Node" parent="."]
+
+[node name="player_movement_component" type="Node" parent="Components"]
+script = ExtResource("9_4mvqj")
+
+[node name="MovementStateMachine" type="Node" parent="Components" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_srg45")
+starting_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("walk", "jump", "fall", "dash")]
+script = ExtResource("4_5fj6c")
+walk = NodePath("../walk")
+jump = NodePath("../jump")
+fall = NodePath("../fall")
+dash = NodePath("../dash")
+
+[node name="walk" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "jump", "fall", "dash")]
+script = ExtResource("5_55t5u")
+idle = NodePath("../idle")
+jump = NodePath("../jump")
+fall = NodePath("../fall")
+dash = NodePath("../dash")
+player_movement_state = 3
+
+[node name="jump" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("jump", "fall", "dash")]
+script = ExtResource("6_afeky")
+jump = NodePath(".")
+fall = NodePath("../fall")
+dash = NodePath("../dash")
+player_movement_state = 2
+
+[node name="fall" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "dash")]
+script = ExtResource("7_o7w6p")
+idle = NodePath("../idle")
+walk = NodePath("../walk")
+jump = NodePath("../jump")
+dash = NodePath("../dash")
+player_movement_state = 4
+
+[node name="dash" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk")]
+script = ExtResource("8_3twcc")
+idle = NodePath("../idle")
+walk = NodePath("../walk")
+player_movement_state = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = -54.0
+offset_top = -112.0
+offset_right = 58.0
+offset_bottom = -67.0
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1

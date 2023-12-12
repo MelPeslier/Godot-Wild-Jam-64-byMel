@@ -35,7 +35,7 @@ func _ready() -> void:
 # ****************** #
 
 
-func change_sound(_new_song_path: String, _cross_fade: CrossFade = CrossFade.CROSS):
+func change_sound(_new_song_path: String, _cross_fade: CrossFade = CrossFade.CROSS) -> void:
 	match _cross_fade:
 		CrossFade.NONE:
 			_change_sound(_new_song_path)
@@ -43,7 +43,7 @@ func change_sound(_new_song_path: String, _cross_fade: CrossFade = CrossFade.CRO
 		CrossFade.CROSS:
 			var tween: Tween = create_tween().set_parallel()
 
-			var new_audio_stream = load(_new_song_path)
+			var new_audio_stream: AudioStream = load(_new_song_path)
 			if new_audio_stream == null:
 				print("can't load NEW audio file")
 				return
@@ -61,7 +61,7 @@ func change_sound(_new_song_path: String, _cross_fade: CrossFade = CrossFade.CRO
 			_fade_in(tween, fade_in_time)
 
 
-func _update_stream_player() :
+func _update_stream_player() -> void:
 	volume_db = dummy_player.volume_db
 	stream = dummy_player.stream
 	play(dummy_player.get_playback_position())
@@ -84,7 +84,7 @@ func fade_sound(_fade: Fade) -> void:
 
 
 func _change_sound(_new_song_path: String) -> void:
-	var audio_stream = load(_new_song_path)
+	var audio_stream: AudioStream = load(_new_song_path)
 	if audio_stream == null:
 		print("can't load audio file")
 		return
@@ -100,5 +100,5 @@ func _fade_in(_tween: Tween, speed: float, asp: AudioStreamPlayer = self) -> voi
 	_tween.tween_method(_set_volume.bind(asp), MIN_LINEAR, db_to_linear(0), speed)
 
 
-func _set_volume(val: float, asp: AudioStreamPlayer = self):
+func _set_volume(val: float, asp: AudioStreamPlayer = self) -> void:
 	asp.volume_db = linear_to_db(val)
