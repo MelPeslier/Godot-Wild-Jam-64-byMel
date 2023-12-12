@@ -1,16 +1,27 @@
-[gd_scene load_steps=19 format=3 uid="uid://wwp0yu0jt73k"]
+[gd_scene load_steps=28 format=3 uid="uid://wwp0yu0jt73k"]
 
 [ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
-[ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="2_pjxeu"]
+[ext_resource type="Texture2D" uid="uid://s1dldeyjskp3" path="res://game/player/art/player.png" id="2_g48ii"]
 [ext_resource type="Script" path="res://shared/components/states/state_machine.gd" id="3_srg45"]
 [ext_resource type="Script" path="res://game/player/components/states/idle.gd" id="4_5fj6c"]
 [ext_resource type="Script" path="res://game/player/components/states/walk.gd" id="5_55t5u"]
+[ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="5_lbcmx"]
 [ext_resource type="Script" path="res://game/player/components/states/jump.gd" id="6_afeky"]
 [ext_resource type="Script" path="res://game/player/components/states/fall.gd" id="7_o7w6p"]
 [ext_resource type="Script" path="res://game/player/components/states/dash.gd" id="8_3twcc"]
 [ext_resource type="Script" path="res://game/player/components/movements/player_movement_component.gd" id="9_4mvqj"]
 [ext_resource type="Script" path="res://game/player/player_attacks.gd" id="10_ievp6"]
 [ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="10_ky47a"]
+[ext_resource type="Script" path="res://shared/components/attacks/attak.gd" id="11_jqg7y"]
+[ext_resource type="Script" path="res://game/player/components/attacks/player_attack_input_component.gd" id="12_idt88"]
+[ext_resource type="Script" path="res://game/player/components/states/knocked.gd" id="14_igfwd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_67pt1"]
+radius = 14.0
+height = 46.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2oi3"]
+size = Vector2(28, 85)
 
 [sub_resource type="Animation" id="Animation_2i5om"]
 length = 0.001
@@ -112,7 +123,18 @@ _data = {
 "walk": SubResource("Animation_xv3bq")
 }
 
+[sub_resource type="Animation" id="Animation_x0ix0"]
+resource_name = "attack"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o42yb"]
+_data = {
+"attack": SubResource("Animation_x0ix0")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aaq46"]
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component", "dash_reload_timer")]
+position = Vector2(-2, -64)
 script = ExtResource("1_djp00")
 movement_state_machine = NodePath("Components/MovementStateMachine")
 movement_animator = NodePath("movement_animator")
@@ -134,13 +156,16 @@ dash_speed = 1600.0
 dash_time = 0.25
 dash_reload_timer = NodePath("Components/MovementStateMachine/dash/dash_reload_timer")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-33, 57, 33, 57, 33, -16, 0, -58, -33, -15)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.53125, 0.90625)
-texture = ExtResource("2_pjxeu")
-metadata/_edit_lock_ = true
+texture = ExtResource("2_g48ii")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, -30)
+shape = SubResource("CapsuleShape2D_67pt1")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 21.5)
+shape = SubResource("RectangleShape2D_w2oi3")
 
 [node name="movement_animator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -148,6 +173,64 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Attacks" type="Node2D" parent="." node_paths=PackedStringArray("attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
+script = ExtResource("10_ievp6")
+attack_pattern_1 = [NodePath("left_slash"), NodePath("right_slash"), NodePath("double_slash")]
+attack_pattern_2 = [NodePath("right_slash"), NodePath("left_slash"), NodePath("big_slash")]
+finisher = NodePath("finisher")
+burst = NodePath("burst")
+
+[node name="left_slash" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
+position = Vector2(90, 0)
+script = ExtResource("11_jqg7y")
+animator = NodePath("Animator")
+
+[node name="Animator" type="AnimationPlayer" parent="Attacks/left_slash"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_o42yb")
+}
+
+[node name="HitboxComponent" type="Area2D" parent="Attacks/left_slash"]
+script = ExtResource("5_lbcmx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attacks/left_slash/HitboxComponent"]
+shape = SubResource("RectangleShape2D_aaq46")
+disabled = true
+
+[node name="right_slash" type="Node2D" parent="Attacks"]
+script = ExtResource("11_jqg7y")
+
+[node name="Animator" type="AnimationPlayer" parent="Attacks/right_slash"]
+root_node = NodePath("../../..")
+
+[node name="double_slash" type="Node2D" parent="Attacks"]
+script = ExtResource("11_jqg7y")
+
+[node name="Animator" type="AnimationPlayer" parent="Attacks/double_slash"]
+root_node = NodePath("../../..")
+
+[node name="big_slash" type="Node2D" parent="Attacks"]
+script = ExtResource("11_jqg7y")
+
+[node name="Animator" type="AnimationPlayer" parent="Attacks/big_slash"]
+root_node = NodePath("../../..")
+
+[node name="finisher" type="Node2D" parent="Attacks"]
+script = ExtResource("11_jqg7y")
+
+[node name="Animator" type="AnimationPlayer" parent="Attacks/finisher"]
+root_node = NodePath("../../../..")
+
+[node name="burst" type="Node2D" parent="Attacks"]
+script = ExtResource("11_jqg7y")
+
+[node name="Animator" type="AnimationPlayer" parent="Attacks/burst"]
+root_node = NodePath("../../..")
+
+[node name="player_attack_input_component" type="Node" parent="Attacks"]
+script = ExtResource("12_idt88")
 
 [node name="Components" type="Node" parent="."]
 
@@ -202,21 +285,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="knocked" type="Node" parent="Components/MovementStateMachine"]
-
-[node name="Attacks" type="Node" parent="Components"]
-script = ExtResource("10_ievp6")
-
-[node name="left_slash" type="Node" parent="Components/Attacks"]
-
-[node name="right_slash" type="Node" parent="Components/Attacks"]
-
-[node name="double_slash" type="Node" parent="Components/Attacks"]
-
-[node name="big_slash" type="Node" parent="Components/Attacks"]
-
-[node name="finisher" type="Node" parent="Components/Attacks"]
-
-[node name="burst" type="Node" parent="Components/Attacks"]
+script = ExtResource("14_igfwd")
 
 [node name="HealthComponent" type="Node" parent="Components"]
 script = ExtResource("10_ky47a")
