@@ -185,8 +185,6 @@ walk_acceleration_time = 0.137
 walk_deceleration_time = 0.269
 dash_buffer_time = 0.15
 dash_interval_time = 1.0
-finisher_time = 5.0
-burst_time = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_g48ii")
@@ -322,19 +320,16 @@ fall = NodePath("../fall")
 dash = NodePath(".")
 player_movement_state = 1
 
-[node name="burst" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle")]
+[node name="burst" type="Node" parent="Components/MovementStateMachine"]
 script = ExtResource("20_1oxiy")
-idle = NodePath("../idle")
 player_movement_state = 5
 
-[node name="finisher" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle")]
+[node name="finisher" type="Node" parent="Components/MovementStateMachine"]
 script = ExtResource("21_hyw5y")
-idle = NodePath("../idle")
 player_movement_state = 6
 
-[node name="hit" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "hit_effect")]
+[node name="hit" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("hit_effect")]
 script = ExtResource("22_kidvi")
-idle = NodePath("../idle")
 hit_effect = NodePath("../../AfterHitEffectComponent")
 player_movement_state = 7
 

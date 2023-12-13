@@ -350,8 +350,9 @@ local_coords = true
 [node name="HitboxComponent" type="Area2D" parent="."]
 script = ExtResource("7_5rjok")
 damage = 4
-knockback = 50.0
-hitstop = 45
+hitstop = 0.4
+hit_stop_shake = 3.0
+camera_shake = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, -385)

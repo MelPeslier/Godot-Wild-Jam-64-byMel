@@ -251,7 +251,8 @@ libraries = {
 script = ExtResource("5_61viv")
 damage = 7
 knockback = 1000.0
-hitstop = 45
+hitstop = 0.1
+hit_stop_shake = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_jfq2n")

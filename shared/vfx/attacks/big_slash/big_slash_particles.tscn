@@ -134,8 +134,8 @@ libraries = {
 [node name="HitboxComponent" type="Area2D" parent="."]
 script = ExtResource("4_hidpu")
 damage = 3
-knockback = 100.0
-hitstop = 15
+knockback = 200.0
+hitstop = 0.05
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(6.285, -13.5)

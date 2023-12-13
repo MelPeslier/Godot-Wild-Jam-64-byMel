@@ -27,6 +27,7 @@ SceneTransition="*res://autoloads/scene_transition/scene_transition.tscn"
 Music="*res://autoloads/sound_manager/music.gd"
 Sfx="*res://autoloads/sound_manager/sfx.tscn"
 Math="*res://autoloads/math/math.gd"
+GameManager="*res://autoloads/game/game_manager.gd"
 
 [debug]
 

@@ -3,6 +3,7 @@ extends Node
 
 @export var starting_state: State
 
+var old_state: State
 var current_state: State
 
 
@@ -18,7 +19,7 @@ func init(parent: CharacterBody2D, animator: AnimationPlayer, movement_component
 func change_state(new_state: State) -> void:
 	if current_state:
 		current_state.exit()
-
+	old_state = current_state
 	current_state = new_state
 	current_state.enter()
 

@@ -41,6 +41,10 @@ enum MovementState{
 @export_range(0, 2000, 1) var dash_speed: float = 1024
 @export_range(0.05, 1) var dash_time: float = 0.3
 
+@export_category("attacks")
+@export_range(0.05, 5) var finisher_time: float
+@export_range(0.05, 5) var burst_time: float
+
 var current_movement_state: MovementState
 
 var gravity: float = 0
@@ -65,6 +69,9 @@ var dash_timer: float = 0
 var can_move: bool = true
 var old_direction: int = 1
 var old_velocity: float = 0
+
+var finisher_timer: float
+var burst_timer: float
 
 
 func _ready() -> void:
