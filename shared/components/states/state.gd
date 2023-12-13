@@ -15,7 +15,6 @@ var movement_component: MovementComponent
 
 
 func enter() -> void:
-	print(name)
 	animator.play(animation_name)
 
 

@@ -10,3 +10,4 @@ func wants_jump() -> bool:
 
 func wants_dash() -> bool:
 	return Input.is_action_just_pressed("dash")
+

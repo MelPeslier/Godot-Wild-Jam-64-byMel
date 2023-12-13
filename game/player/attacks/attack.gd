@@ -1,7 +1,7 @@
 class_name Attack
 extends Node2D
 
-@export_range(0.05, 14) var cooldown: float
+@export_range(0.05, 25) var cooldown: float
 @export var do_spawn_light_particles: bool = true
 @export_range(0, 3000, 1) var light_particles_number: int = 8
 @export_range(1, 4000, 1) var light_particles_sphere_size: float = 30
@@ -10,6 +10,7 @@ extends Node2D
 
 var can_attack := true
 var attack_particles_scene: PackedScene
+var player: Player
 
 @onready var timer := Timer.new()
 @onready var light_particles_scene: PackedScene = preload("res://shared/vfx/light_particles/light_particles.tscn")
@@ -36,6 +37,7 @@ func _on_timer_timeout() -> void:
 func spawn_attack_particles() -> void:
 	var attack_particles: AttackParticles = attack_particles_scene.instantiate()
 	add_child(attack_particles)
+	attack_particles.player = player
 
 
 func spawn_light_particles() -> void:

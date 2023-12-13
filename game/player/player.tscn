@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://game/player/components/states/idle.gd" id="4_5fj6c"]
 [ext_resource type="Script" path="res://game/player/attacks/left_slash.gd" id="4_meh4q"]
 [ext_resource type="Script" path="res://game/player/components/states/walk.gd" id="5_55t5u"]
-[ext_resource type="Script" path="res://game/player/attacks/attack.gd" id="5_diq3c"]
 [ext_resource type="Script" path="res://game/player/attacks/right_slash.gd" id="5_hf8ho"]
 [ext_resource type="Script" path="res://game/player/components/states/jump.gd" id="6_afeky"]
 [ext_resource type="Script" path="res://game/player/attacks/double_slash.gd" id="6_wc50m"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" path="res://game/player/attacks/big_slash.gd" id="7_v2hcp"]
 [ext_resource type="Script" path="res://game/player/components/states/dash.gd" id="8_3twcc"]
 [ext_resource type="Script" path="res://game/player/components/movements/player_movement_component.gd" id="9_4mvqj"]
+[ext_resource type="Script" path="res://game/player/attacks/finisher.gd" id="9_hw5k5"]
 [ext_resource type="Script" path="res://game/player/attacks/burst.gd" id="9_uinlt"]
 [ext_resource type="Script" path="res://game/player/player_attacks.gd" id="10_ievp6"]
 [ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="10_ky47a"]
@@ -169,8 +169,9 @@ libraries = {
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Attacks" type="Node2D" parent="." node_paths=PackedStringArray("attack_input_component", "attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
+[node name="Attacks" type="Node2D" parent="." node_paths=PackedStringArray("player", "attack_input_component", "attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
 script = ExtResource("10_ievp6")
+player = NodePath("..")
 attack_input_component = NodePath("../Components/player_attack_input_component")
 attack_pattern_1 = [NodePath("left_slash"), NodePath("right_slash"), NodePath("double_slash")]
 attack_pattern_2 = [NodePath("right_slash"), NodePath("left_slash"), NodePath("big_slash")]
@@ -191,22 +192,26 @@ script = ExtResource("5_hf8ho")
 [node name="big_slash" type="Node2D" parent="Attacks"]
 position = Vector2(134, 3)
 script = ExtResource("7_v2hcp")
+light_particles_number = 24
+light_particles_sphere_size = 90.0
 
 [node name="double_slash" type="Node2D" parent="Attacks"]
 position = Vector2(88, 3)
 script = ExtResource("6_wc50m")
 light_particles_number = 16
+light_particles_sphere_size = 60.0
 
 [node name="burst" type="Node2D" parent="Attacks"]
 script = ExtResource("9_uinlt")
 cooldown = 10.0
 light_particles_number = 300
-light_particles_sphere_size = 800.0
+light_particles_sphere_size = 1000.0
 light_particles_life_time = 15.0
-light_particles_explosiveness = 0.644
+light_particles_explosiveness = 0.7
 
 [node name="finisher" type="Node2D" parent="Attacks"]
-script = ExtResource("5_diq3c")
+script = ExtResource("9_hw5k5")
+cooldown = 17.0
 
 [node name="Components" type="Node" parent="."]
 
@@ -214,8 +219,10 @@ script = ExtResource("5_diq3c")
 script = ExtResource("10_ky47a")
 max_health = 3
 
-[node name="player_attack_input_component" type="Node" parent="Components"]
+[node name="player_attack_input_component" type="Node" parent="Components" node_paths=PackedStringArray("player")]
 script = ExtResource("12_idt88")
+player = NodePath("../..")
+can_attack_while_dash = false
 
 [node name="player_movement_component" type="Node" parent="Components"]
 script = ExtResource("9_4mvqj")

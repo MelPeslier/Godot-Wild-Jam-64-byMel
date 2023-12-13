@@ -1,6 +1,7 @@
 class_name PlayerAttacks
 extends Node2D
 
+@export var player: Player
 @export var attack_input_component: AttackInputComponent
 
 @export_category("Attacks")
@@ -32,6 +33,9 @@ var is_basic_attack := false
 
 func _ready() -> void:
 	pattern = [attack_pattern_1, attack_pattern_2]
+	for attack: Attack in get_children():
+		if attack:
+			attack.player = player
 
 
 func process_physics(delta: float) -> void:
@@ -44,6 +48,8 @@ func process_physics(delta: float) -> void:
 		return
 
 	if not attack: return
+	if not attack_input_component.can_attack():
+		return
 
 	if is_basic_attack:
 		# Switch to next attack if in conbo time
@@ -56,7 +62,6 @@ func process_physics(delta: float) -> void:
 		else:
 			attack_index = 0
 
-		print(attack_index)
 		attack = pattern[pattern_index][attack_index]
 		combo_timer = combo_time
 
@@ -64,7 +69,6 @@ func process_physics(delta: float) -> void:
 
 	attack_interval_timer = attack_interval_time
 	attack.play_attack()
-	print("attaque: ", attack.name)
 	attack = null
 
 

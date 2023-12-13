@@ -115,3 +115,4 @@ locale/translations=PackedStringArray("res://ui/translations/translations.en.tra
 2d_physics/layer_1="world"
 2d_physics/layer_2="hurtbox"
 2d_physics/layer_3="interactable"
+2d_physics/layer_4="soul"
