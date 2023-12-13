@@ -11,6 +11,7 @@ func enter() -> void:
 	super()
 	player.alter_dashes(-1)
 	player.dash_timer = player.dash_time
+	player.dash_interval_timer = player.dash_interval_time
 	parent.velocity.y = 0
 
 
@@ -27,7 +28,7 @@ func process_physics(delta: float) -> State:
 
 	if parent.is_on_floor():
 		player.alter_jumps(player.jumps_number)
-		player.reload_dashes()
+
 		if player.jump_buffer_timer > 0 and player.can_jump():
 			return jump
 		if player.dash_buffer_timer > 0 and player.can_dash():

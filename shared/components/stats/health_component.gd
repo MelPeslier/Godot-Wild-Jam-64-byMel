@@ -15,8 +15,8 @@ func _ready() -> void:
 	health = max_health
 
 
-func hit(dammage: int) -> void:
-	health = max(health - dammage, 0)
+func dammage(_dammage: int) -> void:
+	health = max(health - _dammage, 0)
 
 
 func heal(amount: int) -> void:

@@ -366,13 +366,12 @@ libraries = {
 [node name="suck_soul" type="GPUParticles2D" parent="."]
 use_parent_material = true
 emitting = false
-amount = 700
+amount = 300
 process_material = SubResource("ParticleProcessMaterial_nr2fj")
 texture = ExtResource("7_bdbv5")
 lifetime = 3.0
 one_shot = true
 explosiveness = 0.75
-local_coords = true
 
 [node name="SoulDrainer" type="Area2D" parent="." node_paths=PackedStringArray("attack_particles")]
 collision_layer = 0

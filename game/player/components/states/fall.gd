@@ -17,7 +17,6 @@ func process_physics(delta: float) -> State:
 	if parent.is_on_floor():
 		# Is on floor and will change state, perfect moment to reset jumps
 		player.alter_jumps(player.jumps_number)
-		player.reload_dashes()
 
 		if player.jump_buffer_timer > 0 and player.can_jump():
 			return jump

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://wwp0yu0jt73k"]
+[gd_scene load_steps=35 format=3 uid="uid://wwp0yu0jt73k"]
 
 [ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
 [ext_resource type="Texture2D" uid="uid://s1dldeyjskp3" path="res://game/player/art/player.png" id="2_g48ii"]
@@ -15,17 +15,17 @@
 [ext_resource type="Script" path="res://game/player/components/movements/player_movement_component.gd" id="9_4mvqj"]
 [ext_resource type="Script" path="res://game/player/attacks/finisher.gd" id="9_hw5k5"]
 [ext_resource type="Script" path="res://game/player/attacks/burst.gd" id="9_uinlt"]
+[ext_resource type="Script" path="res://shared/components/interactables/hurtbox_component.gd" id="10_7jawy"]
 [ext_resource type="Script" path="res://game/player/player_attacks.gd" id="10_ievp6"]
 [ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="10_ky47a"]
 [ext_resource type="Script" path="res://game/player/components/attacks/player_attack_input_component.gd" id="12_idt88"]
-[ext_resource type="Script" path="res://game/player/components/states/knocked.gd" id="14_igfwd"]
+[ext_resource type="Script" path="res://game/player/components/states/burst.gd" id="20_1oxiy"]
+[ext_resource type="Script" path="res://game/player/components/states/finisher.gd" id="21_hyw5y"]
+[ext_resource type="Script" path="res://game/player/components/states/hit.gd" id="22_kidvi"]
+[ext_resource type="Script" path="res://game/player/components/states/die.gd" id="23_sovo2"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_67pt1"]
-radius = 14.0
-height = 46.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2oi3"]
-size = Vector2(28, 85)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w0nq"]
+size = Vector2(28, 117)
 
 [sub_resource type="Animation" id="Animation_2i5om"]
 length = 0.001
@@ -117,18 +117,54 @@ tracks/0/keys = {
 "values": ["walk"]
 }
 
+[sub_resource type="Animation" id="Animation_msvre"]
+resource_name = "burst"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["burst"]
+}
+
+[sub_resource type="Animation" id="Animation_oykij"]
+resource_name = "finisher"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["finisher"]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nb7be"]
 _data = {
 "RESET": SubResource("Animation_2i5om"),
+"burst": SubResource("Animation_msvre"),
 "dash": SubResource("Animation_nma3o"),
 "fall": SubResource("Animation_i6lj1"),
+"finisher": SubResource("Animation_oykij"),
 "idle": SubResource("Animation_lcium"),
 "jump": SubResource("Animation_svtjq"),
 "walk": SubResource("Animation_xv3bq")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component", "attacks", "dash_reload_timer")]
-position = Vector2(-2, -64)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m2cet"]
+radius = 14.0
+height = 116.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component", "attacks")]
+position = Vector2(0, -64)
 script = ExtResource("1_djp00")
 movement_state_machine = NodePath("Components/MovementStateMachine")
 movement_animator = NodePath("movement_animator")
@@ -146,21 +182,15 @@ jump_coyote_time = 0.1
 walk_speed = 256.0
 walk_acceleration_time = 0.137
 walk_deceleration_time = 0.269
-dash_buffer_time = 0.1
-dash_speed = 1024.0
-dash_time = 0.3
-dash_reload_timer = NodePath("Components/MovementStateMachine/dash/dash_reload_timer")
+dash_buffer_time = 0.15
+dash_interval_time = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_g48ii")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -30)
-shape = SubResource("CapsuleShape2D_67pt1")
-
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 21.5)
-shape = SubResource("RectangleShape2D_w2oi3")
+position = Vector2(3, 5.5)
+shape = SubResource("RectangleShape2D_1w0nq")
 
 [node name="movement_animator" type="AnimationPlayer" parent="."]
 libraries = {
@@ -201,27 +231,39 @@ script = ExtResource("6_wc50m")
 light_particles_number = 16
 light_particles_sphere_size = 60.0
 
-[node name="burst" type="Node2D" parent="Attacks"]
+[node name="burst" type="Node2D" parent="Attacks" node_paths=PackedStringArray("burst", "movement_state_machine")]
 script = ExtResource("9_uinlt")
+burst = NodePath("../../Components/MovementStateMachine/burst")
+movement_state_machine = NodePath("../../Components/MovementStateMachine")
 cooldown = 10.0
 light_particles_number = 300
 light_particles_sphere_size = 1000.0
 light_particles_life_time = 15.0
 light_particles_explosiveness = 0.7
 
-[node name="finisher" type="Node2D" parent="Attacks"]
+[node name="finisher" type="Node2D" parent="Attacks" node_paths=PackedStringArray("finisher", "movement_state_machine")]
 script = ExtResource("9_hw5k5")
+finisher = NodePath("../../Components/MovementStateMachine/finisher")
+movement_state_machine = NodePath("../../Components/MovementStateMachine")
 cooldown = 17.0
 light_particles_number = 100
 light_particles_sphere_size = 700.0
 light_particles_life_time = 8.0
 light_particles_explosiveness = 0.185
 
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("10_7jawy")
+health_component = NodePath("../Components/HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(3, 5)
+shape = SubResource("CapsuleShape2D_m2cet")
+
 [node name="Components" type="Node" parent="."]
 
 [node name="HealthComponent" type="Node" parent="Components"]
 script = ExtResource("10_ky47a")
-max_health = 3
+max_health = 10
 
 [node name="player_attack_input_component" type="Node" parent="Components" node_paths=PackedStringArray("player")]
 script = ExtResource("12_idt88")
@@ -274,12 +316,21 @@ fall = NodePath("../fall")
 dash = NodePath(".")
 player_movement_state = 1
 
-[node name="dash_reload_timer" type="Timer" parent="Components/MovementStateMachine/dash"]
-wait_time = 0.3
-one_shot = true
+[node name="burst" type="Node" parent="Components/MovementStateMachine"]
+script = ExtResource("20_1oxiy")
+player_movement_state = 5
 
-[node name="knocked" type="Node" parent="Components/MovementStateMachine"]
-script = ExtResource("14_igfwd")
+[node name="finisher" type="Node" parent="Components/MovementStateMachine"]
+script = ExtResource("21_hyw5y")
+player_movement_state = 6
+
+[node name="hit" type="Node" parent="Components/MovementStateMachine"]
+script = ExtResource("22_kidvi")
+player_movement_state = 7
+
+[node name="die" type="Node" parent="Components/MovementStateMachine"]
+script = ExtResource("23_sovo2")
+player_movement_state = 8
 
 [node name="Label" type="Label" parent="."]
 offset_left = -54.0
@@ -289,5 +340,3 @@ offset_bottom = -67.0
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="timeout" from="Components/MovementStateMachine/dash/dash_reload_timer" to="." method="_on_dash_reload_timer_timeout"]

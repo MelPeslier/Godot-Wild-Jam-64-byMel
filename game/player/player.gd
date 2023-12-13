@@ -6,7 +6,11 @@ enum MovementState{
 	DASH,
 	JUMP,
 	WALK,
-	FALL
+	FALL,
+	BURST,
+	FINISHER,
+	HIT,
+	DIE
 }
 
 @export var movement_state_machine: StateMachine
@@ -32,10 +36,10 @@ enum MovementState{
 
 @export_category("dash")
 @export var dashes_number: int = 1
-@export var dash_buffer_time: float
-@export_range(0, 2000, 1) var dash_speed: float = 1
-@export var dash_time: float = 1
-@export var dash_reload_timer: Timer
+@export_range(0.05, 1) var dash_buffer_time: float = 0.1
+@export_range(0.05, 3) var dash_interval_time: float = 0.5
+@export_range(0, 2000, 1) var dash_speed: float = 1024
+@export_range(0.05, 1) var dash_time: float = 0.3
 
 var current_movement_state: MovementState
 
@@ -52,6 +56,9 @@ var jump_time: float = 0
 var min_jump_time: float = 0
 
 var remaining_dashes: int = dashes_number
+var dash_interval_timer: float = 0:
+	set(val):
+		dash_interval_timer = maxf(val, 0)
 var dash_buffer_timer: float = 0
 var dash_timer: float = 0
 
@@ -73,6 +80,11 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	#FIXME remove it, it's only here to tweak values in editor and to see changes in real-time
 	update_physics_data()
+
+	dash_interval_timer -= delta
+	if is_on_floor() and dash_interval_timer == 0:
+		reload_dashes()
+
 	movement_state_machine.process_physics(delta)
 	attacks.process_physics(delta)
 
@@ -89,9 +101,6 @@ func alter_dashes(val: int) -> void:
 	remaining_dashes = clampi(remaining_dashes + val, 0, dashes_number)
 
 func reload_dashes() -> void:
-	dash_reload_timer.start()
-
-func _on_dash_reload_timer_timeout() -> void:
 	alter_dashes(dashes_number)
 
 

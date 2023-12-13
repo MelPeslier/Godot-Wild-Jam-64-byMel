@@ -33,9 +33,9 @@ var is_basic_attack := false
 
 func _ready() -> void:
 	pattern = [attack_pattern_1, attack_pattern_2]
-	for attack: Attack in get_children():
-		if attack:
-			attack.player = player
+	for _attack: Attack in get_children():
+		if _attack:
+			_attack.player = player
 
 
 func process_physics(delta: float) -> void:

@@ -4,30 +4,31 @@
 [ext_resource type="Texture2D" uid="uid://cu4gt4m0x7ho5" path="res://shared/art/particles/circle_05.png" id="1_sh5ny"]
 [ext_resource type="Script" path="res://shared/vfx/light_particles/light_particles.gd" id="2_j37dw"]
 
-[sub_resource type="Gradient" id="Gradient_2kbbc"]
+[sub_resource type="Gradient" id="Gradient_5xuf0"]
 colors = PackedColorArray(1, 0.650404, 0.63856, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_3hfln"]
-gradient = SubResource("Gradient_2kbbc")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_da75q"]
+gradient = SubResource("Gradient_5xuf0")
 
-[sub_resource type="Gradient" id="Gradient_dtg1d"]
+[sub_resource type="Gradient" id="Gradient_lgqgd"]
 offsets = PackedFloat32Array(0, 0.150327, 0.839869, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.231373)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rf7dx"]
-gradient = SubResource("Gradient_dtg1d")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_viqt6"]
+gradient = SubResource("Gradient_lgqgd")
 
-[sub_resource type="CurveTexture" id="CurveTexture_fdauj"]
+[sub_resource type="CurveTexture" id="CurveTexture_3fhgm"]
 
-[sub_resource type="Curve" id="Curve_v3qu6"]
+[sub_resource type="Curve" id="Curve_redy1"]
 max_value = 2.0
 _data = [Vector2(0, 0.313679), 0.0, 1.9374, 0, 0, Vector2(0.892216, 0.988208), -0.607491, 0.0, 0, 0, Vector2(0.997006, 1.54009), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_7bp4a"]
-curve = SubResource("Curve_v3qu6")
+[sub_resource type="CurveTexture" id="CurveTexture_v1auo"]
+curve = SubResource("Curve_redy1")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_am6jj"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ou2wn"]
+resource_local_to_scene = true
 lifetime_randomness = 0.1
 particle_flag_disable_z = true
 emission_shape = 1
@@ -40,11 +41,11 @@ initial_velocity_max = 50.0
 gravity = Vector3(0, 60, 0)
 scale_min = 0.01
 scale_max = 0.04
-scale_curve = SubResource("CurveTexture_7bp4a")
+scale_curve = SubResource("CurveTexture_v1auo")
 color = Color(1, 1, 0.780392, 1)
-color_ramp = SubResource("GradientTexture1D_rf7dx")
-color_initial_ramp = SubResource("GradientTexture1D_3hfln")
-emission_curve = SubResource("CurveTexture_fdauj")
+color_ramp = SubResource("GradientTexture1D_viqt6")
+color_initial_ramp = SubResource("GradientTexture1D_da75q")
+emission_curve = SubResource("CurveTexture_3fhgm")
 
 [node name="LightParticles" type="Node2D" node_paths=PackedStringArray("light_particles")]
 material = ExtResource("1_ohaif")
@@ -54,7 +55,7 @@ light_particles = NodePath("light_particles")
 [node name="light_particles" type="GPUParticles2D" parent="."]
 use_parent_material = true
 emitting = false
-process_material = SubResource("ParticleProcessMaterial_am6jj")
+process_material = SubResource("ParticleProcessMaterial_ou2wn")
 texture = ExtResource("1_sh5ny")
 one_shot = true
 explosiveness = 0.91
