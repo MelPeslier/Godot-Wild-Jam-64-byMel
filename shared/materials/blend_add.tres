@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://8n6prt7aux1i"]
+
+[ext_resource type="Shader" path="res://shared/materials/shaders/blend_add.gdshader" id="1_wm7cb"]
+
+[resource]
+shader = ExtResource("1_wm7cb")

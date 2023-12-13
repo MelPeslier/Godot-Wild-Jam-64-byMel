@@ -2,12 +2,11 @@ class_name Attack
 extends Node2D
 
 @export_range(0.05, 14) var cooldown: float
-@export var animator: AnimationPlayer
 @export var do_spawn_light_particles: bool = true
-@export_range(0, 300, 1) var light_particles_number: int = 8
-@export_range(1, 300, 1) var light_particles_sphere_size: float = 30
-@export_range(0, 300, 1) var light_particles_life_time: float = 1
-@export_range(1, 300, 1) var light_particles_explosiveness: float = 0.9
+@export_range(0, 3000, 1) var light_particles_number: int = 8
+@export_range(1, 4000, 1) var light_particles_sphere_size: float = 30
+@export_range(0.1, 300) var light_particles_life_time: float = 1
+@export_range(0, 1) var light_particles_explosiveness: float = 0.9
 
 var can_attack := true
 var attack_particles_scene: PackedScene
@@ -23,8 +22,9 @@ func _ready() -> void:
 	timer.autostart = false
 
 
-func play() -> void:
-	animator.play("attack")
+func play_attack() -> void:
+	spawn_attack_particles()
+	spawn_light_particles()
 	can_attack = false
 	timer.start(cooldown)
 

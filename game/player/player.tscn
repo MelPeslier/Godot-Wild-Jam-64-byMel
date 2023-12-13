@@ -1,18 +1,22 @@
-[gd_scene load_steps=33 format=3 uid="uid://wwp0yu0jt73k"]
+[gd_scene load_steps=29 format=3 uid="uid://wwp0yu0jt73k"]
 
 [ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
 [ext_resource type="Texture2D" uid="uid://s1dldeyjskp3" path="res://game/player/art/player.png" id="2_g48ii"]
 [ext_resource type="Script" path="res://shared/components/states/state_machine.gd" id="3_srg45"]
-[ext_resource type="PackedScene" uid="uid://js880yl0yn0y" path="res://shared/vfx/attacks/slash/slash.tscn" id="4_2d242"]
 [ext_resource type="Script" path="res://game/player/components/states/idle.gd" id="4_5fj6c"]
+[ext_resource type="Script" path="res://game/player/attacks/left_slash.gd" id="4_meh4q"]
 [ext_resource type="Script" path="res://game/player/components/states/walk.gd" id="5_55t5u"]
+[ext_resource type="Script" path="res://game/player/attacks/attack.gd" id="5_diq3c"]
+[ext_resource type="Script" path="res://game/player/attacks/right_slash.gd" id="5_hf8ho"]
 [ext_resource type="Script" path="res://game/player/components/states/jump.gd" id="6_afeky"]
+[ext_resource type="Script" path="res://game/player/attacks/double_slash.gd" id="6_wc50m"]
 [ext_resource type="Script" path="res://game/player/components/states/fall.gd" id="7_o7w6p"]
+[ext_resource type="Script" path="res://game/player/attacks/big_slash.gd" id="7_v2hcp"]
 [ext_resource type="Script" path="res://game/player/components/states/dash.gd" id="8_3twcc"]
 [ext_resource type="Script" path="res://game/player/components/movements/player_movement_component.gd" id="9_4mvqj"]
+[ext_resource type="Script" path="res://game/player/attacks/burst.gd" id="9_uinlt"]
 [ext_resource type="Script" path="res://game/player/player_attacks.gd" id="10_ievp6"]
 [ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="10_ky47a"]
-[ext_resource type="Script" path="res://shared/vfx/attacks/attack.gd" id="11_jqg7y"]
 [ext_resource type="Script" path="res://game/player/components/attacks/player_attack_input_component.gd" id="12_idt88"]
 [ext_resource type="Script" path="res://game/player/components/states/knocked.gd" id="14_igfwd"]
 
@@ -123,38 +127,6 @@ _data = {
 "walk": SubResource("Animation_xv3bq")
 }
 
-[sub_resource type="Animation" id="Animation_vp72r"]
-resource_name = "attack"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bu351"]
-_data = {
-"attack": SubResource("Animation_vp72r")
-}
-
-[sub_resource type="Animation" id="Animation_xihxc"]
-resource_name = "attack"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_i17jc"]
-_data = {
-"attack": SubResource("Animation_xihxc")
-}
-
-[sub_resource type="Animation" id="Animation_wm6i4"]
-resource_name = "attack"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vd0vm"]
-_data = {
-"attack": SubResource("Animation_wm6i4")
-}
-
-[sub_resource type="Animation" id="Animation_r6ald"]
-resource_name = "attack"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3lqss"]
-_data = {
-"attack": SubResource("Animation_r6ald")
-}
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component", "attacks", "dash_reload_timer")]
 position = Vector2(-2, -64)
 script = ExtResource("1_djp00")
@@ -199,61 +171,51 @@ libraries = {
 
 [node name="Attacks" type="Node2D" parent="." node_paths=PackedStringArray("attack_input_component", "attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
 script = ExtResource("10_ievp6")
-attack_input_component = NodePath("player_attack_input_component")
-attack_pattern_1 = [NodePath("slash"), NodePath("slash"), NodePath("double_slash")]
-attack_pattern_2 = [NodePath("slash"), NodePath("slash"), NodePath("big_slash")]
+attack_input_component = NodePath("../Components/player_attack_input_component")
+attack_pattern_1 = [NodePath("left_slash"), NodePath("right_slash"), NodePath("double_slash")]
+attack_pattern_2 = [NodePath("right_slash"), NodePath("left_slash"), NodePath("big_slash")]
 finisher = NodePath("finisher")
 burst = NodePath("burst")
-combo_time = 0.45
+combo_time = 0.75
 attack_interval_time = 0.5
-attack_buffer_time = 0.25
+attack_buffer_time = 0.4
 
-[node name="slash" parent="Attacks" instance=ExtResource("4_2d242")]
+[node name="left_slash" type="Node2D" parent="Attacks"]
+position = Vector2(84, 3)
+script = ExtResource("4_meh4q")
 
-[node name="double_slash" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
-script = ExtResource("11_jqg7y")
-animator = NodePath("Animator")
+[node name="right_slash" type="Node2D" parent="Attacks"]
+position = Vector2(85, 3)
+script = ExtResource("5_hf8ho")
 
-[node name="Animator" type="AnimationPlayer" parent="Attacks/double_slash"]
-root_node = NodePath("../../..")
-libraries = {
-"": SubResource("AnimationLibrary_bu351")
-}
+[node name="big_slash" type="Node2D" parent="Attacks"]
+position = Vector2(134, 3)
+script = ExtResource("7_v2hcp")
 
-[node name="big_slash" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
-script = ExtResource("11_jqg7y")
-animator = NodePath("Animator")
+[node name="double_slash" type="Node2D" parent="Attacks"]
+position = Vector2(88, 3)
+script = ExtResource("6_wc50m")
+light_particles_number = 16
 
-[node name="Animator" type="AnimationPlayer" parent="Attacks/big_slash"]
-root_node = NodePath("../../..")
-libraries = {
-"": SubResource("AnimationLibrary_i17jc")
-}
+[node name="burst" type="Node2D" parent="Attacks"]
+script = ExtResource("9_uinlt")
+cooldown = 10.0
+light_particles_number = 300
+light_particles_sphere_size = 800.0
+light_particles_life_time = 15.0
+light_particles_explosiveness = 0.644
 
-[node name="finisher" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
-script = ExtResource("11_jqg7y")
-animator = NodePath("Animator")
-
-[node name="Animator" type="AnimationPlayer" parent="Attacks/finisher"]
-root_node = NodePath("../../../..")
-libraries = {
-"": SubResource("AnimationLibrary_vd0vm")
-}
-
-[node name="burst" type="Node2D" parent="Attacks" node_paths=PackedStringArray("animator")]
-script = ExtResource("11_jqg7y")
-animator = NodePath("Animator")
-
-[node name="Animator" type="AnimationPlayer" parent="Attacks/burst"]
-root_node = NodePath("../../..")
-libraries = {
-"": SubResource("AnimationLibrary_3lqss")
-}
-
-[node name="player_attack_input_component" type="Node" parent="Attacks"]
-script = ExtResource("12_idt88")
+[node name="finisher" type="Node2D" parent="Attacks"]
+script = ExtResource("5_diq3c")
 
 [node name="Components" type="Node" parent="."]
+
+[node name="HealthComponent" type="Node" parent="Components"]
+script = ExtResource("10_ky47a")
+max_health = 3
+
+[node name="player_attack_input_component" type="Node" parent="Components"]
+script = ExtResource("12_idt88")
 
 [node name="player_movement_component" type="Node" parent="Components"]
 script = ExtResource("9_4mvqj")
@@ -307,10 +269,6 @@ one_shot = true
 
 [node name="knocked" type="Node" parent="Components/MovementStateMachine"]
 script = ExtResource("14_igfwd")
-
-[node name="HealthComponent" type="Node" parent="Components"]
-script = ExtResource("10_ky47a")
-max_health = 3
 
 [node name="Label" type="Label" parent="."]
 offset_left = -54.0

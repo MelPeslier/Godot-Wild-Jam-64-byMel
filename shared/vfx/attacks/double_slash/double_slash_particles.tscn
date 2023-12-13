@@ -1,0 +1,206 @@
+[gd_scene load_steps=20 format=3 uid="uid://kcarxdi06ddw"]
+
+[ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_os3be"]
+[ext_resource type="Script" path="res://shared/vfx/attacks/attack_particles.gd" id="2_e33nh"]
+[ext_resource type="Texture2D" uid="uid://ch38d5pjwb6ik" path="res://shared/art/my_particles/my_slash_02.png" id="3_5o3r8"]
+[ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="4_5dcdy"]
+
+[sub_resource type="Curve" id="Curve_ohrpq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0898204, 1), 0.0, 0.0, 0, 0, Vector2(0.640719, 1), 0.0, -2.37281, 0, 0, Vector2(1, 0.126179), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_chh5u"]
+curve = SubResource("Curve_ohrpq")
+
+[sub_resource type="Curve" id="Curve_xp5f1"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1.11085), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kayay"]
+curve = SubResource("Curve_xp5f1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5fjk5"]
+lifetime_randomness = 0.1
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.22
+scale_curve = SubResource("CurveTexture_kayay")
+color = Color(1, 1, 0.886275, 1)
+alpha_curve = SubResource("CurveTexture_chh5u")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dquel"]
+load_path = "res://.godot/imported/my_slash_03.png-93180c9a6bb937b4e940b503c7be7800.ctex"
+
+[sub_resource type="Curve" id="Curve_g1r4r"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0898204, 1), 0.0, 0.0, 0, 0, Vector2(0.640719, 1), 0.0, -2.37281, 0, 0, Vector2(1, 0.126179), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8ub6g"]
+curve = SubResource("Curve_g1r4r")
+
+[sub_resource type="Curve" id="Curve_yi2y0"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1.11085), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_s3noe"]
+curve = SubResource("Curve_yi2y0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xja8i"]
+lifetime_randomness = 0.1
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.22
+scale_curve = SubResource("CurveTexture_s3noe")
+color = Color(1, 1, 0.886275, 1)
+alpha_curve = SubResource("CurveTexture_8ub6g")
+
+[sub_resource type="Animation" id="Animation_ie8t3"]
+length = 0.001
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slash_particles_right:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("slash_particles_left:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dco4k"]
+resource_name = "attack"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slash_particles_right:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("slash_particles_left:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.02, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pch8o"]
+_data = {
+"RESET": SubResource("Animation_ie8t3"),
+"attack": SubResource("Animation_dco4k")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4m38u"]
+size = Vector2(91, 35)
+
+[node name="DoubleSlashParticles" type="Node2D" node_paths=PackedStringArray("animator")]
+material = ExtResource("1_os3be")
+script = ExtResource("2_e33nh")
+animator = NodePath("Animator")
+
+[node name="slash_particles_left" type="GPUParticles2D" parent="."]
+use_parent_material = true
+position = Vector2(-5, -7)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_5fjk5")
+texture = SubResource("CompressedTexture2D_dquel")
+lifetime = 0.15
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="slash_particles_right" type="GPUParticles2D" parent="."]
+use_parent_material = true
+position = Vector2(4, 6)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_xja8i")
+texture = ExtResource("3_5o3r8")
+lifetime = 0.15
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pch8o")
+}
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+script = ExtResource("4_5dcdy")
+damage = 5
+hitstop = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(5.5, -1.5)
+shape = SubResource("RectangleShape2D_4m38u")
+disabled = true

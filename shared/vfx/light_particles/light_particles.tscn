@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bmqyfl8oelkld"]
+[gd_scene load_steps=12 format=3 uid="uid://bmqyfl8oelkld"]
 
+[ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_ohaif"]
 [ext_resource type="Texture2D" uid="uid://cu4gt4m0x7ho5" path="res://shared/art/particles/circle_05.png" id="1_sh5ny"]
 [ext_resource type="Script" path="res://shared/vfx/light_particles/light_particles.gd" id="2_j37dw"]
 
@@ -46,10 +47,12 @@ color_initial_ramp = SubResource("GradientTexture1D_3hfln")
 emission_curve = SubResource("CurveTexture_fdauj")
 
 [node name="LightParticles" type="Node2D" node_paths=PackedStringArray("light_particles")]
+material = ExtResource("1_ohaif")
 script = ExtResource("2_j37dw")
 light_particles = NodePath("light_particles")
 
 [node name="light_particles" type="GPUParticles2D" parent="."]
+use_parent_material = true
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_am6jj")
 texture = ExtResource("1_sh5ny")

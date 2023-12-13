@@ -50,19 +50,20 @@ func process_physics(delta: float) -> void:
 		if combo_timer > 0:
 			attack_index = (attack_index + 1) % (pattern[pattern_index].size())
 			# When we finish a pattern, we switch to the other pattern
-			if attack_index == 0:
+			if attack_index == 2:
 				pattern_index = (pattern_index + 1) % (pattern.size())
 
 		else:
 			attack_index = 0
 
+		print(attack_index)
 		attack = pattern[pattern_index][attack_index]
 		combo_timer = combo_time
 
 	# We attack !
 
 	attack_interval_timer = attack_interval_time
-	attack.play()
+	attack.play_attack()
 	print("attaque: ", attack.name)
 	attack = null
 

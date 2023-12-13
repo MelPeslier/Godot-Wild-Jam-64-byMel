@@ -51,7 +51,8 @@ folder_colors={
 "res://shared/components/": "blue",
 "res://shared/materials/": "yellow",
 "res://shared/sound/": "pink",
-"res://shared/vfx/": "green"
+"res://shared/vfx/": "teal",
+"res://ui/": "purple"
 }
 
 [gui]
@@ -107,7 +108,7 @@ special_attack_2={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.fr.translation")
+locale/translations=PackedStringArray("res://ui/translations/translations.en.translation", "res://ui/translations/translations.fr.translation")
 
 [layer_names]
 
