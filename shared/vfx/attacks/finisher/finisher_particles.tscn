@@ -370,6 +370,7 @@ amount = 700
 process_material = SubResource("ParticleProcessMaterial_nr2fj")
 texture = ExtResource("7_bdbv5")
 lifetime = 3.0
+one_shot = true
 explosiveness = 0.75
 local_coords = true
 
