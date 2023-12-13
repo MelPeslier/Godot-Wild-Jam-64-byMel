@@ -13,7 +13,7 @@ config_version=5
 config/name="GameName"
 config/version="0.1"
 config/tags=PackedStringArray("jam")
-run/main_scene="res://game/tiles/test_tile_map.tscn"
+run/main_scene="res://game/levels/level_000_test.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -44,6 +44,7 @@ window/stretch/mode="canvas_items"
 
 folder_colors={
 "res://autoloads/": "red",
+"res://game/environment/background/art/": "orange",
 "res://game/player/art/": "orange",
 "res://game/player/sound/": "purple",
 "res://shared/art/": "orange",
@@ -112,3 +113,4 @@ locale/translations=PackedStringArray("res://translations/translations.en.transl
 
 2d_physics/layer_1="world"
 2d_physics/layer_2="hurtbox"
+2d_physics/layer_3="interactable"

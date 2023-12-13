@@ -162,21 +162,21 @@ movement_state_machine = NodePath("Components/MovementStateMachine")
 movement_animator = NodePath("movement_animator")
 player_movement_component = NodePath("Components/player_movement_component")
 attacks = NodePath("Attacks")
-max_fall_speed = 1000.0
+max_fall_speed = 600.0
 min_jump_coef = 0.35
-jump_height = 360.0
+jump_height = 270.0
 jump_time_to_peak = 1.0
 jump_time_to_descent = 0.5
 jumps_number = 2
-next_jumps_coef = 0.2
+next_jumps_coef = 0.25
 jump_buffer_time = 0.1
 jump_coyote_time = 0.1
-walk_speed = 534.0
+walk_speed = 256.0
 walk_acceleration_time = 0.137
 walk_deceleration_time = 0.269
 dash_buffer_time = 0.1
-dash_speed = 1600.0
-dash_time = 0.25
+dash_speed = 1024.0
+dash_time = 0.3
 dash_reload_timer = NodePath("Components/MovementStateMachine/dash/dash_reload_timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
