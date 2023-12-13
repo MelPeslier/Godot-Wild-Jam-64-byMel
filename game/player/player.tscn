@@ -212,6 +212,10 @@ light_particles_explosiveness = 0.7
 [node name="finisher" type="Node2D" parent="Attacks"]
 script = ExtResource("9_hw5k5")
 cooldown = 17.0
+light_particles_number = 100
+light_particles_sphere_size = 700.0
+light_particles_life_time = 8.0
+light_particles_explosiveness = 0.185
 
 [node name="Components" type="Node" parent="."]
 

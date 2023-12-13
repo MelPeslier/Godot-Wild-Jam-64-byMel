@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://3elsp8oerlub"]
+[gd_scene load_steps=31 format=3 uid="uid://3elsp8oerlub"]
 
 [ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_5uvsv"]
 [ext_resource type="Script" path="res://shared/vfx/attacks/attack_particles.gd" id="2_8sx4e"]
@@ -63,6 +63,93 @@ alpha_curve = SubResource("CurveTexture_vrf20")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn65j"]
 size = Vector2(700, 186)
+
+[sub_resource type="Animation" id="Animation_6q1n8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blood_light_bubles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blood_light_background:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SoulDrainer/soulDrainnerCollisionShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("blood_light_bubles:process_material:gravity")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -400, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HitboxComponent/CollisionShape2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -385)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("suck_soul:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_r0opr"]
 resource_name = "attack"
@@ -181,93 +268,6 @@ tracks/8/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_6q1n8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("blood_light_bubles:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("blood_light_background:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SoulDrainer/soulDrainnerCollisionShape:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("blood_light_bubles:process_material:gravity")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -400, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("HitboxComponent/CollisionShape2D:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -385)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("suck_soul:emitting")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yu085"]
 _data = {
 "RESET": SubResource("Animation_6q1n8"),
@@ -289,6 +289,14 @@ point_count = 4
 [sub_resource type="CurveTexture" id="CurveTexture_ik8fa"]
 curve = SubResource("Curve_jjj3g")
 
+[sub_resource type="Curve" id="Curve_tx48l"]
+max_value = 2.0
+_data = [Vector2(0.00898204, 0.00707555), 0.0, 10.2406, 0, 0, Vector2(0.266467, 1.87736), 0.0, 0.0, 0, 0, Vector2(1, 0.206368), -0.113783, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0y2pj"]
+curve = SubResource("Curve_tx48l")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nr2fj"]
 particle_flag_disable_z = true
 emission_shape = 6
@@ -301,8 +309,11 @@ radial_velocity_min = 100.0
 radial_velocity_max = 120.0
 radial_velocity_curve = SubResource("CurveTexture_ik8fa")
 gravity = Vector3(0, 0, 0)
-scale_min = 0.1
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+scale_min = 0.05
 scale_max = 0.1
+scale_curve = SubResource("CurveTexture_0y2pj")
 color = Color(1, 1, 0.886275, 1)
 alpha_curve = SubResource("CurveTexture_v8ffj")
 
@@ -315,6 +326,8 @@ script = ExtResource("2_8sx4e")
 animator = NodePath("Animator")
 
 [node name="blood_light_background" type="GPUParticles2D" parent="."]
+z_index = -5
+z_as_relative = false
 use_parent_material = true
 emitting = false
 amount = 6
@@ -357,7 +370,6 @@ amount = 700
 process_material = SubResource("ParticleProcessMaterial_nr2fj")
 texture = ExtResource("7_bdbv5")
 lifetime = 3.0
-one_shot = true
 explosiveness = 0.75
 local_coords = true
 
