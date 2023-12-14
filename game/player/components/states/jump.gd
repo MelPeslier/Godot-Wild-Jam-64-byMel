@@ -13,6 +13,11 @@ func enter() -> void:
 	player.alter_jumps(-1)
 	player.jump_time = 0
 	want_jump = true
+	ray_casts.activate()
+
+
+func exit() -> void:
+	ray_casts.deactivate()
 
 
 func process_physics(delta: float) -> State:
@@ -26,7 +31,8 @@ func process_physics(delta: float) -> State:
 		parent.velocity.y += player.fall_gravity * delta
 	else:
 		parent.velocity.y += player.gravity * delta
-	ray_casts.process_physics_jump(delta)
+	ray_casts.process_physics_up(delta)
+	ray_casts.process_physics_right(delta)
 	super(delta)
 	parent.move_and_slide()
 

@@ -4,11 +4,22 @@ extends PlayerMove
 @export var walk: State
 @export var jump: State
 @export var dash: State
+@export var ray_casts: RayCasts
+
+
+func enter() -> void:
+	super()
+	ray_casts.activate()
+
+
+func exit() -> void:
+	ray_casts.deactivate()
 
 
 func process_physics(delta: float) -> State:
 	super(delta)
 	parent.velocity.y += parent.fall_gravity * delta
+	ray_casts.process_physics_right(delta)
 	parent.move_and_slide()
 
 	player.jump_buffer_timer -= delta

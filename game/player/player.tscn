@@ -177,6 +177,9 @@ sprite = NodePath("Sprite")
 [node name="target_pos" type="Marker2D" parent="."]
 position = Vector2(0, -64)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -64)
+
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -64)
 texture = ExtResource("2_g48ii")
@@ -190,53 +193,58 @@ libraries = {
 "": SubResource("AnimationLibrary_nb7be")
 }
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -64)
-
 [node name="RayCasts" type="Node2D" parent="." node_paths=PackedStringArray("parent")]
 position = Vector2(3, -59)
 script = ExtResource("3_1dr55")
 parent = NodePath("..")
-margin = 4.0
-transition_time = 0.3
 
-[node name="ray_y" type="Node2D" parent="RayCasts"]
+[node name="ray_x_up_1" type="RayCast2D" parent="RayCasts"]
+position = Vector2(14, -58)
+target_position = Vector2(25, 0)
 
-[node name="ray_y_left" type="RayCast2D" parent="RayCasts/ray_y"]
+[node name="ray_x_up_2" type="RayCast2D" parent="RayCasts"]
+position = Vector2(14, -40)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_mid" type="RayCast2D" parent="RayCasts"]
+position = Vector2(14, 0)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_bot_2" type="RayCast2D" parent="RayCasts"]
+position = Vector2(14, 40)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_bot_1" type="RayCast2D" parent="RayCasts"]
+position = Vector2(14, 58)
+target_position = Vector2(25, 0)
+
+[node name="ray_y_left" type="RayCast2D" parent="RayCasts"]
 modulate = Color(0, 1, 0, 1)
 position = Vector2(-14, -58)
 target_position = Vector2(0, -25)
 
-[node name="ray_y_mid" type="RayCast2D" parent="RayCasts/ray_y"]
+[node name="ray_y_mid" type="RayCast2D" parent="RayCasts"]
 position = Vector2(0, -58)
 target_position = Vector2(0, -25)
 
-[node name="ray_y_right" type="RayCast2D" parent="RayCasts/ray_y"]
+[node name="ray_y_right" type="RayCast2D" parent="RayCasts"]
 modulate = Color(0, 0, 1, 1)
 position = Vector2(14, -58)
 target_position = Vector2(0, -25)
 
-[node name="ray_x" type="Node2D" parent="RayCasts"]
+[node name="ray_bot_left" type="RayCast2D" parent="RayCasts"]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(-14, 58)
+target_position = Vector2(0, 25)
 
-[node name="ray_x_up_1" type="RayCast2D" parent="RayCasts/ray_x"]
-position = Vector2(14, -58)
-target_position = Vector2(25, 0)
+[node name="ray_bot_mid" type="RayCast2D" parent="RayCasts"]
+position = Vector2(0, 58)
+target_position = Vector2(0, 25)
 
-[node name="ray_x_up_2" type="RayCast2D" parent="RayCasts/ray_x"]
-position = Vector2(14, -40)
-target_position = Vector2(25, 0)
-
-[node name="ray_x_mid" type="RayCast2D" parent="RayCasts/ray_x"]
-position = Vector2(14, 0)
-target_position = Vector2(25, 0)
-
-[node name="ray_x_bot_2" type="RayCast2D" parent="RayCasts/ray_x"]
-position = Vector2(14, 40)
-target_position = Vector2(25, 0)
-
-[node name="ray_x_bot_1" type="RayCast2D" parent="RayCasts/ray_x"]
+[node name="ray_bot_right" type="RayCast2D" parent="RayCasts"]
+modulate = Color(0, 0, 1, 1)
 position = Vector2(14, 58)
-target_position = Vector2(25, 0)
+target_position = Vector2(0, 25)
 
 [node name="Attacks" type="Node2D" parent="." node_paths=PackedStringArray("player", "attack_input_component", "attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
 position = Vector2(0, -64)
@@ -352,21 +360,23 @@ dash = NodePath("../dash")
 ray_casts = NodePath("../../../RayCasts")
 player_movement_state = 2
 
-[node name="fall" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "dash")]
+[node name="fall" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "dash", "ray_casts")]
 script = ExtResource("7_o7w6p")
 idle = NodePath("../idle")
 walk = NodePath("../walk")
 jump = NodePath("../jump")
 dash = NodePath("../dash")
+ray_casts = NodePath("../../../RayCasts")
 player_movement_state = 4
 
-[node name="dash" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "fall", "dash")]
+[node name="dash" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "fall", "dash", "ray_casts")]
 script = ExtResource("8_3twcc")
 idle = NodePath("../idle")
 walk = NodePath("../walk")
 jump = NodePath("../jump")
 fall = NodePath("../fall")
 dash = NodePath(".")
+ray_casts = NodePath("../../../RayCasts")
 player_movement_state = 1
 
 [node name="burst" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle")]
@@ -391,10 +401,10 @@ hit_effect = NodePath("../../AfterHitEffectComponent")
 player_movement_state = 8
 
 [node name="Label" type="Label" parent="."]
-offset_left = -54.0
-offset_top = -112.0
-offset_right = 58.0
-offset_bottom = -67.0
+offset_left = -53.0
+offset_top = -180.0
+offset_right = 59.0
+offset_bottom = -135.0
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1

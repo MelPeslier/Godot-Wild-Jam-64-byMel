@@ -68,7 +68,9 @@ var dash_interval_timer: float = 0:
 var dash_buffer_timer: float = 0
 var dash_timer: float = 0
 
-var can_move: bool = true
+var finisher_timer: float
+var burst_timer: float
+
 var old_velocity: float = 0
 var old_direction: int = 1:
 	set(val):
@@ -80,9 +82,7 @@ var old_direction: int = 1:
 			attacks.scale.x = old_direction
 			ray_casts.scale.x = old_direction
 
-var finisher_timer: float
-var burst_timer: float
-
+var can_move: bool = true
 var _can_attack := true
 var _can_receive_input := true
 @onready var attacks: PlayerAttacks = $Attacks as PlayerAttacks
