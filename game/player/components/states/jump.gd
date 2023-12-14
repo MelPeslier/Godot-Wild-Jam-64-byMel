@@ -75,5 +75,5 @@ func spawn_step_light(coef: float) -> void:
 func spawn_light_particles(coef: float) -> void:
 	var light_instance: LightParticles = light_particles_scene.instantiate() as LightParticles
 	parent.add_child(light_instance)
-	var number := int (light_particles_number * player.get_jump_coef())
+	var number := int (light_particles_number * coef)
 	light_instance.play(number, light_particles_sphere_size, light_particles_lifetime, light_particles_explosiveness)
