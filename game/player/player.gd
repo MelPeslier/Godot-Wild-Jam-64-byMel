@@ -59,6 +59,7 @@ var remaining_jumps: int = jumps_number
 var jump_buffer_timer: float = 0
 var jump_time: float = 0
 var min_jump_time: float = 0
+var jump_coyote_timer: float = 0
 
 var remaining_dashes: int = dashes_number
 var dash_interval_timer: float = 0:

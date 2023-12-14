@@ -173,6 +173,8 @@ movement_state_machine = NodePath("Components/MovementStateMachine")
 movement_animator = NodePath("movement_animator")
 player_movement_component = NodePath("Components/player_movement_component")
 sprite = NodePath("Sprite")
+jump_buffer_time = 0.15
+jump_coyote_time = 0.15
 
 [node name="target_pos" type="Marker2D" parent="."]
 position = Vector2(0, -64)
@@ -358,6 +360,10 @@ jump = NodePath(".")
 fall = NodePath("../fall")
 dash = NodePath("../dash")
 ray_casts = NodePath("../../../RayCasts")
+light_particles_number = 8
+light_particles_sphere_size = 50.0
+light_particles_lifetime = 2.0
+light_particles_explosiveness = 0.7
 player_movement_state = 2
 
 [node name="fall" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "dash", "ray_casts")]
@@ -377,6 +383,10 @@ jump = NodePath("../jump")
 fall = NodePath("../fall")
 dash = NodePath(".")
 ray_casts = NodePath("../../../RayCasts")
+light_particles_number = 32
+light_particles_sphere_size = 50.0
+light_particles_lifetime = 2.0
+light_particles_explosiveness = 0.9
 player_movement_state = 1
 
 [node name="burst" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle")]

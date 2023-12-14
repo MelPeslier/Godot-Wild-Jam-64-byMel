@@ -7,10 +7,20 @@ extends PlayerState
 @export var dash: State
 @export var ray_casts: RayCasts
 
+@export_category("light_particles")
+@export var light_particles_number: int
+@export var light_particles_sphere_size: float
+@export var light_particles_lifetime: float
+@export var light_particles_explosiveness: float
+
+var light_particles_scene: PackedScene = preload("res://shared/vfx/light_particles/light_particles.tscn")
+var dash_particles_scene: PackedScene = preload("res://shared/vfx/dash/dash_particles.tscn")
+
 
 func enter() -> void:
 	super()
 	player.alter_dashes(-1)
+	spawn_particles()
 	player.dash_timer = player.dash_time
 	player.dash_interval_timer = player.dash_interval_time
 	parent.velocity.y = 0
@@ -65,3 +75,15 @@ func process_unhandled_input(_event: InputEvent) -> State:
 
 func process_frame(_delta: float) -> State:
 	return null
+
+
+func spawn_particles() -> void:
+	var dash_instance: DashParticles = dash_particles_scene.instantiate()
+	parent.add_child(dash_instance)
+	dash_instance.position = player.target_pos.position
+	dash_instance.play(player.old_direction)
+
+	var light_instance: LightParticles = light_particles_scene.instantiate() as LightParticles
+	parent.add_child(light_instance)
+	light_instance.position = player.target_pos.position
+	light_instance.play(light_particles_number, light_particles_sphere_size, light_particles_lifetime, light_particles_explosiveness)

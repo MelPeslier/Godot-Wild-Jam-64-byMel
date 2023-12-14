@@ -101,10 +101,10 @@ func process_physics_right(_delta: float) -> void:
 func go_x(dist: float) -> void:
 	parent.global_position.y -= dist * sign(parent.velocity.y)
 	parent.sprite.position.y += dist * sign(parent.velocity.y)
-	come_back_x(dist)
+	come_back_x()
 
 
-func come_back_x(dist: float) -> void:
+func come_back_x() -> void:
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
@@ -115,10 +115,10 @@ func come_back_x(dist: float) -> void:
 func go_y(dist: float) -> void:
 	parent.global_position.x += dist * scale.x
 	parent.sprite.position.x -= dist * scale.x
-	come_back_y(dist)
+	come_back_y()
 
 
-func come_back_y(dist: float) -> void:
+func come_back_y() -> void:
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()

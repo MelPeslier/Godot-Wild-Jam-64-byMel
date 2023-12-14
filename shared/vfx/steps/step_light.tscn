@@ -1,0 +1,188 @@
+[gd_scene load_steps=23 format=3 uid="uid://da4h1w7q542m2"]
+
+[ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_2guiq"]
+[ext_resource type="Texture2D" uid="uid://da6owqc8q2rqi" path="res://shared/art/particles/circle_03.png" id="2_qiub8"]
+[ext_resource type="Script" path="res://shared/vfx/steps/step_light.gd" id="2_rouac"]
+[ext_resource type="Texture2D" uid="uid://cu4gt4m0x7ho5" path="res://shared/art/particles/circle_05.png" id="4_1cf2v"]
+
+[sub_resource type="Curve" id="Curve_wd7py"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0568862, 1), 0.0, 0.0, 0, 0, Vector2(0.494012, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_qr3jj"]
+curve = SubResource("Curve_wd7py")
+
+[sub_resource type="Curve" id="Curve_25hwg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.751497, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_x4i5s"]
+_data = [Vector2(0.0538922, 0.248821), 0.0, 0.0, 0, 0, Vector2(0.748503, 0.248821), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_8jber"]
+_data = [Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_46yr0"]
+curve_x = SubResource("Curve_25hwg")
+curve_y = SubResource("Curve_x4i5s")
+curve_z = SubResource("Curve_8jber")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cyumr"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.22
+scale_curve = SubResource("CurveXYZTexture_46yr0")
+color = Color(1, 1, 0.886275, 1)
+alpha_curve = SubResource("CurveTexture_qr3jj")
+
+[sub_resource type="Gradient" id="Gradient_w6f5q"]
+colors = PackedColorArray(1, 0.650404, 0.63856, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y1bl4"]
+gradient = SubResource("Gradient_w6f5q")
+
+[sub_resource type="Gradient" id="Gradient_mf2ui"]
+offsets = PackedFloat32Array(0, 0.150327, 0.839869, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.231373)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_032fk"]
+gradient = SubResource("Gradient_mf2ui")
+
+[sub_resource type="CurveTexture" id="CurveTexture_ugifx"]
+
+[sub_resource type="Curve" id="Curve_446c2"]
+max_value = 2.0
+_data = [Vector2(0, 0.313679), 0.0, 1.9374, 0, 0, Vector2(0.892216, 0.988208), -0.607491, 0.0, 0, 0, Vector2(0.997006, 1.54009), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_nuvy4"]
+curve = SubResource("Curve_446c2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q8int"]
+resource_local_to_scene = true
+lifetime_randomness = 0.1
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 2, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 35.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 60, 0)
+scale_min = 0.01
+scale_max = 0.04
+scale_curve = SubResource("CurveTexture_nuvy4")
+color = Color(1, 1, 0.780392, 1)
+color_ramp = SubResource("GradientTexture1D_032fk")
+color_initial_ramp = SubResource("GradientTexture1D_y1bl4")
+emission_curve = SubResource("CurveTexture_ugifx")
+
+[sub_resource type="Animation" id="Animation_1ek83"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("step_light_particles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("step:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_wqblw"]
+resource_name = "activate"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("step_light_particles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("step:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v6shv"]
+_data = {
+"RESET": SubResource("Animation_1ek83"),
+"activate": SubResource("Animation_wqblw")
+}
+
+[node name="StepLight" type="Node2D"]
+material = ExtResource("1_2guiq")
+script = ExtResource("2_rouac")
+
+[node name="step" type="GPUParticles2D" parent="."]
+use_parent_material = true
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_cyumr")
+texture = ExtResource("2_qiub8")
+one_shot = true
+explosiveness = 1.0
+
+[node name="step_light_particles" type="GPUParticles2D" parent="."]
+use_parent_material = true
+emitting = false
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_q8int")
+texture = ExtResource("4_1cf2v")
+one_shot = true
+explosiveness = 0.98
+randomness = 0.1
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v6shv")
+}

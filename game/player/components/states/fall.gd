@@ -9,6 +9,7 @@ extends PlayerMove
 
 func enter() -> void:
 	super()
+	player.jump_coyote_timer = player.jump_coyote_time
 	ray_casts.activate()
 
 
@@ -22,6 +23,7 @@ func process_physics(delta: float) -> State:
 	ray_casts.process_physics_right(delta)
 	parent.move_and_slide()
 
+	player.jump_coyote_timer -= delta
 	player.jump_buffer_timer -= delta
 	player.dash_buffer_timer -= delta
 
@@ -49,6 +51,8 @@ func process_unhandled_input(_event: InputEvent) -> State:
 
 	if get_jump():
 		if player.can_jump():
+			if not player.jump_coyote_timer > 0:
+				player.alter_jumps(-1)
 			return jump
 		player.jump_buffer_timer = player.jump_buffer_time
 

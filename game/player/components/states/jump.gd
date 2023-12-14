@@ -5,10 +5,22 @@ extends PlayerMove
 @export var dash: State
 @export var ray_casts: RayCasts
 
+@export_category("light_particles")
+@export var light_particles_number: int
+@export var light_particles_sphere_size: float
+@export var light_particles_lifetime: float
+@export var light_particles_explosiveness: float
+
+var light_particles_scene: PackedScene = preload("res://shared/vfx/light_particles/light_particles.tscn")
+var step_light_particles_scene: PackedScene = preload("res://shared/vfx/steps/step_light.tscn")
+
 var want_jump := true
+
 
 func enter() -> void:
 	super()
+	if not parent.is_on_floor():
+		spawn_step_light(player.get_jump_coef())
 	parent.velocity.y = -player.initial_jump_velocity * player.get_jump_coef()
 	player.alter_jumps(-1)
 	player.jump_time = 0
@@ -51,3 +63,14 @@ func process_unhandled_input(_event: InputEvent) -> State:
 
 func process_frame(_delta: float) -> State:
 	return null
+
+
+func spawn_step_light(coef: float) -> void:
+	var step_instance: StepLight = step_light_particles_scene.instantiate() as StepLight
+	parent.add_child(step_instance)
+	step_instance.play(coef)
+
+	var light_instance: LightParticles = light_particles_scene.instantiate() as LightParticles
+	parent.add_child(light_instance)
+	var number := int (light_particles_number * player.get_jump_coef())
+	light_instance.play(number, light_particles_sphere_size, light_particles_lifetime, light_particles_explosiveness)
