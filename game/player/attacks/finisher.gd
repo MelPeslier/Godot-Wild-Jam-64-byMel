@@ -1,4 +1,4 @@
-extends Attack
+extends EnergyAttack
 
 @export var finisher: State
 @export var movement_state_machine: StateMachine

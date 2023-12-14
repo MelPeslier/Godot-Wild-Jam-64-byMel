@@ -1,7 +1,7 @@
 class_name Attack
 extends Node2D
 
-@export_range(0.05, 25) var cooldown: float
+@export_range(0.05, 45) var cooldown: float
 @export var do_spawn_light_particles: bool = true
 @export_range(0, 3000, 1) var light_particles_number: int = 8
 @export_range(1, 4000, 1) var light_particles_sphere_size: float = 30

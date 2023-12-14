@@ -154,7 +154,6 @@ tracks/6/keys = {
 [sub_resource type="Animation" id="Animation_r0opr"]
 resource_name = "attack"
 length = 10.0
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -200,7 +199,7 @@ tracks/3/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 3.7, 4.2374),
+"times": PackedFloat32Array(0, 1.9, 2.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -212,7 +211,7 @@ tracks/4/path = NodePath("SoulDrainer/soulDrainnerCollisionShape:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 4.2, 8.9),
+"times": PackedFloat32Array(0, 2.4, 7.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -224,10 +223,10 @@ tracks/5/path = NodePath("blood_light_bubles:process_material:gravity")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 3.1, 3.3, 4.4),
+"times": PackedFloat32Array(0, 1.3, 1.5, 2.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -150, 0), Vector3(0, -50, 0), Vector3(0, 1600, 0), Vector3(0, 1600, 0)]
+"values": [Vector3(0, -600, 0), Vector3(0, -100, 0), Vector3(0, 1400, 0), Vector3(0, 1400, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -236,7 +235,7 @@ tracks/6/path = NodePath("HitboxComponent/CollisionShape2D:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 3.7, 4.3, 10),
+"times": PackedFloat32Array(0, 2, 2.76734, 10),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, -385), Vector2(0, -385), Vector2(0, 300), Vector2(0, 300)]
@@ -248,7 +247,7 @@ tracks/7/path = NodePath("suck_soul:emitting")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(5),
+"times": PackedFloat32Array(2.8),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -260,7 +259,7 @@ tracks/8/path = NodePath("SoulDrainer")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(6.2),
+"times": PackedFloat32Array(4.7),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -344,13 +343,12 @@ process_material = SubResource("ParticleProcessMaterial_ssiyy")
 texture = ExtResource("5_d2g8j")
 lifetime = 4.0
 one_shot = true
-explosiveness = 0.85
+explosiveness = 0.98
 local_coords = true
 
 [node name="HitboxComponent" type="Area2D" parent="."]
 script = ExtResource("7_5rjok")
 damage = 4
-hitstop = 0.4
 hit_stop_shake = 3.0
 camera_shake = 50.0
 
@@ -367,7 +365,7 @@ libraries = {
 [node name="suck_soul" type="GPUParticles2D" parent="."]
 use_parent_material = true
 emitting = false
-amount = 300
+amount = 150
 process_material = SubResource("ParticleProcessMaterial_nr2fj")
 texture = ExtResource("7_bdbv5")
 lifetime = 3.0

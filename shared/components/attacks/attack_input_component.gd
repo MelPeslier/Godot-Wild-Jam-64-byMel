@@ -17,5 +17,6 @@ func wants_special_attack_2() -> bool:
 func wants_attack() -> bool:
 	return false
 
+
 func can_attack() -> bool:
 	return false

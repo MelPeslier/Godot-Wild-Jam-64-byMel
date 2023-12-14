@@ -1,4 +1,4 @@
-extends Attack
+extends EnergyAttack
 
 @export var burst: State
 @export var movement_state_machine: StateMachine
@@ -12,5 +12,5 @@ func _ready() -> void:
 
 
 func play_attack() -> void:
-	super()
 	movement_state_machine.change_state(burst)
+	super()
