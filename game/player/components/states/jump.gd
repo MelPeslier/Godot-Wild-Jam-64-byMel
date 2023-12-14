@@ -21,6 +21,7 @@ func enter() -> void:
 	super()
 	if not parent.is_on_floor():
 		spawn_step_light(player.get_jump_coef())
+	spawn_light_particles(player.get_jump_coef())
 	parent.velocity.y = -player.initial_jump_velocity * player.get_jump_coef()
 	player.alter_jumps(-1)
 	player.jump_time = 0
@@ -70,6 +71,8 @@ func spawn_step_light(coef: float) -> void:
 	parent.add_child(step_instance)
 	step_instance.play(coef)
 
+
+func spawn_light_particles(coef: float) -> void:
 	var light_instance: LightParticles = light_particles_scene.instantiate() as LightParticles
 	parent.add_child(light_instance)
 	var number := int (light_particles_number * player.get_jump_coef())

@@ -7,7 +7,5 @@ extends Node2D
 
 func play(direction: int) -> void:
 	var trace_process: ParticleProcessMaterial = trace.process_material as ParticleProcessMaterial
-	print(direction)
 	trace_process.direction.x = direction
-
 	animator.play("activate")
