@@ -1,7 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://wwp0yu0jt73k"]
+[gd_scene load_steps=38 format=3 uid="uid://wwp0yu0jt73k"]
 
 [ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
 [ext_resource type="Texture2D" uid="uid://s1dldeyjskp3" path="res://game/player/art/player.png" id="2_g48ii"]
+[ext_resource type="Script" path="res://game/player/components/movements/ray_casts.gd" id="3_1dr55"]
 [ext_resource type="Script" path="res://shared/components/states/state_machine.gd" id="3_srg45"]
 [ext_resource type="Script" path="res://game/player/components/states/idle.gd" id="4_5fj6c"]
 [ext_resource type="Script" path="res://game/player/attacks/left_slash.gd" id="4_meh4q"]
@@ -165,35 +166,23 @@ _data = {
 radius = 14.0
 height = 116.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component", "attacks")]
-position = Vector2(0, -64)
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "player_movement_component", "sprite")]
+collision_layer = 0
 script = ExtResource("1_djp00")
 movement_state_machine = NodePath("Components/MovementStateMachine")
 movement_animator = NodePath("movement_animator")
 player_movement_component = NodePath("Components/player_movement_component")
-attacks = NodePath("Attacks")
-max_fall_speed = 600.0
-min_jump_coef = 0.35
-jump_height = 270.0
-jump_time_to_peak = 1.0
-jump_time_to_descent = 0.5
-jumps_number = 2
-next_jumps_coef = 0.25
-jump_buffer_time = 0.1
-jump_coyote_time = 0.1
-walk_speed = 256.0
-walk_acceleration_time = 0.137
-walk_deceleration_time = 0.269
-dash_buffer_time = 0.15
-dash_interval_time = 1.0
-finisher_time = 8.0
-burst_time = 3.5
+sprite = NodePath("Sprite")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="target_pos" type="Marker2D" parent="."]
+position = Vector2(0, -64)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -64)
 texture = ExtResource("2_g48ii")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 5.5)
+position = Vector2(3, -59)
 shape = SubResource("RectangleShape2D_1w0nq")
 
 [node name="movement_animator" type="AnimationPlayer" parent="."]
@@ -202,8 +191,55 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -64)
+
+[node name="RayCasts" type="Node2D" parent="." node_paths=PackedStringArray("parent")]
+position = Vector2(3, -59)
+script = ExtResource("3_1dr55")
+parent = NodePath("..")
+margin = 4.0
+transition_time = 0.3
+
+[node name="ray_y" type="Node2D" parent="RayCasts"]
+
+[node name="ray_y_left" type="RayCast2D" parent="RayCasts/ray_y"]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(-14, -58)
+target_position = Vector2(0, -25)
+
+[node name="ray_y_mid" type="RayCast2D" parent="RayCasts/ray_y"]
+position = Vector2(0, -58)
+target_position = Vector2(0, -25)
+
+[node name="ray_y_right" type="RayCast2D" parent="RayCasts/ray_y"]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(14, -58)
+target_position = Vector2(0, -25)
+
+[node name="ray_x" type="Node2D" parent="RayCasts"]
+
+[node name="ray_x_up_1" type="RayCast2D" parent="RayCasts/ray_x"]
+position = Vector2(14, -58)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_up_2" type="RayCast2D" parent="RayCasts/ray_x"]
+position = Vector2(14, -40)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_mid" type="RayCast2D" parent="RayCasts/ray_x"]
+position = Vector2(14, 0)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_bot_2" type="RayCast2D" parent="RayCasts/ray_x"]
+position = Vector2(14, 40)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_bot_1" type="RayCast2D" parent="RayCasts/ray_x"]
+position = Vector2(14, 58)
+target_position = Vector2(25, 0)
 
 [node name="Attacks" type="Node2D" parent="." node_paths=PackedStringArray("player", "attack_input_component", "attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
+position = Vector2(0, -64)
 script = ExtResource("10_ievp6")
 player = NodePath("..")
 attack_input_component = NodePath("../Components/player_attack_input_component")
@@ -259,6 +295,7 @@ light_particles_sphere_size = 2000.0
 light_particles_life_time = 15.0
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+position = Vector2(0, -64)
 script = ExtResource("10_7jawy")
 health_component = NodePath("../Components/HealthComponent")
 
@@ -307,11 +344,12 @@ fall = NodePath("../fall")
 dash = NodePath("../dash")
 player_movement_state = 3
 
-[node name="jump" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("jump", "fall", "dash")]
+[node name="jump" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("jump", "fall", "dash", "ray_casts")]
 script = ExtResource("6_afeky")
 jump = NodePath(".")
 fall = NodePath("../fall")
 dash = NodePath("../dash")
+ray_casts = NodePath("../../../RayCasts")
 player_movement_state = 2
 
 [node name="fall" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "dash")]

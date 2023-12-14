@@ -16,34 +16,35 @@ enum MovementState{
 @export var movement_state_machine: StateMachine
 @export var movement_animator: AnimationPlayer
 @export var player_movement_component: MovementComponent
-@export var attacks: PlayerAttacks
+@export var sprite: Sprite2D
+@export var dummy: Node2D
 
 @export_category("jump")
-@export_range(0, 2000, 1) var max_fall_speed: float = 1
-@export_range(0, 1) var min_jump_coef: float = 1
-@export_range(0, 2000, 1) var jump_height: float = 1
-@export_range(0, 3) var jump_time_to_peak: float = 0.5
-@export_range(0, 3) var jump_time_to_descent: float = 0.4
-@export var jumps_number: int = 1
-@export var next_jumps_coef: float
-@export var jump_buffer_time: float
-@export var jump_coyote_time: float
+@export_range(0, 2000, 1) var max_fall_speed: float = 600
+@export_range(0, 1) var min_jump_coef: float = 0.35
+@export_range(0, 2000, 1) var jump_height: float = 270
+@export_range(0, 3) var jump_time_to_peak: float = 1
+@export_range(0, 3) var jump_time_to_descent: float = 0.5
+@export var jumps_number: int = 2
+@export var next_jumps_coef: float = 0.25
+@export var jump_buffer_time: float = 0.1
+@export var jump_coyote_time: float = 0.1
 
 @export_category("walk")
-@export_range(0, 2000, 1) var walk_speed: float = 1
-@export_range(0, 2) var walk_acceleration_time: float = 1
-@export_range(0, 2) var walk_deceleration_time: float = 1
+@export_range(0, 2000, 1) var walk_speed: float = 256
+@export_range(0, 2) var walk_acceleration_time: float = 0.137
+@export_range(0, 2) var walk_deceleration_time: float = 0.269
 
 @export_category("dash")
 @export var dashes_number: int = 1
-@export_range(0.05, 1) var dash_buffer_time: float = 0.1
-@export_range(0.05, 3) var dash_interval_time: float = 0.5
+@export_range(0.05, 1) var dash_buffer_time: float = 0.15
+@export_range(0.05, 3) var dash_interval_time: float = 1
 @export_range(0, 2000, 1) var dash_speed: float = 1024
 @export_range(0.05, 1) var dash_time: float = 0.3
 
 @export_category("attacks")
-@export_range(0.05, 8) var finisher_time: float
-@export_range(0.05, 5) var burst_time: float
+@export_range(0.05, 8) var finisher_time: float = 8
+@export_range(0.05, 5) var burst_time: float = 3.5
 
 var current_movement_state: MovementState
 
@@ -63,15 +64,30 @@ var remaining_dashes: int = dashes_number
 var dash_interval_timer: float = 0:
 	set(val):
 		dash_interval_timer = maxf(val, 0)
+
 var dash_buffer_timer: float = 0
 var dash_timer: float = 0
 
 var can_move: bool = true
-var old_direction: int = 1
 var old_velocity: float = 0
+var old_direction: int = 1:
+	set(val):
+		if val == 0:
+			print("player:old_direction | shouldn't reach : ", val)
+		else:
+			old_direction = val
+			sprite.flip_h = old_direction < 0
+			attacks.scale.x = old_direction
+			ray_casts.scale.x = old_direction
 
 var finisher_timer: float
 var burst_timer: float
+
+var _can_attack := true
+var _can_receive_input := true
+@onready var attacks: PlayerAttacks = $Attacks as PlayerAttacks
+@onready var ray_casts: Node2D = $RayCasts
+@onready var target_pos: Marker2D = $target_pos
 
 
 func _ready() -> void:
@@ -80,6 +96,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not can_receive_input(): return
 	movement_state_machine.process_unhandled_input(event)
 	attacks.process_unhandled_input(event)
 
@@ -98,6 +115,16 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	movement_state_machine.process_frame(delta)
+
+
+#region Can do
+func can_attack() -> bool:
+	return _can_attack and _can_receive_input
+
+
+func can_receive_input() -> bool:
+	return _can_receive_input
+#endregion
 
 
 #region Movement functions

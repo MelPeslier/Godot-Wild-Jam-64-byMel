@@ -3,6 +3,7 @@ extends PlayerMove
 @export var jump: State
 @export var fall: State
 @export var dash: State
+@export var ray_casts: RayCasts
 
 var want_jump := true
 
@@ -25,6 +26,7 @@ func process_physics(delta: float) -> State:
 		parent.velocity.y += player.fall_gravity * delta
 	else:
 		parent.velocity.y += player.gravity * delta
+	ray_casts.process_physics_jump(delta)
 	super(delta)
 	parent.move_and_slide()
 

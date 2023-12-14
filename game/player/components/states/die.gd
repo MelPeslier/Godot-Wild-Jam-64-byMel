@@ -8,5 +8,5 @@ func enter() -> void:
 	GameManager.player_died()
 
 
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	return null

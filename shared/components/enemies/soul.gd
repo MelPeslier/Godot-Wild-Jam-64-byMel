@@ -2,5 +2,5 @@ class_name Soul
 extends Node
 
 
-func go_to(player: Player) -> void:
+func go_to(_player: Player) -> void:
 	pass
