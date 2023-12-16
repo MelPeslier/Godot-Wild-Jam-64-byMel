@@ -1,7 +1,6 @@
 class_name AttackManager
 extends Node2D
 
-@export var parent: Node2D
 @export var attack_input_component: AttackInputComponent
 @export var attack_data: AttackData
 
@@ -10,13 +9,14 @@ extends Node2D
 
 var attack_interval_timer: float: set = _set_attack_interval_timer
 var attack: AttackHolder
+var parent: Node2D
 
 
-func _ready() -> void:
+func init(_parent: Node2D) -> void:
+	parent = _parent
 	for _attack: AttackHolder in get_children():
-		if _attack:
-			_attack.parent = parent
-			_attack.attack_data = attack_data
+		_attack.parent = parent
+		_attack.attack_data = attack_data
 
 
 func process_physics(delta: float) -> void:

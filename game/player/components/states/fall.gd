@@ -20,7 +20,6 @@ func enter() -> void:
 func process_physics(delta: float) -> State:
 	move_data.dir = get_movement_input()
 	if not move_data.dir or not player.can_move:
-		print("&")
 		do_walk_decelerate(delta)
 	else:
 		do_walk_accelerate(delta)

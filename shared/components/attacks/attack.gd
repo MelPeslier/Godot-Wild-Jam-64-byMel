@@ -2,6 +2,8 @@ class_name Attack
 extends Node2D
 
 @export_range(0.05, 45) var cooldown: float
+@export_range(0, 45,) var damage: int
+@export var knock_back: float
 @export var attack_particles_scene: PackedScene
 @export var do_spawn_light_particles: bool = true
 @export_range(0, 3000, 1) var light_particles_number: int = 8
@@ -35,9 +37,11 @@ func _on_timer_timeout() -> void:
 
 
 func spawn_attack_particles() -> void:
-	var attack_particles: AttackParticles = attack_particles_scene.instantiate()
+	var attack_particles: AttackParticles = attack_particles_scene.instantiate() as AttackParticles
 	attack_particles.parent = parent
 	attack_particles.attack_data = attack_data
+	attack_particles.damage = damage
+	attack_particles.knock_back = knock_back
 	add_child(attack_particles)
 
 

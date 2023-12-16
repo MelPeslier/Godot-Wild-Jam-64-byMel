@@ -1,7 +1,12 @@
 class_name InteractorComponent
 extends Area2D
 
-@export var controller: Node2D
+@export var parent: Node2D
+
+
+func _init() -> void:
+	collision_layer = 4
+	collision_mask = 0
 
 
 func interact(interactable: InteractableComponent) -> void:

@@ -3,47 +3,6 @@
 [ext_resource type="Script" path="res://shared/vfx/attacks/attack_particles.gd" id="1_d6cv5"]
 [ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="2_sbrw2"]
 
-[sub_resource type="Animation" id="Animation_n3di2"]
-resource_name = "attack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HitboxComponent/CollisionShape2D2:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HitboxComponent/CollisionPolygon2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_m2eon"]
 length = 0.001
 tracks/0/type = "value"
@@ -71,18 +30,59 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_n3di2"]
+resource_name = "activate"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitboxComponent/CollisionShape2D2:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.44, 0.49),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitboxComponent/CollisionPolygon2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.44, 0.49),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5gae4"]
 _data = {
 "RESET": SubResource("Animation_m2eon"),
-"attack": SubResource("Animation_n3di2")
+"activate": SubResource("Animation_n3di2")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4vghs"]
 radius = 116.0
 
-[node name="Slash" type="Node2D" node_paths=PackedStringArray("animator")]
+[node name="Slash" type="Node2D"]
 script = ExtResource("1_d6cv5")
-animator = NodePath("AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -91,12 +91,11 @@ libraries = {
 
 [node name="HitboxComponent" type="Area2D" parent="."]
 script = ExtResource("2_sbrw2")
-damage = 1
-knock_back = 500.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitboxComponent"]
+self_modulate = Color(0, 0, 0, 1)
 position = Vector2(282, -23)
 shape = SubResource("CircleShape2D_4vghs")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
-polygon = PackedVector2Array(282, -143, 86, -199, -126, -176, 74, -139, 193, -86)
+polygon = PackedVector2Array(305, -135, 201, -177, 86, -199, -26, -200, -126, -176, -92, -97, -48, -37, 17, 8, 121, 58, 210, 70)

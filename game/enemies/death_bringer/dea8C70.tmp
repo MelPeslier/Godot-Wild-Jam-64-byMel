@@ -552,7 +552,7 @@ size = Vector2(90, 210)
 size = Vector2(88, 207)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gwv6y"]
-radius = 378.021
+radius = 800.0
 
 [node name="DeathBringer" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "animator", "animated_sprite", "move_input_component", "move_data", "health_component", "chase_opponent_state", "keep_range_state")]
 collision_layer = 0
@@ -563,8 +563,8 @@ animated_sprite = NodePath("AnimatedSprite")
 move_input_component = NodePath("Components/EnemyMoveInputComponent")
 move_data = NodePath("Components/MoveData")
 health_component = NodePath("Components/HealthComponent")
-vary_behavior = 0.02
-max_distance_to_opponent = 2000.0
+vary_behavior = null
+max_distance_to_opponent = 1500.0
 needs = ExtResource("2_3gbcn")
 chase_opponent_state = NodePath("Components/StateMachine/chase_opponent")
 keep_range_state = NodePath("Components/StateMachine/keep_range")
@@ -597,12 +597,13 @@ health_component = NodePath("../../Components/HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/HurtboxComponent"]
 shape = SubResource("RectangleShape2D_rbbcu")
 
-[node name="HitboxComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("parent", "attack_data")]
+[node name="HitboxComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("attack_data", "parent")]
+visible = false
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("50_7mlt2")
-parent = NodePath("../..")
 attack_data = NodePath("../../Components/AttackData")
+parent = NodePath("../..")
 damage = 1
 knock_back = 800.0
 
@@ -611,29 +612,28 @@ position = Vector2(2, 0.5)
 shape = SubResource("RectangleShape2D_m7b4r")
 
 [node name="DetectorComponent" type="Area2D" parent="2DComponents"]
+visible = false
 script = ExtResource("52_k3t2h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/DetectorComponent"]
 shape = SubResource("CircleShape2D_gwv6y")
 
-[node name="AttackManager" type="Node2D" parent="2DComponents" node_paths=PackedStringArray("attack_input_component", "attack_data")]
+[node name="AttackManager" type="Node2D" parent="2DComponents"]
 script = ExtResource("67_as8x7")
-attack_input_component = NodePath("../../Components/AttackInputComponent")
-attack_data = NodePath("../../Components/AttackData")
 attack_interval_time = 0.4
 
 [node name="SpellHolder" type="Node2D" parent="2DComponents/AttackManager"]
 script = ExtResource("68_o4d0x")
-cooldown = 1.8
+cooldown = 1.25
 damage = 1
-knock_back = 500.0
+knock_back = 100.0
 attack_scene = ExtResource("69_e0bdv")
 
 [node name="SlashHolder" type="Node2D" parent="2DComponents/AttackManager"]
 script = ExtResource("68_o4d0x")
 cooldown = 4.0
-damage = 2
-knock_back = 1200.0
+damage = 3
+knock_back = 400.0
 attack_scene = ExtResource("71_83nlh")
 
 [node name="Components" type="Node" parent="."]
@@ -643,8 +643,8 @@ script = ExtResource("49_1xjgt")
 
 [node name="HealthComponent" type="Node" parent="Components"]
 script = ExtResource("49_b8jas")
-max_health = 30
-health = 30
+max_health = 10
+health = 10
 
 [node name="AttackInputComponent" type="Node" parent="Components"]
 script = ExtResource("60_uog5i")
@@ -662,7 +662,6 @@ starting_state = NodePath("idle")
 [node name="idle" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("fall", "walk")]
 script = ExtResource("53_eikms")
 fall = NodePath("../fall")
-wait_time = 2.5
 walk = NodePath("../walk")
 
 [node name="walk" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("fall", "idle", "walk")]
@@ -681,15 +680,12 @@ script = ExtResource("60_y04o2")
 death_bringer = NodePath("../../..")
 walk = NodePath("../walk")
 die = NodePath("../die")
-state_time = 0.2
 
 [node name="cast" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "attack_holder")]
 script = ExtResource("61_1xxcg")
 death_bringer = NodePath("../../..")
 walk = NodePath("../walk")
 attack_holder = NodePath("../../../2DComponents/AttackManager/SpellHolder")
-attack_rng = 0.5
-attack_rng_pos = Vector2(50, 1)
 
 [node name="slash" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "attack_holder")]
 script = ExtResource("62_emk1q")
@@ -709,10 +705,6 @@ slash = NodePath("../slash")
 keep_range = NodePath("../keep_range")
 cast = NodePath("../cast")
 fall = NodePath("../fall")
-attack_range = 330.0
-chase_time_rng = 0.3
-no_movement_time = 0.6
-wall_time = 0.4
 
 [node name="keep_range" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "idle", "chase_opponent", "cast", "fall")]
 script = ExtResource("72_2ubqj")
@@ -721,8 +713,6 @@ idle = NodePath("../idle")
 chase_opponent = NodePath("../chase_opponent")
 cast = NodePath("../cast")
 fall = NodePath("../fall")
-min_attack_range = 550.0
-state_time = 1.5
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(0, 1, 0, 0.564706)

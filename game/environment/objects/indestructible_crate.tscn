@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dq3w5fycu7gt7"]
+[gd_scene load_steps=8 format=3 uid="uid://dq3w5fycu7gt7"]
 
 [ext_resource type="Script" path="res://game/environment/objects/indestructible_crate.gd" id="1_aqlyr"]
 [ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="2_ct70s"]
 [ext_resource type="Script" path="res://shared/components/interactables/hurtbox_component.gd" id="3_stovm"]
+[ext_resource type="Script" path="res://shared/components/attacks/attack_data.gd" id="4_ib5np"]
+[ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="5_r6xcs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t3hrq"]
 size = Vector2(128, 128)
@@ -10,9 +12,26 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mxlrm"]
 size = Vector2(128, 128)
 
-[node name="IndestructibleCrate" type="CharacterBody2D"]
-collision_layer = 16
+[node name="IndestructibleCrate" type="CharacterBody2D" node_paths=PackedStringArray("label")]
+z_index = -4
+collision_layer = 0
 script = ExtResource("1_aqlyr")
+label = NodePath("Label")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_r6xcs")
+max_health = 100
+health = 100
+
+[node name="Label" type="Label" parent="."]
+offset_left = -45.0
+offset_top = -122.0
+offset_right = 48.0
+offset_bottom = -79.0
+text = "ah"
+
+[node name="AttackData" type="Node" parent="."]
+script = ExtResource("4_ib5np")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0.537255, 0, 1)
@@ -21,10 +40,14 @@ texture = ExtResource("2_ct70s")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_t3hrq")
 
-[node name="HurtboxComponent" type="Area2D" parent="."]
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("receiver_data", "parent", "health_component")]
 script = ExtResource("3_stovm")
+receiver_data = NodePath("../AttackData")
+parent = NodePath("..")
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_mxlrm")
 
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="hit_received" from="HurtboxComponent" to="." method="_on_hit_received"]

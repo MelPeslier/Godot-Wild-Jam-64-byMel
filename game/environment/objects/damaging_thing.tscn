@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://vjpcvdhr3lwj"]
+[gd_scene load_steps=5 format=3 uid="uid://vjpcvdhr3lwj"]
 
 [ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="1_jom3d"]
 [ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="2_a2280"]
+[ext_resource type="Script" path="res://shared/components/attacks/attack_data.gd" id="3_hhf76"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0hff"]
 size = Vector2(128, 126)
@@ -20,3 +21,7 @@ knock_back = 2000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("RectangleShape2D_d0hff")
+
+[node name="AttackData" type="Node" parent="."]
+script = ExtResource("3_hhf76")
+owner_type = 1

@@ -14,12 +14,14 @@ extends Node2D
 @export_category("Intervals")
 @export_range(0.05, 2) var combo_time: float = 0.75
 @export_range(0.05, 2) var attack_interval_time: float = 0.5
+@export_range(0.05, 2) var combo_interval_time: float = 2
 @export_range(0.05, 2) var attack_buffer_time: float = 0.4
 
 var pattern: Array[Array]
 var pattern_index: int = 0
 var attack_index: int = 0
 
+var combo_interval_timer: float
 var combo_timer: float:
 	set(val):
 		combo_timer = maxf(-0.1, val)
@@ -43,6 +45,7 @@ func _ready() -> void:
 func process_physics(delta: float) -> void:
 	combo_timer -= delta
 	attack_interval_timer -= delta
+	combo_interval_timer -= delta
 
 	if attack_interval_timer > 0:
 		if attack_interval_timer - attack_buffer_time > 0:
@@ -50,9 +53,11 @@ func process_physics(delta: float) -> void:
 		return
 
 	if not attack: return
-	if not attack_input_component.can_attack():
+	if not player.can_attack():
 		return
 
+	if combo_interval_timer > 0:
+		return
 	if is_basic_attack:
 		# Switch to next attack if in conbo time
 		if combo_timer > 0:
@@ -60,9 +65,11 @@ func process_physics(delta: float) -> void:
 			# When we finish a pattern, we switch to the other pattern
 			if attack_index == 2:
 				pattern_index = (pattern_index + 1) % (pattern.size())
+				combo_interval_timer = combo_interval_time
 
 		else:
 			attack_index = 0
+
 
 		attack = pattern[pattern_index][attack_index]
 		combo_timer = combo_time

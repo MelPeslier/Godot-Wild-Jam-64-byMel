@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://kcarxdi06ddw" path="res://shared/vfx/attacks/double_slash/double_slash_particles.tscn" id="10_mybfi"]
 [ext_resource type="Script" path="res://shared/components/stats/energy_component.gd" id="11_4w2s7"]
 [ext_resource type="PackedScene" uid="uid://3elsp8oerlub" path="res://shared/vfx/attacks/finisher/finisher_particles.tscn" id="11_c7sml"]
-[ext_resource type="Script" path="res://shared/components/attacks/energy_attack.gd" id="11_u7cj7"]
+[ext_resource type="Script" path="res://game/player/attacks/state_change_attack.gd" id="11_p3xpf"]
 [ext_resource type="PackedScene" uid="uid://dldnsnoxo7gg0" path="res://shared/vfx/attacks/burst/burst_particles.tscn" id="12_blfld"]
 [ext_resource type="Script" path="res://game/player/components/attacks/player_attack_input_component.gd" id="12_idt88"]
 [ext_resource type="Script" path="res://shared/components/attacks/attack_data.gd" id="13_wxsv1"]
@@ -291,17 +291,21 @@ height = 116.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_76mxm"]
 radius = 71.4493
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "animated_sprite", "move_input_component", "move_data")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "animated_sprite", "move_input_component", "health_component", "move_data")]
 process_priority = 1
 process_physics_priority = 1
 collision_layer = 16
-safe_margin = 0.1
+collision_priority = 2.0
+safe_margin = 1.0
 script = ExtResource("1_djp00")
 movement_state_machine = NodePath("Components/MovementStateMachine")
 movement_animator = NodePath("movement_animator")
 animated_sprite = NodePath("AnimatedSprite")
 move_input_component = NodePath("Components/player_movement_component")
+health_component = NodePath("Components/HealthComponent")
 move_data = NodePath("Components/MoveData")
+finisher_time = 5.0
+burst_time = 3.0
 
 [node name="bot_pos" type="Marker2D" parent="."]
 position = Vector2(3, 63)
@@ -389,51 +393,74 @@ attack_pattern_1 = [NodePath("left_slash"), NodePath("right_slash"), NodePath("d
 attack_pattern_2 = [NodePath("right_slash"), NodePath("left_slash"), NodePath("big_slash")]
 finisher = NodePath("finisher")
 burst = NodePath("burst")
+attack_interval_time = 0.45
+combo_interval_time = 1.0
 
 [node name="left_slash" type="Node2D" parent="2DComponents/Attacks"]
-position = Vector2(84, 3)
+position = Vector2(126, 0)
 script = ExtResource("6_dkdxr")
+cooldown = 0.2
+damage = 1
+knock_back = 400.0
 attack_particles_scene = ExtResource("7_nwp37")
 
 [node name="right_slash" type="Node2D" parent="2DComponents/Attacks"]
-position = Vector2(85, 3)
+position = Vector2(125, 4)
 script = ExtResource("6_dkdxr")
+cooldown = 0.2
+damage = 1
+knock_back = 400.0
 attack_particles_scene = ExtResource("8_usbgr")
 
 [node name="big_slash" type="Node2D" parent="2DComponents/Attacks"]
-position = Vector2(134, 3)
+position = Vector2(161, 1)
 script = ExtResource("6_dkdxr")
+cooldown = 1.0
+damage = 3
+knock_back = 1200.0
 attack_particles_scene = ExtResource("9_katqs")
 
 [node name="double_slash" type="Node2D" parent="2DComponents/Attacks"]
-position = Vector2(88, 3)
+position = Vector2(125, 2)
 script = ExtResource("6_dkdxr")
+cooldown = 0.7
+damage = 5
+knock_back = 800.0
 attack_particles_scene = ExtResource("10_mybfi")
 
-[node name="finisher" type="Node2D" parent="2DComponents/Attacks" node_paths=PackedStringArray("energy_component")]
-script = ExtResource("11_u7cj7")
+[node name="finisher" type="Node2D" parent="2DComponents/Attacks" node_paths=PackedStringArray("state_machine", "state", "energy_component")]
+script = ExtResource("11_p3xpf")
+state_machine = NodePath("../../../Components/MovementStateMachine")
+state = NodePath("../../../Components/MovementStateMachine/finisher")
 energy_component = NodePath("../../../Components/EnergyComponent")
 energy_cost = 10
-cooldown = 20.0
+cooldown = 30.0
+damage = 18
+knock_back = 1200.0
 attack_particles_scene = ExtResource("11_c7sml")
 light_particles_number = 400
 light_particles_sphere_size = 2500.0
 light_particles_life_time = 10.0
-light_particles_explosiveness = 0.2
+light_particles_explosiveness = 0.05
 
-[node name="burst" type="Node2D" parent="2DComponents/Attacks" node_paths=PackedStringArray("energy_component")]
-script = ExtResource("11_u7cj7")
+[node name="burst" type="Node2D" parent="2DComponents/Attacks" node_paths=PackedStringArray("state_machine", "state", "energy_component")]
+script = ExtResource("11_p3xpf")
+state_machine = NodePath("../../../Components/MovementStateMachine")
+state = NodePath("../../../Components/MovementStateMachine/burst")
 energy_component = NodePath("../../../Components/EnergyComponent")
 energy_cost = 5
-cooldown = 10.0
+cooldown = 15.0
+damage = 7
+knock_back = 1700.0
 attack_particles_scene = ExtResource("12_blfld")
 light_particles_number = 200
 light_particles_sphere_size = 2000.0
 light_particles_life_time = 10.0
-light_particles_explosiveness = 0.1
+light_particles_explosiveness = 0.3
 
-[node name="HurtboxComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("parent", "health_component")]
+[node name="HurtboxComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("receiver_data", "parent", "health_component")]
 script = ExtResource("10_7jawy")
+receiver_data = NodePath("../../Components/AttackData")
 parent = NodePath("../..")
 health_component = NodePath("../../Components/HealthComponent")
 
@@ -458,6 +485,7 @@ start_energy = 10
 [node name="HealthComponent" type="Node" parent="Components"]
 script = ExtResource("10_ky47a")
 max_health = 10
+health = 10
 
 [node name="AttackData" type="Node" parent="Components"]
 script = ExtResource("13_wxsv1")
@@ -470,6 +498,8 @@ can_attack_while_dash = false
 
 [node name="MoveData" type="Node" parent="Components"]
 script = ExtResource("17_2nqr6")
+walk_distance = 500.0
+dash_distance = 1200.0
 
 [node name="player_movement_component" type="Node" parent="Components"]
 script = ExtResource("9_4mvqj")

@@ -18,6 +18,7 @@ enum MovementState{
 @export var movement_animator: AnimationPlayer
 @export var animated_sprite: AnimatedSprite2D
 @export var move_input_component: MoveInputComponent
+@export var health_component: HealthComponent
 @export var move_data: MoveData
 
 @export_category("jump")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://balgd23na7mt2"]
+[gd_scene load_steps=88 format=3 uid="uid://balgd23na7mt2"]
 
 [ext_resource type="Script" path="res://game/enemies/death_bringer/death_bringer.gd" id="1_1sei1"]
 [ext_resource type="Texture2D" uid="uid://bptlip5ml52c3" path="res://game/enemies/death_bringer/art/Individual Sprite/Attack/Bringer-of-Death_Attack_1.png" id="1_n8lgs"]
@@ -53,23 +53,22 @@
 [ext_resource type="Script" path="res://shared/components/attacks/attack_data.gd" id="49_1xjgt"]
 [ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="49_b8jas"]
 [ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="50_7mlt2"]
+[ext_resource type="Script" path="res://game/enemies/components/enemy_move_input_component.gd" id="50_7pxs5"]
 [ext_resource type="Script" path="res://shared/components/states/state_machine.gd" id="51_ii81p"]
+[ext_resource type="Script" path="res://shared/components/attacks/attack_input_component.gd" id="51_xtupu"]
 [ext_resource type="Script" path="res://shared/components/interactables/hurtbox_component.gd" id="52_6wpxd"]
 [ext_resource type="Script" path="res://shared/components/move/move_data.gd" id="52_8rl1t"]
 [ext_resource type="Script" path="res://shared/components/detectable/detector_component.gd" id="52_k3t2h"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/idle.gd" id="53_eikms"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/walk.gd" id="59_graea"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/fall.gd" id="60_jhvds"]
-[ext_resource type="Script" path="res://game/enemies/components/attack/enemy_attack_input_component.tres.gd" id="60_uog5i"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/hit.gd" id="60_y04o2"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/cast.gd" id="61_1xxcg"]
-[ext_resource type="Script" path="res://game/enemies/components/movement/enemy_move_input_component.gd" id="61_ar3yi"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/slash.gd" id="62_emk1q"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/die.gd" id="63_b8o1h"]
 [ext_resource type="Script" path="res://shared/components/attacks/great/attack_manager.gd" id="67_as8x7"]
 [ext_resource type="Script" path="res://shared/components/attacks/great/attack_holder.gd" id="68_o4d0x"]
 [ext_resource type="PackedScene" uid="uid://c84srnts802ud" path="res://game/enemies/death_bringer/attacks/spell.tscn" id="69_e0bdv"]
-[ext_resource type="PackedScene" uid="uid://bly4rdnkc2hy2" path="res://game/enemies/components/souls/soul.tscn" id="71_6t3tr"]
 [ext_resource type="PackedScene" uid="uid://b2fwegq2g1efw" path="res://game/enemies/death_bringer/attacks/slash.tscn" id="71_83nlh"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/chase_opponent.gd" id="71_tkneh"]
 [ext_resource type="Script" path="res://game/enemies/death_bringer/states/keep_range.gd" id="72_2ubqj"]
@@ -79,6 +78,35 @@ size = Vector2(88, 207)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rm1fu"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("48_3empm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_2k0p1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_dimqk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_bbfne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_ds6qe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_xbo4y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_i71bp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_2nn6r")
+}],
+"loop": true,
+"name": &"away",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("11_b8api")
@@ -137,7 +165,7 @@ animations = [{
 "texture": ExtResource("48_3empm")
 }],
 "loop": true,
-"name": &"chase_opponent",
+"name": &"chase",
 "speed": 15.0
 }, {
 "frames": [{
@@ -231,35 +259,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("48_3empm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("47_2k0p1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("46_dimqk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("45_bbfne")
-}, {
-"duration": 1.0,
-"texture": ExtResource("44_ds6qe")
-}, {
-"duration": 1.0,
-"texture": ExtResource("43_xbo4y")
-}, {
-"duration": 1.0,
-"texture": ExtResource("42_i71bp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_2nn6r")
-}],
-"loop": true,
-"name": &"keep_range",
-"speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": ExtResource("1_n8lgs")
 }, {
 "duration": 1.0,
@@ -323,238 +322,57 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Animation" id="Animation_okm8p"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["idle
-"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
+[sub_resource type="Animation" id="Animation_31k7q"]
+resource_name = "away"
 
 [sub_resource type="Animation" id="Animation_ahtpn"]
 resource_name = "cast"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["cast"]
-}
 
 [sub_resource type="Animation" id="Animation_jdrlt"]
-resource_name = "chase_opponent"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["chase_opponent"]
-}
+resource_name = "chase"
 
 [sub_resource type="Animation" id="Animation_n60fv"]
 resource_name = "die"
-length = 1.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["die"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Components/StateMachine/die")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.8),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"spawn_soul"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_iuyjl"]
 resource_name = "fall"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["fall"]
-}
 
 [sub_resource type="Animation" id="Animation_uj3f8"]
 resource_name = "hit"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["hit"]
-}
 
 [sub_resource type="Animation" id="Animation_rhwey"]
 resource_name = "idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["idle
-"]
-}
-
-[sub_resource type="Animation" id="Animation_31k7q"]
-resource_name = "keep_range"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["keep_range
-"]
-}
 
 [sub_resource type="Animation" id="Animation_mnmbk"]
 resource_name = "slash"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["slash
-"]
-}
 
 [sub_resource type="Animation" id="Animation_6xcio"]
 resource_name = "walk"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["walk
-"]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0rt4w"]
 _data = {
-"RESET": SubResource("Animation_okm8p"),
+"away": SubResource("Animation_31k7q"),
 "cast": SubResource("Animation_ahtpn"),
-"chase_opponent": SubResource("Animation_jdrlt"),
+"chase": SubResource("Animation_jdrlt"),
 "die": SubResource("Animation_n60fv"),
 "fall": SubResource("Animation_iuyjl"),
 "hit": SubResource("Animation_uj3f8"),
 "idle": SubResource("Animation_rhwey"),
-"keep_range": SubResource("Animation_31k7q"),
 "slash": SubResource("Animation_mnmbk"),
 "walk": SubResource("Animation_6xcio")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbbcu"]
-size = Vector2(90, 210)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7b4r"]
 size = Vector2(88, 207)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gwv6y"]
-radius = 378.021
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mdpqq"]
+radius = 44.0
+height = 224.0
 
-[node name="DeathBringer" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "animator", "animated_sprite", "move_input_component", "move_data", "health_component", "chase_opponent_state", "keep_range_state")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_gwv6y"]
+radius = 800.0
+
+[node name="DeathBringer" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "animator", "animated_sprite", "move_input_component", "move_data", "health_component")]
 collision_layer = 0
 script = ExtResource("1_1sei1")
 state_machine = NodePath("Components/StateMachine")
@@ -563,11 +381,8 @@ animated_sprite = NodePath("AnimatedSprite")
 move_input_component = NodePath("Components/EnemyMoveInputComponent")
 move_data = NodePath("Components/MoveData")
 health_component = NodePath("Components/HealthComponent")
-vary_behavior = 0.02
-max_distance_to_opponent = 2000.0
+max_distance_to_opponent = 1500.0
 needs = ExtResource("2_3gbcn")
-chase_opponent_state = NodePath("Components/StateMachine/chase_opponent")
-keep_range_state = NodePath("Components/StateMachine/keep_range")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 0.5)
@@ -577,7 +392,9 @@ shape = SubResource("RectangleShape2D_medt3")
 position = Vector2(-12, 0)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_rm1fu")
-animation = &"die"
+animation = &"slash"
+frame = 7
+frame_progress = 0.547674
 offset = Vector2(39, -20)
 flip_h = true
 
@@ -588,6 +405,17 @@ libraries = {
 
 [node name="2DComponents" type="Node2D" parent="."]
 
+[node name="HitboxComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("attack_data", "parent")]
+script = ExtResource("50_7mlt2")
+attack_data = NodePath("../../Components/AttackData")
+parent = NodePath("../..")
+damage = 1
+knock_back = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/HitboxComponent"]
+position = Vector2(2, 0.5)
+shape = SubResource("RectangleShape2D_m7b4r")
+
 [node name="HurtboxComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("receiver_data", "parent", "health_component")]
 script = ExtResource("52_6wpxd")
 receiver_data = NodePath("../../Components/AttackData")
@@ -595,20 +423,9 @@ parent = NodePath("../..")
 health_component = NodePath("../../Components/HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/HurtboxComponent"]
-shape = SubResource("RectangleShape2D_rbbcu")
-
-[node name="HitboxComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("parent", "attack_data")]
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("50_7mlt2")
-parent = NodePath("../..")
-attack_data = NodePath("../../Components/AttackData")
-damage = 1
-knock_back = 800.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/HitboxComponent"]
-position = Vector2(2, 0.5)
-shape = SubResource("RectangleShape2D_m7b4r")
+position = Vector2(2, -6)
+shape = SubResource("CapsuleShape2D_mdpqq")
+disabled = true
 
 [node name="DetectorComponent" type="Area2D" parent="2DComponents"]
 script = ExtResource("52_k3t2h")
@@ -616,44 +433,43 @@ script = ExtResource("52_k3t2h")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/DetectorComponent"]
 shape = SubResource("CircleShape2D_gwv6y")
 
-[node name="AttackManager" type="Node2D" parent="2DComponents" node_paths=PackedStringArray("attack_input_component", "attack_data")]
+[node name="AttackManager" type="Node2D" parent="2DComponents" node_paths=PackedStringArray("parent", "attack_input_component", "attack_data")]
 script = ExtResource("67_as8x7")
+parent = NodePath("../..")
 attack_input_component = NodePath("../../Components/AttackInputComponent")
 attack_data = NodePath("../../Components/AttackData")
 attack_interval_time = 0.4
 
 [node name="SpellHolder" type="Node2D" parent="2DComponents/AttackManager"]
 script = ExtResource("68_o4d0x")
-cooldown = 1.8
+cooldown = 1.25
 damage = 1
-knock_back = 500.0
 attack_scene = ExtResource("69_e0bdv")
 
 [node name="SlashHolder" type="Node2D" parent="2DComponents/AttackManager"]
 script = ExtResource("68_o4d0x")
-cooldown = 4.0
-damage = 2
-knock_back = 1200.0
+cooldown = 3.0
+damage = 3
 attack_scene = ExtResource("71_83nlh")
 
 [node name="Components" type="Node" parent="."]
 
+[node name="HealthComponent" type="Node" parent="Components"]
+script = ExtResource("49_b8jas")
+max_health = 10
+health = 10
+
 [node name="AttackData" type="Node" parent="Components"]
 script = ExtResource("49_1xjgt")
 
-[node name="HealthComponent" type="Node" parent="Components"]
-script = ExtResource("49_b8jas")
-max_health = 30
-health = 30
-
 [node name="AttackInputComponent" type="Node" parent="Components"]
-script = ExtResource("60_uog5i")
+script = ExtResource("51_xtupu")
 
 [node name="MoveData" type="Node" parent="Components"]
 script = ExtResource("52_8rl1t")
 
 [node name="EnemyMoveInputComponent" type="Node" parent="Components"]
-script = ExtResource("61_ar3yi")
+script = ExtResource("50_7pxs5")
 
 [node name="StateMachine" type="Node" parent="Components" node_paths=PackedStringArray("starting_state")]
 script = ExtResource("51_ii81p")
@@ -662,7 +478,6 @@ starting_state = NodePath("idle")
 [node name="idle" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("fall", "walk")]
 script = ExtResource("53_eikms")
 fall = NodePath("../fall")
-wait_time = 2.5
 walk = NodePath("../walk")
 
 [node name="walk" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("fall", "idle", "walk")]
@@ -671,67 +486,42 @@ fall = NodePath("../fall")
 idle = NodePath("../idle")
 walk = NodePath(".")
 
-[node name="fall" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle", "death_bringer")]
+[node name="fall" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle")]
 script = ExtResource("60_jhvds")
 idle = NodePath("../idle")
-death_bringer = NodePath("../../..")
 
-[node name="hit" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "die")]
+[node name="hit" type="Node" parent="Components/StateMachine"]
 script = ExtResource("60_y04o2")
-death_bringer = NodePath("../../..")
-walk = NodePath("../walk")
-die = NodePath("../die")
-state_time = 0.2
 
-[node name="cast" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "attack_holder")]
+[node name="cast" type="Node" parent="Components/StateMachine"]
 script = ExtResource("61_1xxcg")
-death_bringer = NodePath("../../..")
-walk = NodePath("../walk")
-attack_holder = NodePath("../../../2DComponents/AttackManager/SpellHolder")
-attack_rng = 0.5
-attack_rng_pos = Vector2(50, 1)
 
-[node name="slash" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "attack_holder")]
+[node name="slash" type="Node" parent="Components/StateMachine"]
 script = ExtResource("62_emk1q")
-death_bringer = NodePath("../../..")
-walk = NodePath("../walk")
-attack_holder = NodePath("../../../2DComponents/AttackManager/SlashHolder")
 
 [node name="die" type="Node" parent="Components/StateMachine"]
 script = ExtResource("63_b8o1h")
-soul_scene = ExtResource("71_6t3tr")
 
-[node name="chase_opponent" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "slash", "keep_range", "cast", "fall")]
+[node name="chase_opponent" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "slash", "keep_range")]
 script = ExtResource("71_tkneh")
 death_bringer = NodePath("../../..")
 walk = NodePath("../walk")
 slash = NodePath("../slash")
 keep_range = NodePath("../keep_range")
-cast = NodePath("../cast")
-fall = NodePath("../fall")
-attack_range = 330.0
-chase_time_rng = 0.3
-no_movement_time = 0.6
-wall_time = 0.4
 
-[node name="keep_range" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "idle", "chase_opponent", "cast", "fall")]
+[node name="keep_range" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "idle", "chase_opponent", "cast")]
 script = ExtResource("72_2ubqj")
 death_bringer = NodePath("../../..")
 idle = NodePath("../idle")
 chase_opponent = NodePath("../chase_opponent")
 cast = NodePath("../cast")
-fall = NodePath("../fall")
-min_attack_range = 550.0
-state_time = 1.5
 
 [node name="Panel" type="Panel" parent="."]
-self_modulate = Color(0, 1, 0, 0.564706)
 custom_minimum_size = Vector2(200, 200)
 offset_left = -348.0
 offset_top = 96.0
 offset_right = 352.0
 offset_bottom = 420.0
-mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -812,17 +602,6 @@ layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="."]
-offset_left = -79.0
-offset_top = -184.0
-offset_right = 77.0
-offset_bottom = -141.0
-text = "idle
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[connection signal="hit_received" from="2DComponents/HurtboxComponent" to="Components/StateMachine/hit" method="_on_hit_received"]
 [connection signal="area_entered" from="2DComponents/DetectorComponent" to="." method="_on_detector_component_area_entered"]
 [connection signal="attack_up" from="2DComponents/AttackManager/SpellHolder" to="." method="_on_spell_holder_attack_up"]
 [connection signal="attack_up" from="2DComponents/AttackManager/SlashHolder" to="." method="_on_slash_holder_attack_up"]
