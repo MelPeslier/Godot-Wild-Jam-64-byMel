@@ -108,7 +108,7 @@ func come_back_x() -> void:
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
-	tween.tween_property(parent.sprite, "position:y", parent.target_pos.position.y, transition_time)
+	tween.tween_property(parent.sprite, "position:y", parent.position.y, transition_time)
 		#.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
@@ -122,7 +122,7 @@ func come_back_y() -> void:
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
-	tween.tween_property(parent.sprite, "position:x", parent.target_pos.position.x, transition_time)
+	tween.tween_property(parent.sprite, "position:x", parent.position.x, transition_time)
 		#.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 

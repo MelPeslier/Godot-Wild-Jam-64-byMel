@@ -1,4 +1,4 @@
-extends PlayerMove
+extends PlayerState
 
 @export var idle: State
 @export var walk: State
@@ -10,17 +10,23 @@ extends PlayerMove
 func enter() -> void:
 	super()
 	player.jump_coyote_timer = player.jump_coyote_time
-	ray_casts.activate()
+	#ray_casts.activate()
 
 
-func exit() -> void:
-	ray_casts.deactivate()
+#func exit() -> void:
+	#ray_casts.deactivate()
 
 
 func process_physics(delta: float) -> State:
-	super(delta)
-	parent.velocity.y += parent.fall_gravity * delta
-	ray_casts.process_physics_right(delta)
+	move_data.dir = get_movement_input()
+	if not move_data.dir or not player.can_move:
+		print("&")
+		do_walk_decelerate(delta)
+	else:
+		do_walk_accelerate(delta)
+	parent.velocity.y += move_data.fall_gravity * delta
+	parent.velocity.y = minf(parent.velocity.y, move_data.max_fall_speed)
+	#ray_casts.process_physics_right(delta)
 	parent.move_and_slide()
 
 	player.jump_coyote_timer -= delta

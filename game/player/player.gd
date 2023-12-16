@@ -13,47 +13,33 @@ enum MovementState{
 	DIE
 }
 
+@export_category("Components & Nodes")
 @export var movement_state_machine: StateMachine
 @export var movement_animator: AnimationPlayer
-@export var player_movement_component: MovementComponent
-@export var sprite: Sprite2D
-@export var dummy: Node2D
+@export var animated_sprite: AnimatedSprite2D
+@export var move_input_component: MoveInputComponent
+@export var move_data: MoveData
 
 @export_category("jump")
-@export_range(0, 2000, 1) var max_fall_speed: float = 600
 @export_range(0, 1) var min_jump_coef: float = 0.35
-@export_range(0, 2000, 1) var jump_height: float = 270
-@export_range(0, 3) var jump_time_to_peak: float = 1
-@export_range(0, 3) var jump_time_to_descent: float = 0.5
 @export var jumps_number: int = 2
 @export var next_jumps_coef: float = 0.25
 @export var jump_buffer_time: float = 0.1
 @export var jump_coyote_time: float = 0.1
 
-@export_category("walk")
-@export_range(0, 2000, 1) var walk_speed: float = 256
-@export_range(0, 2) var walk_acceleration_time: float = 0.137
-@export_range(0, 2) var walk_deceleration_time: float = 0.269
-
 @export_category("dash")
 @export var dashes_number: int = 1
 @export_range(0.05, 1) var dash_buffer_time: float = 0.15
 @export_range(0.05, 3) var dash_interval_time: float = 1
-@export_range(0, 2000, 1) var dash_speed: float = 1024
-@export_range(0.05, 1) var dash_time: float = 0.3
 
 @export_category("attacks")
 @export_range(0.05, 8) var finisher_time: float = 8
 @export_range(0.05, 5) var burst_time: float = 3.5
 
+@export_category("hit")
+@export_range(0.05, 8) var hit_timer: float = 0.1
+
 var current_movement_state: MovementState
-
-var gravity: float = 0
-var fall_gravity: float = 0
-var initial_jump_velocity: float = 0
-
-var walk_acceleration: float = 0
-var walk_deceleration: float = 0
 
 var remaining_jumps: int = jumps_number
 var jump_buffer_timer: float = 0
@@ -72,28 +58,19 @@ var dash_timer: float = 0
 var finisher_timer: float
 var burst_timer: float
 
-var old_velocity: float = 0
-var old_direction: int = 1:
-	set(val):
-		if val == 0:
-			print("player:old_direction | shouldn't reach : ", val)
-		else:
-			old_direction = val
-			sprite.flip_h = old_direction < 0
-			attacks.scale.x = old_direction
-			ray_casts.scale.x = old_direction
-
 var can_move: bool = true
 var _can_attack := true
 var _can_receive_input := true
-@onready var attacks: PlayerAttacks = $Attacks as PlayerAttacks
-@onready var ray_casts: Node2D = $RayCasts
-@onready var target_pos: Marker2D = $target_pos
+
+@onready var attacks: PlayerAttacks = $"2DComponents/Attacks"
+@onready var ray_casts: Node2D = $"2DComponents/RayCasts"
+@onready var bot_pos: Marker2D = $bot_pos
+@onready var mid_pos: Marker2D = $mid_pos
 
 
 func _ready() -> void:
-	update_physics_data()
-	movement_state_machine.init(self, movement_animator, player_movement_component)
+	movement_state_machine.init(self, movement_animator, animated_sprite, move_input_component, move_data)
+	min_jump_time = move_data.jump_time_to_peak * min_jump_coef
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -103,9 +80,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	#FIXME remove it, it's only here to tweak values in editor and to see changes in real-time
-	update_physics_data()
-
+	# Dash
 	dash_interval_timer -= delta
 	if is_on_floor() and dash_interval_timer == 0:
 		reload_dashes()
@@ -122,9 +97,20 @@ func _process(delta: float) -> void:
 func can_attack() -> bool:
 	return _can_attack and _can_receive_input
 
+func disable_attack() -> void:
+	_can_attack = false
+
+func enable_attack() -> void:
+	_can_attack = true
 
 func can_receive_input() -> bool:
 	return _can_receive_input
+
+func disable_input() -> void:
+	_can_receive_input = false
+
+func enable_input() -> void:
+	_can_receive_input = true
 #endregion
 
 
@@ -138,7 +124,6 @@ func alter_dashes(val: int) -> void:
 func reload_dashes() -> void:
 	alter_dashes(dashes_number)
 
-
 func can_jump() -> bool:
 	return remaining_jumps > 0 and can_move
 
@@ -150,13 +135,11 @@ func get_jump_coef() -> float:
 #endregion
 
 
-#region Physics
-func update_physics_data() -> void:
-	gravity = Math.get_gravity(jump_height, jump_time_to_peak)
-	fall_gravity = Math.get_gravity(jump_height, jump_time_to_descent)
-	initial_jump_velocity = Math.get_velocity(jump_height, jump_time_to_peak)
-	walk_deceleration = Math.get_velocity(walk_speed, walk_deceleration_time)
-	walk_acceleration = Math.get_velocity(walk_speed, walk_acceleration_time)
-	min_jump_time = jump_time_to_peak * min_jump_coef
+#region Signals Connected
+func _on_move_data_dir_changed(new_dir: int) -> void:
+	animated_sprite.flip_h = new_dir < 0
+	attacks.scale.x = float( new_dir )
+	ray_casts.scale.x = float( new_dir )
+	mid_pos.scale.x = float( new_dir )
+	bot_pos.scale.x = float( new_dir )
 #endregion
-

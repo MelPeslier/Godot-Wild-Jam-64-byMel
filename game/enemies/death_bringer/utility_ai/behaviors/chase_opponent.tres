@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="UtilityAIBehavior" load_steps=10 format=3 uid="uid://bbmtau0n500ap"]
+
+[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_response_curve.gd" id="1_26x8n"]
+[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_consideration.gd" id="2_loeuo"]
+[ext_resource type="Script" path="res://addons/utility_ai/core/utility_ai_behavior.gd" id="3_vwl8v"]
+
+[sub_resource type="Curve" id="Curve_tclqk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+script = ExtResource("1_26x8n")
+curve_type = 4
+exponent = 1
+slope = 1
+x_shift = 0.0
+y_shift = 0.0
+
+[sub_resource type="Resource" id="Resource_rnsgx"]
+script = ExtResource("2_loeuo")
+input_key = "opponent_health"
+invert = false
+response_curve = SubResource("Curve_tclqk")
+
+[sub_resource type="Curve" id="Curve_ru6lg"]
+_data = [Vector2(0, 0.646058), 0.0, -0.27283, 1, 1, Vector2(1, 0.373227), -0.27283, 0.668179, 1, 1]
+point_count = 2
+script = ExtResource("1_26x8n")
+curve_type = 4
+exponent = 1
+slope = 1
+x_shift = 0.0
+y_shift = 0.0
+
+[sub_resource type="Resource" id="Resource_x3q0u"]
+script = ExtResource("2_loeuo")
+input_key = "distance_to_opponent"
+invert = false
+response_curve = SubResource("Curve_ru6lg")
+
+[sub_resource type="Curve" id="Curve_e8xbn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+script = ExtResource("1_26x8n")
+curve_type = 4
+exponent = 1
+slope = 1
+x_shift = 0.0
+y_shift = 0.0
+
+[sub_resource type="Resource" id="Resource_whl24"]
+script = ExtResource("2_loeuo")
+input_key = "health"
+invert = false
+response_curve = SubResource("Curve_e8xbn")
+
+[resource]
+script = ExtResource("3_vwl8v")
+name = &"chase_opponent"
+aggregation = 0
+considerations = Array[ExtResource("2_loeuo")]([SubResource("Resource_rnsgx"), SubResource("Resource_x3q0u"), SubResource("Resource_whl24")])

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dq3w5fycu7gt7"]
+
+[ext_resource type="Script" path="res://game/environment/objects/indestructible_crate.gd" id="1_aqlyr"]
+[ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="2_ct70s"]
+[ext_resource type="Script" path="res://shared/components/interactables/hurtbox_component.gd" id="3_stovm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3hrq"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mxlrm"]
+size = Vector2(128, 128)
+
+[node name="IndestructibleCrate" type="CharacterBody2D"]
+collision_layer = 16
+script = ExtResource("1_aqlyr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0.537255, 0, 1)
+texture = ExtResource("2_ct70s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_t3hrq")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+script = ExtResource("3_stovm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_mxlrm")
+
+[connection signal="hit_received" from="HurtboxComponent" to="." method="_on_hit_received"]

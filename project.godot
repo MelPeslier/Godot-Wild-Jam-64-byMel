@@ -26,8 +26,8 @@ buses/default_bus_layout="res://shared/sound/audio_bus_layout.tres"
 SceneTransition="*res://autoloads/scene_transition/scene_transition.tscn"
 Music="*res://autoloads/sound_manager/music.gd"
 Sfx="*res://autoloads/sound_manager/sfx.tscn"
-Math="*res://autoloads/math/math.gd"
 GameManager="*res://autoloads/game/game_manager.gd"
+GameEvents="*res://autoloads/game/game_events.gd"
 
 [debug]
 
@@ -41,12 +41,20 @@ window/size/window_width_override=1536
 window/size/window_height_override=864
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/utility_ai/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
+"res://addons/": "gray",
 "res://autoloads/": "red",
+"res://game/enemies/components/": "blue",
+"res://game/enemies/death_bringer/art/": "orange",
 "res://game/environment/background/art/": "orange",
 "res://game/player/art/": "orange",
+"res://game/player/components/": "blue",
 "res://game/player/sound/": "purple",
 "res://shared/art/": "orange",
 "res://shared/components/": "blue",
@@ -117,3 +125,4 @@ locale/translations=PackedStringArray("res://ui/translations/translations.en.tra
 2d_physics/layer_2="hurtbox"
 2d_physics/layer_3="interactable"
 2d_physics/layer_4="soul"
+2d_physics/layer_5="detectable"

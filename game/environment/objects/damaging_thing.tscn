@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://vjpcvdhr3lwj"]
+
+[ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="1_jom3d"]
+[ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="2_a2280"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0hff"]
+size = Vector2(128, 126)
+
+[node name="DamagingThing" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.0862745, 0, 1)
+texture = ExtResource("1_jom3d")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("2_a2280")
+parent = NodePath("..")
+damage = 1
+knock_back = 2000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_d0hff")

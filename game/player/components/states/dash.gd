@@ -21,7 +21,7 @@ func enter() -> void:
 	super()
 	player.alter_dashes(-1)
 	spawn_particles()
-	player.dash_timer = player.dash_time
+	player.dash_timer = move_data.dash_time
 	player.dash_interval_timer = player.dash_interval_time
 	parent.velocity.y = 0
 	ray_casts.activate()
@@ -32,7 +32,7 @@ func exit() -> void:
 
 
 func process_physics(delta: float) -> State:
-	parent.velocity.x = player.dash_speed * player.old_direction
+	parent.velocity.x = move_data.dash_distance * move_data.old_dir
 	ray_casts.process_physics_right(delta)
 	parent.move_and_slide()
 
@@ -80,10 +80,10 @@ func process_frame(_delta: float) -> State:
 func spawn_particles() -> void:
 	var dash_instance: DashParticles = dash_particles_scene.instantiate()
 	parent.add_child(dash_instance)
-	dash_instance.position = player.target_pos.position
-	dash_instance.play(player.old_direction)
+	dash_instance.position = player.mid_pos.position
+	dash_instance.play(move_data.old_dir)
 
 	var light_instance: LightParticles = light_particles_scene.instantiate() as LightParticles
 	parent.add_child(light_instance)
-	light_instance.position = player.target_pos.position
+	light_instance.position = player.mid_pos.position
 	light_instance.play(light_particles_number, light_particles_sphere_size, light_particles_lifetime, light_particles_explosiveness)

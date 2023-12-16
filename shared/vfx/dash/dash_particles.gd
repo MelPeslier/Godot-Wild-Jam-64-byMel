@@ -5,7 +5,7 @@ extends Node2D
 @onready var trace: GPUParticles2D = $trace
 
 
-func play(direction: int) -> void:
+func play(direction: float) -> void:
 	var trace_process: ParticleProcessMaterial = trace.process_material as ParticleProcessMaterial
 	trace_process.direction.x = direction
 	animator.play("activate")

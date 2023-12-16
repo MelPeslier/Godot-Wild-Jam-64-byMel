@@ -1,5 +1,5 @@
 class_name PlayerState
-extends State
+extends MoveState
 
 @export var player_movement_state: Player.MovementState
 
@@ -19,12 +19,12 @@ func enter() -> void:
 
 
 func get_movement_input() -> float:
-	return movement_component.get_movement_direction()
+	return move_input_component.get_movement_direction()
 
 
 func get_jump() -> bool:
-	return movement_component.wants_jump()
+	return move_input_component.wants_jump()
 
 
 func get_dash() -> bool:
-	return movement_component.wants_dash()
+	return move_input_component.wants_dash()

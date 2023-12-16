@@ -3,6 +3,7 @@ extends Node2D
 
 @export var player: Player
 @export var attack_input_component: AttackInputComponent
+@export var attack_data: AttackData
 
 @export_category("Attacks")
 @export var attack_pattern_1 :Array[Attack]
@@ -11,9 +12,9 @@ extends Node2D
 @export var burst: Attack
 
 @export_category("Intervals")
-@export_range(0.05, 2) var combo_time: float
-@export_range(0.05, 2) var attack_interval_time: float
-@export_range(0.05, 2) var attack_buffer_time: float
+@export_range(0.05, 2) var combo_time: float = 0.75
+@export_range(0.05, 2) var attack_interval_time: float = 0.5
+@export_range(0.05, 2) var attack_buffer_time: float = 0.4
 
 var pattern: Array[Array]
 var pattern_index: int = 0
@@ -35,7 +36,8 @@ func _ready() -> void:
 	pattern = [attack_pattern_1, attack_pattern_2]
 	for _attack: Attack in get_children():
 		if _attack:
-			_attack.player = player
+			_attack.parent = player
+			_attack.attack_data = attack_data
 
 
 func process_physics(delta: float) -> void:

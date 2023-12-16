@@ -1,4 +1,4 @@
-extends PlayerMove
+extends PlayerState
 
 @export var walk: State
 @export var jump: State
@@ -7,10 +7,10 @@ extends PlayerMove
 
 
 func process_physics(delta: float) -> State:
-	super(delta)
+	do_walk_decelerate(delta)
 	parent.move_and_slide()
 
-	if !parent.is_on_floor():
+	if not parent.is_on_floor():
 		return fall
 	return null
 

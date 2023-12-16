@@ -1,0 +1,271 @@
+[gd_scene load_steps=40 format=3 uid="uid://c84srnts802ud"]
+
+[ext_resource type="Script" path="res://shared/vfx/attacks/attack_particles.gd" id="1_8h3ui"]
+[ext_resource type="Texture2D" uid="uid://cs2frwk4fot0n" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_1.png" id="1_yxkpp"]
+[ext_resource type="Texture2D" uid="uid://bot8bgmgyfd5h" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_2.png" id="2_d2gra"]
+[ext_resource type="Texture2D" uid="uid://yvbxd7iobp1o" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_3.png" id="3_6riji"]
+[ext_resource type="Texture2D" uid="uid://dxacr1jj7hwe4" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_4.png" id="4_5qqea"]
+[ext_resource type="Texture2D" uid="uid://bccjsa8cwi8ro" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_5.png" id="5_sttlq"]
+[ext_resource type="Texture2D" uid="uid://bystbi14pklmg" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_6.png" id="6_degb6"]
+[ext_resource type="Texture2D" uid="uid://bifo0b8v7yplb" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_7.png" id="7_0qv7q"]
+[ext_resource type="Texture2D" uid="uid://cgfnrfaxw4rkp" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_8.png" id="8_6dos1"]
+[ext_resource type="Texture2D" uid="uid://y5w411skq64x" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_9.png" id="9_lcpkq"]
+[ext_resource type="Texture2D" uid="uid://t0qtfpo8g21d" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_10.png" id="10_v1t5p"]
+[ext_resource type="Texture2D" uid="uid://dbsm313oche48" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_11.png" id="11_u8uwt"]
+[ext_resource type="Texture2D" uid="uid://bvi2dnfjpvmfm" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_12.png" id="12_7jc8x"]
+[ext_resource type="Texture2D" uid="uid://ccg88pwmntc4b" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_13.png" id="13_tbd5w"]
+[ext_resource type="Texture2D" uid="uid://dnbwkbfke5lef" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_14.png" id="14_lhvsu"]
+[ext_resource type="Texture2D" uid="uid://kxyr1p0m7man" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_15.png" id="15_f844o"]
+[ext_resource type="Texture2D" uid="uid://cpwkuprxgkn1v" path="res://game/enemies/death_bringer/art/Individual Sprite/Spell/Bringer-of-Death_Spell_16.png" id="16_666wb"]
+[ext_resource type="Texture2D" uid="uid://cr7dd8umrt1b1" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_1.png" id="17_q4wuf"]
+[ext_resource type="Texture2D" uid="uid://ctjlt7q37wqha" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_2.png" id="18_t6tde"]
+[ext_resource type="Texture2D" uid="uid://dmvl6ts74sol3" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_3.png" id="19_hxwdm"]
+[ext_resource type="Texture2D" uid="uid://cnt0tn3l4ovwd" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_4.png" id="20_4i3me"]
+[ext_resource type="Texture2D" uid="uid://iol7hsb835q7" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_5.png" id="21_yv5qk"]
+[ext_resource type="Texture2D" uid="uid://bvbej8vxks61r" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_6.png" id="22_brciw"]
+[ext_resource type="Texture2D" uid="uid://b113w7wo0531f" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_7.png" id="23_wfm3o"]
+[ext_resource type="Texture2D" uid="uid://cqp6m4mop7ycq" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_8.png" id="24_8brqy"]
+[ext_resource type="Texture2D" uid="uid://dgthu52g4rpe7" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_9.png" id="25_x1aje"]
+[ext_resource type="Texture2D" uid="uid://bpyr0bctw5jc7" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_10.png" id="26_sannf"]
+[ext_resource type="Texture2D" uid="uid://dtd15p7u2ikrf" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_11.png" id="27_qjotv"]
+[ext_resource type="Texture2D" uid="uid://dthdjn5piun0l" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_12.png" id="28_ula1h"]
+[ext_resource type="Texture2D" uid="uid://ccco35gffj8kt" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_13.png" id="29_ju4du"]
+[ext_resource type="Texture2D" uid="uid://dkeis2ahy4sgj" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_14.png" id="30_1q1xq"]
+[ext_resource type="Texture2D" uid="uid://vvjihbhdbg42" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_15.png" id="31_mo6d0"]
+[ext_resource type="Texture2D" uid="uid://4updyoimphc6" path="res://game/enemies/death_bringer/art/Individual Sprite/No Effect Sprites/Spell/Bringer-of-Death_Spell_16.png" id="32_2gwxa"]
+[ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="34_l3c17"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u2s3n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_yxkpp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_d2gra")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6riji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5qqea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sttlq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_degb6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0qv7q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6dos1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lcpkq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_v1t5p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_u8uwt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7jc8x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_tbd5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_lhvsu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_f844o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_666wb")
+}],
+"loop": false,
+"name": &"activate",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_q4wuf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_t6tde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_hxwdm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_4i3me")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_yv5qk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_brciw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_wfm3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_8brqy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_x1aje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_sannf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_qjotv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_ula1h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_ju4du")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_1q1xq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_mo6d0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_2gwxa")
+}],
+"loop": true,
+"name": &"appear",
+"speed": 15.0
+}]
+
+[sub_resource type="Animation" id="Animation_bto20"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_h17uo"]
+resource_name = "attack"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [&"appear", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"activate", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"appear", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 1.7, 1.98477),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.31523),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_exvxs"]
+_data = {
+"RESET": SubResource("Animation_bto20"),
+"attack": SubResource("Animation_h17uo")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8vg34"]
+size = Vector2(61, 194)
+
+[node name="Spell" type="Node2D" node_paths=PackedStringArray("animator")]
+script = ExtResource("1_8h3ui")
+animator = NodePath("Animator")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_u2s3n")
+animation = &"activate"
+frame = 10
+frame_progress = 0.699827
+offset = Vector2(0, -46)
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_exvxs")
+}
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+script = ExtResource("34_l3c17")
+damage = 3
+knock_back = 200.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-32.5, -98)
+shape = SubResource("RectangleShape2D_8vg34")
+disabled = true

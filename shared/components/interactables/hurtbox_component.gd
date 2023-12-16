@@ -1,10 +1,11 @@
 class_name HurtboxComponent
 extends Area2D
 
-@export var parent: AfterHitEffectComponent
+signal hit_received(kb: Vector2)
 
+@export var receiver_data: AttackData
+@export var parent: Node2D
 @export var health_component: HealthComponent
-
 
 
 func _init() -> void:
@@ -19,10 +20,19 @@ func _ready() -> void:
 func _on_area_entered(hitbox: HitboxComponent) -> void:
 	if not hitbox:
 		return
-
-	if health_component:
-		health_component.dammage(hitbox.damage)
+	if hitbox.parent == parent:
 		return
 
-	if parent:
-		parent.just_got_hit(hitbox.knock_back, hitbox.hit_stop, hitbox.hit_stop_shake, hitbox.camera_shake)
+	var kb: Vector2 = hitbox.parent.global_position.direction_to(global_position) * hitbox.knock_back
+	var dm: int = hitbox.damage
+
+	if hitbox.attack_data and receiver_data:
+		if hitbox.attack_data.owner_type == receiver_data.owner_type:
+			return
+
+		# Special interactions depending on types
+
+	if health_component:
+		health_component.damage(dm)
+
+	hit_received.emit(kb)

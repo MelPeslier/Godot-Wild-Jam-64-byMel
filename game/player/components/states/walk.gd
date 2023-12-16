@@ -1,4 +1,4 @@
-extends PlayerMove
+extends PlayerState
 
 @export var idle: State
 @export var jump: State
@@ -7,10 +7,10 @@ extends PlayerMove
 
 
 func process_physics(delta: float) -> State:
-	if not get_movement_input() or not player.can_move:
+	move_data.dir = get_movement_input()
+	if not move_data.dir or not player.can_move:
 		return idle
-
-	super(delta)
+	do_walk_accelerate(delta)
 	parent.move_and_slide()
 
 	if not parent.is_on_floor():

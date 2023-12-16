@@ -198,9 +198,7 @@ libraries = {
 [node name="HitboxComponent" type="Area2D" parent="."]
 script = ExtResource("4_5dcdy")
 damage = 5
-knockback = 30.0
-hitstop = 0.05
-hit_stop_shake = 1.0
+knock_back = 25.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(5.5, -1.5)

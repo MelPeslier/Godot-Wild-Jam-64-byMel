@@ -9,13 +9,16 @@ var parent: CharacterBody2D:
 		parent_update.emit()
 
 var animator: AnimationPlayer
-var movement_component: MovementComponent
+var animated_sprite: AnimatedSprite2D
+var move_input_component: MoveInputComponent
+var move_data: MoveData
 
 @onready var animation_name: String = name
 
 
 func enter() -> void:
 	animator.play(animation_name)
+	animated_sprite.play(animation_name)
 
 
 func exit() -> void:
@@ -35,12 +38,12 @@ func process_frame(_delta: float) -> State:
 
 
 func get_movement_input() -> float:
-	return movement_component.get_movement_direction()
+	return move_input_component.get_movement_direction()
 
 
 func get_jump() -> bool:
-	return movement_component.wants_jump()
+	return move_input_component.wants_jump()
 
 
 func get_dash() -> bool:
-	return movement_component.wants_dash()
+	return move_input_component.wants_dash()

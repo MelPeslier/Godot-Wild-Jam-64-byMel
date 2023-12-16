@@ -132,7 +132,6 @@ libraries = {
 [node name="HitboxComponent" type="Area2D" parent="."]
 script = ExtResource("4_reavi")
 damage = 1
-knockback = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(4, 0)

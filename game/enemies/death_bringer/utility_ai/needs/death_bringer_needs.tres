@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DeathBringerNeeds" load_steps=2 format=3 uid="uid://bbi5rkavlhbhi"]
+
+[ext_resource type="Script" path="res://game/enemies/death_bringer/utility_ai/needs/death_bringer_needs.gd" id="1_6ypi3"]
+
+[resource]
+script = ExtResource("1_6ypi3")
+distance_to_opponent = 0.1
+health = 0.7
+opponent_health = 0.7
