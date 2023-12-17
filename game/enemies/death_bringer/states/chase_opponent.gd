@@ -9,8 +9,9 @@ extends MoveState
 @export var fall: State
 
 @export_category("vars")
-@export_range(100, 350, 1) var attack_range: float = 315
-@export_range(1,2) var movement_coef: float = 1.2
+@export_range(100, 350, 1) var attack_range: float = 320
+@export_range(100, 350, 1) var max_spell_attack_range: float = 600
+@export_range(1,2) var movement_coef: float = 1.1
 
 @export_range(0.2, 10) var chase_time: float = 4.5
 @export_range(0, 0.5) var chase_time_rng: float = 0.1
@@ -50,7 +51,7 @@ func process_physics(delta: float) -> State:
 		move_data.dir = 0
 		no_movement_timer -= delta
 		if no_movement_timer < 0:
-			if death_bringer.can_cast():
+			if death_bringer.can_cast() and dist < max_spell_attack_range:
 				return cast
 	else:
 		if not animated_sprite.animation == animation_name:

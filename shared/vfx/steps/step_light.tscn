@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://da4h1w7q542m2"]
+[gd_scene load_steps=24 format=3 uid="uid://da4h1w7q542m2"]
 
 [ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_2guiq"]
 [ext_resource type="Texture2D" uid="uid://da6owqc8q2rqi" path="res://shared/art/particles/circle_03.png" id="2_qiub8"]
 [ext_resource type="Script" path="res://shared/vfx/steps/step_light.gd" id="2_rouac"]
 [ext_resource type="Texture2D" uid="uid://cu4gt4m0x7ho5" path="res://shared/art/particles/circle_05.png" id="4_1cf2v"]
+[ext_resource type="AudioStream" uid="uid://buuvhkyd0svm7" path="res://game/player/sound/jump.mp3" id="5_png3q"]
 
 [sub_resource type="Curve" id="Curve_wd7py"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0568862, 1), 0.0, 0.0, 0, 0, Vector2(0.494012, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -110,6 +111,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_wqblw"]
 resource_name = "activate"
@@ -152,6 +165,18 @@ tracks/2/keys = {
 "method": &"queue_free"
 }]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v6shv"]
 _data = {
@@ -186,3 +211,7 @@ randomness = 0.1
 libraries = {
 "": SubResource("AnimationLibrary_v6shv")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_png3q")
+volume_db = 10.0

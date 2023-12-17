@@ -1,0 +1,37 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://cbjov3rsuq3p0"]
+
+[ext_resource type="Shader" path="res://shared/materials/shaders/blood_camera.gdshader" id="1_lb2p8"]
+
+[sub_resource type="Gradient" id="Gradient_fp1t2"]
+colors = PackedColorArray(0.8, 0.0823529, 0.0823529, 1, 0.533333, 0.0313726, 0.0313726, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_t5lya"]
+gradient = SubResource("Gradient_fp1t2")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jx8la"]
+noise_type = 0
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7uml0"]
+noise = SubResource("FastNoiseLite_jx8la")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jetjh"]
+noise_type = 2
+seed = 6
+frequency = 0.022
+fractal_type = 2
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ax03i"]
+noise = SubResource("FastNoiseLite_jetjh")
+
+[resource]
+shader = ExtResource("1_lb2p8")
+shader_parameter/uv_resolution = 1.0
+shader_parameter/coef = 5.0
+shader_parameter/pos = Vector2(0.5, 0.5)
+shader_parameter/radius = 1.0
+shader_parameter/power = 2.0
+shader_parameter/sample_1 = SubResource("NoiseTexture2D_7uml0")
+shader_parameter/sample_2 = SubResource("NoiseTexture2D_ax03i")
+shader_parameter/color_palette = SubResource("GradientTexture1D_t5lya")

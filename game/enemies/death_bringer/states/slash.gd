@@ -14,6 +14,7 @@ var state_timer: float
 
 func enter() -> void:
 	super()
+	death_bringer.fight_timer = death_bringer.fight_time
 	attack_holder.activate()
 	state_timer = state_time + randf_range(-state_time_rng, state_time_rng) * state_time
 

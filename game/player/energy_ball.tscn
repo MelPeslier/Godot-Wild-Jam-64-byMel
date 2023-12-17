@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckxjjphtu1cul"]
+
+[ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_8ho5k"]
+[ext_resource type="Script" path="res://game/player/energy_ball.gd" id="2_s42hv"]
+[ext_resource type="Texture2D" uid="uid://cu4gt4m0x7ho5" path="res://shared/art/particles/circle_05.png" id="2_x6ywo"]
+
+[sub_resource type="Curve" id="Curve_6o7fp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.334572, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_n1fto"]
+curve = SubResource("Curve_6o7fp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_451ul"]
+resource_local_to_scene = true
+lifetime_randomness = 0.1
+particle_flag_disable_z = true
+angle_max = 360.0
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.09
+scale_max = 0.1
+color = Color(1, 1, 0.886275, 1)
+alpha_curve = SubResource("CurveTexture_n1fto")
+
+[node name="EnergyBall" type="Node2D"]
+material = ExtResource("1_8ho5k")
+script = ExtResource("2_s42hv")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+use_parent_material = true
+process_material = SubResource("ParticleProcessMaterial_451ul")
+texture = ExtResource("2_x6ywo")
+visibility_rect = Rect2(-250, -250, 500, 500)
+local_coords = true

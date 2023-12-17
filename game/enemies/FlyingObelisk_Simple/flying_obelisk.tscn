@@ -1,0 +1,125 @@
+[gd_scene load_steps=19 format=3 uid="uid://mkowft3g3m3"]
+
+[ext_resource type="Script" path="res://game/enemies/FlyingObelisk_Simple/flying_obelisk.gd" id="1_cg641"]
+[ext_resource type="Script" path="res://shared/components/interactables/interactable_component.gd" id="2_tn0bn"]
+[ext_resource type="Texture2D" uid="uid://clgebi4pykak2" path="res://game/enemies/FlyingObelisk_Simple/FlyingObelisk_no_lightnings_no_letter.png" id="3_slgko"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nba2a"]
+atlas = ExtResource("3_slgko")
+region = Rect2(0, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rior"]
+atlas = ExtResource("3_slgko")
+region = Rect2(200, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74x23"]
+atlas = ExtResource("3_slgko")
+region = Rect2(400, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8yp4"]
+atlas = ExtResource("3_slgko")
+region = Rect2(600, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uiupu"]
+atlas = ExtResource("3_slgko")
+region = Rect2(800, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dn7oi"]
+atlas = ExtResource("3_slgko")
+region = Rect2(1000, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8sg3"]
+atlas = ExtResource("3_slgko")
+region = Rect2(1200, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jgld"]
+atlas = ExtResource("3_slgko")
+region = Rect2(1400, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2lit"]
+atlas = ExtResource("3_slgko")
+region = Rect2(1600, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw11o"]
+atlas = ExtResource("3_slgko")
+region = Rect2(1800, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hvveg"]
+atlas = ExtResource("3_slgko")
+region = Rect2(2000, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t452r"]
+atlas = ExtResource("3_slgko")
+region = Rect2(2200, 0, 200, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdpfd"]
+atlas = ExtResource("3_slgko")
+region = Rect2(2400, 0, 200, 400)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1bdtk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nba2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rior")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74x23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8yp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uiupu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dn7oi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i8sg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jgld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2lit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nw11o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hvveg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t452r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mdpfd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_57lng"]
+radius = 66.0
+height = 396.0
+
+[node name="FlyingObelisk" type="Node2D"]
+script = ExtResource("1_cg641")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_1bdtk")
+autoplay = "default"
+frame_progress = 0.216685
+
+[node name="InteractableComponent" type="Area2D" parent="."]
+script = ExtResource("2_tn0bn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+position = Vector2(0, 16)
+shape = SubResource("CapsuleShape2D_57lng")
+
+[connection signal="area_entered" from="InteractableComponent" to="." method="_on_interactable_component_area_entered"]

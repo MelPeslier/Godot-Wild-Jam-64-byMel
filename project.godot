@@ -10,12 +10,14 @@ config_version=5
 
 [application]
 
-config/name="GameName"
+config/name="Angel Blessing"
 config/version="0.1"
 config/tags=PackedStringArray("jam")
-run/main_scene="res://game/levels/level_000_test.tscn"
+run/main_scene="res://ui/menus/menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0.133333, 1)
+boot_splash/show_image=false
+config/icon="res://icon.png"
 
 [audio]
 

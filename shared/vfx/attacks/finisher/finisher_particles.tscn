@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://3elsp8oerlub"]
+[gd_scene load_steps=32 format=3 uid="uid://3elsp8oerlub"]
 
 [ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_5uvsv"]
 [ext_resource type="Script" path="res://shared/vfx/attacks/attack_particles.gd" id="2_8sx4e"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://shared/components/interactables/interactor_component.gd" id="7_2anhr"]
 [ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="7_5rjok"]
 [ext_resource type="Texture2D" uid="uid://jawoywoiq16e" path="res://shared/art/particles/star_05.png" id="7_bdbv5"]
+[ext_resource type="AudioStream" uid="uid://d3l4mnsolawb8" path="res://game/player/sound/attack_finisher.wav" id="8_uggee"]
 
 [sub_resource type="Animation" id="Animation_6q1n8"]
 length = 0.001
@@ -92,7 +93,19 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_r0opr"]
@@ -196,6 +209,18 @@ tracks/7/keys = {
 "update": 1,
 "values": [true, false, true]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yu085"]
 _data = {
@@ -205,9 +230,6 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bn65j"]
 size = Vector2(700, 186)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_etts2"]
-radius = 474.611
 
 [sub_resource type="Curve" id="Curve_0qc42"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.745509, 0.225825), 0.341352, 0.341352, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -305,6 +327,9 @@ scale_curve = SubResource("CurveTexture_0y2pj")
 color = Color(1, 1, 0.886275, 1)
 alpha_curve = SubResource("CurveTexture_v8ffj")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_y0wev"]
+radius = 600.0
+
 [node name="FinisherParticles" type="Node2D"]
 material = ExtResource("1_5uvsv")
 script = ExtResource("2_8sx4e")
@@ -320,15 +345,6 @@ script = ExtResource("7_5rjok")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 position = Vector2(0, -385)
 shape = SubResource("RectangleShape2D_bn65j")
-disabled = true
-
-[node name="InteractorComponent" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-script = ExtResource("7_2anhr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractorComponent"]
-shape = SubResource("CircleShape2D_etts2")
 disabled = true
 
 [node name="blood_light_background" type="GPUParticles2D" parent="."]
@@ -362,3 +378,12 @@ texture = ExtResource("7_bdbv5")
 lifetime = 3.0
 one_shot = true
 explosiveness = 0.75
+
+[node name="InteractorComponent" type="Area2D" parent="."]
+script = ExtResource("7_2anhr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractorComponent"]
+shape = SubResource("CircleShape2D_y0wev")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_uggee")

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cjp6em1id88cb"
+path="res://.godot/imported/Gates_Of_Hell_Loop.wav-e3ad9d696e613a10632e02fdd3816460.sample"
+
+[deps]
+
+source_file="res://shared/sound/Era of Vampires/Gates_Of_Hell_Loop.wav"
+dest_files=["res://.godot/imported/Gates_Of_Hell_Loop.wav-e3ad9d696e613a10632e02fdd3816460.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -9,6 +9,7 @@ extends MoveState
 
 @export_category("vars")
 @export_range(100, 700, 1) var min_attack_range: float = 630
+@export_range(100, 2000, 1) var max_attack_range: float = 1260
 @export_range(1,2) var movement_coef: float = 1.2
 
 @export_range(0.2, 2) var wall_time: float = 0.9
@@ -45,7 +46,7 @@ func process_physics(delta: float) -> State:
 	if not parent.is_on_floor():
 		return fall
 
-	if dist > min_attack_range:
+	if dist > min_attack_range and dist < max_attack_range:
 		if death_bringer.can_cast():
 			return cast
 

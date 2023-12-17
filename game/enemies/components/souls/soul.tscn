@@ -1,29 +1,412 @@
-[gd_scene load_steps=7 format=3 uid="uid://bly4rdnkc2hy2"]
+[gd_scene load_steps=23 format=3 uid="uid://bly4rdnkc2hy2"]
 
 [ext_resource type="Script" path="res://game/enemies/components/souls/soul.gd" id="1_3h5i0"]
-[ext_resource type="Texture2D" uid="uid://dtxm3in1fughx" path="res://icon.svg" id="2_ew5el"]
+[ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_gbmt3"]
 [ext_resource type="Script" path="res://shared/components/interactables/interactable_component.gd" id="3_7apaw"]
+[ext_resource type="Texture2D" uid="uid://s8ccrqgpkg05" path="res://shared/vfx/colors/light_gradient.tres" id="4_pg3s7"]
+[ext_resource type="Texture2D" uid="uid://bwkg7o52b33b6" path="res://shared/art/particles/magic_05.png" id="5_bqvnt"]
+[ext_resource type="Texture2D" uid="uid://bi2mmaaude6k5" path="res://shared/art/particles/trace_05.png" id="6_6gkqs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n4wdh"]
 radius = 85.5862
 
+[sub_resource type="Animation" id="Animation_2xlbs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("soul:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("accel:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("soul:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("accel:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("soul:process_material:spread")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [15.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("soul:process_material:color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("soul:process_material:orbit_velocity_max")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("soul:process_material:orbit_velocity_min")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_2ki24"]
+resource_name = "absorb"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("soul:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("accel:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("soul:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("accel:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("soul:process_material:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("soul:process_material:orbit_velocity_max")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("soul:process_material:orbit_velocity_min")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -2.0]
+}
+
 [sub_resource type="Animation" id="Animation_ing02"]
-resource_name = "elevate"
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("soul:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("accel:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("soul:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("accel:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_us5dx"]
+resource_name = "disapear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("soul:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("accel:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("soul:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("accel:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("soul:process_material:spread")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [15.0, 120.0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8221s"]
 _data = {
-"elevate": SubResource("Animation_ing02")
+"RESET": SubResource("Animation_2xlbs"),
+"absorb": SubResource("Animation_2ki24"),
+"appear": SubResource("Animation_ing02"),
+"disapear": SubResource("Animation_us5dx")
 }
 
-[node name="Soul" type="Node2D"]
-script = ExtResource("1_3h5i0")
+[sub_resource type="Curve" id="Curve_bloef"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.338323, 0.724057), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[node name="Icon" type="Sprite2D" parent="."]
-rotation = -1.07974
-scale = Vector2(1.0625, 0.757812)
-texture = ExtResource("2_ew5el")
+[sub_resource type="CurveTexture" id="CurveTexture_jor47"]
+curve = SubResource("Curve_bloef")
+
+[sub_resource type="Curve" id="Curve_v1jj7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 3.59227, 0, 0, Vector2(1, 1), 0.134744, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fcyhc"]
+curve = SubResource("Curve_v1jj7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_41hjh"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+angle_max = 360.0
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 100.0
+initial_velocity_max = 120.0
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.4
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_fcyhc")
+color_ramp = ExtResource("4_pg3s7")
+alpha_curve = SubResource("CurveTexture_jor47")
+
+[sub_resource type="Curve" id="Curve_jj0de"]
+_data = [Vector2(0, 0), 0.0, 6.20707, 0, 0, Vector2(0.511976, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.24397, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_cxyuq"]
+curve = SubResource("Curve_jj0de")
+
+[sub_resource type="Curve" id="Curve_dnoab"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0868263, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.42411, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sh742"]
+curve = SubResource("Curve_dnoab")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_umqs8"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 30, 0)
+emission_shape = 1
+emission_sphere_radius = 70.0
+direction = Vector3(0, 1, 0)
+spread = 1.0
+initial_velocity_min = 170.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 50.0
+radial_accel_max = 100.0
+scale_min = 0.1
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_sh742")
+color_initial_ramp = ExtResource("4_pg3s7")
+alpha_curve = SubResource("CurveTexture_cxyuq")
+
+[node name="Soul" type="Node2D"]
+material = ExtResource("1_gbmt3")
+script = ExtResource("1_3h5i0")
+distance = 900.0
+speed_to_sky = 4.0
+speed_to_target = 1.5
 
 [node name="InteractableComponent" type="Area2D" parent="."]
+position = Vector2(0, 64)
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("3_7apaw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
@@ -34,4 +417,23 @@ libraries = {
 "": SubResource("AnimationLibrary_8221s")
 }
 
-[connection signal="focused" from="InteractableComponent" to="." method="_on_interactable_component_focused"]
+[node name="soul" type="GPUParticles2D" parent="."]
+use_parent_material = true
+emitting = false
+amount = 16
+amount_ratio = 0.0
+process_material = SubResource("ParticleProcessMaterial_41hjh")
+texture = ExtResource("5_bqvnt")
+visibility_rect = Rect2(-1000, -1000, 2000, 2000)
+local_coords = true
+
+[node name="accel" type="GPUParticles2D" parent="."]
+use_parent_material = true
+emitting = false
+amount = 16
+amount_ratio = 0.0
+process_material = SubResource("ParticleProcessMaterial_umqs8")
+texture = ExtResource("6_6gkqs")
+visibility_rect = Rect2(-1000, -1000, 2000, 2000)
+
+[connection signal="area_entered" from="InteractableComponent" to="." method="_on_interactable_component_area_entered"]

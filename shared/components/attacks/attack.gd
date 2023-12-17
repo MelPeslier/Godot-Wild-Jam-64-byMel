@@ -1,6 +1,8 @@
 class_name Attack
 extends Node2D
 
+signal attack_changed(_can: bool)
+
 @export_range(0.05, 45) var cooldown: float
 @export_range(0, 45,) var damage: int
 @export var knock_back: float
@@ -11,7 +13,7 @@ extends Node2D
 @export_range(0.1, 300) var light_particles_life_time: float = 1
 @export_range(0, 1) var light_particles_explosiveness: float = 0.9
 
-var can_attack := true
+var can_attack := true : set = _set_can_attack
 var parent: Node2D
 var attack_data: AttackData
 
@@ -51,3 +53,8 @@ func spawn_light_particles() -> void:
 	var light_particles: LightParticles = light_particles_scene.instantiate()
 	add_child(light_particles)
 	light_particles.play(light_particles_number, light_particles_sphere_size, light_particles_life_time, light_particles_explosiveness)
+
+
+func _set_can_attack(_can: bool) -> void:
+	can_attack = _can
+	attack_changed.emit(can_attack)

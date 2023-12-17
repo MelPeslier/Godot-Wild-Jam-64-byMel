@@ -2,9 +2,7 @@
 extends Node
 
 enum Sounds {
-	OVER,
-	CLICK_MAIN,
-	SCROLL
+	CLICK_MAIN
 }
 
 @export var sound_list : Array[AudioStream]

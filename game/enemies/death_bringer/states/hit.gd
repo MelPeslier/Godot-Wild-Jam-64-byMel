@@ -8,7 +8,7 @@ extends MoveState
 
 @export_category("vars")
 @export_range(0.01, 2) var state_time: float = 0.05
-@export_range(0, 0.5) var state_time_rng: float = 0.1
+@export_range(0, 0.5) var state_time_rng: float = 0.0
 
 var state_timer: float
 

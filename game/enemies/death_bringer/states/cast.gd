@@ -16,6 +16,8 @@ var state_timer: float
 
 func enter() -> void:
 	super()
+	death_bringer.fight_timer = death_bringer.fight_time
+
 	var attack_pos := death_bringer.opponent.global_position +\
 	Vector2(randf_range(-attack_rng, attack_rng), randf_range(-attack_rng, attack_rng))*\
 	attack_rng_pos

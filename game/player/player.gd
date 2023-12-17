@@ -67,6 +67,8 @@ var _can_receive_input := true
 @onready var ray_casts: Node2D = $"2DComponents/RayCasts"
 @onready var bot_pos: Marker2D = $bot_pos
 @onready var mid_pos: Marker2D = $mid_pos
+@onready var interactor_component: InteractorComponent = $"2DComponents/InteractorComponent"
+@onready var energy_component: EnergyComponent = $Components/EnergyComponent
 
 
 func _ready() -> void:
@@ -144,3 +146,5 @@ func _on_move_data_dir_changed(new_dir: int) -> void:
 	mid_pos.scale.x = float( new_dir )
 	bot_pos.scale.x = float( new_dir )
 #endregion
+
+

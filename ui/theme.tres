@@ -1,4 +1,57 @@
-[gd_resource type="Theme" format=3 uid="uid://dq2o2qwlkhgo0"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dq2o2qwlkhgo0"]
+
+[ext_resource type="Texture2D" uid="uid://cropiv72pdd3k" path="res://ui/kenney_fantasy-ui-borders/PNG/Double/Transparent center/panel-transparent-center-028.png" id="1_plt2u"]
+[ext_resource type="Texture2D" uid="uid://dqh17bpsu2qg7" path="res://ui/kenney_fantasy-ui-borders/PNG/Double/Border/panel-border-028.png" id="2_5i72i"]
+[ext_resource type="Texture2D" uid="uid://s1a5qs43qju3" path="res://ui/kenney_fantasy-ui-borders/PNG/Double/Panel/panel-028.png" id="3_kbibl"]
+[ext_resource type="Texture2D" uid="uid://dxx4og7mbt8vm" path="res://ui/kenney_fantasy-ui-borders/PNG/Double/Transparent center/panel-transparent-center-021.png" id="4_jrwr1"]
+[ext_resource type="Texture2D" uid="uid://co28n03463h4s" path="res://ui/kenney_fantasy-ui-borders/PNG/Double/Border/panel-border-024.png" id="5_qee7j"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7nsid"]
+texture = ExtResource("1_plt2u")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sbt6p"]
+texture = ExtResource("2_5i72i")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1dor5"]
+texture = ExtResource("3_kbibl")
+texture_margin_left = 25.0
+texture_margin_top = 25.0
+texture_margin_right = 25.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iak2u"]
+texture = ExtResource("4_jrwr1")
+texture_margin_left = 40.0
+texture_margin_top = 40.0
+texture_margin_right = 40.0
+texture_margin_bottom = 40.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g2o8m"]
+texture = ExtResource("5_qee7j")
+texture_margin_left = 50.0
+texture_margin_top = 50.0
+texture_margin_right = 50.0
+texture_margin_bottom = 50.0
 
 [resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 0.886275, 1)
+Button/colors/font_pressed_color = Color(0.533333, 0.0313726, 0.0313726, 1)
+Button/font_sizes/font_size = 32
+Button/styles/hover = SubResource("StyleBoxTexture_7nsid")
+Button/styles/normal = SubResource("StyleBoxTexture_sbt6p")
+Button/styles/pressed = SubResource("StyleBoxTexture_1dor5")
+Label/colors/font_color = Color(0.533333, 0.0313726, 0.0313726, 1)
 Label/font_sizes/font_size = 32
+Panel/styles/panel = SubResource("StyleBoxTexture_iak2u")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_g2o8m")
+button_main/base_type = &"Button"
+button_main/font_sizes/font_size = 42

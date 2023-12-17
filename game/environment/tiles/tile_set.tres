@@ -1,5 +1,6 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://dyckbabnydbvq"]
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://dyckbabnydbvq"]
 
+[ext_resource type="PackedScene" uid="uid://balgd23na7mt2" path="res://game/enemies/death_bringer/death_bringer.tscn" id="1_fdcf1"]
 [ext_resource type="Texture2D" uid="uid://jc50ta0g1f1m" path="res://game/environment/tiles/art/Texture/TX Tileset Ground.png" id="1_k5p64"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_r2ncv"]
@@ -17,7 +18,12 @@ tile_data = PackedInt32Array(0, 458756, 5, 65536, 458756, 11, 1, 327684, 9, 6553
 [sub_resource type="TileMapPattern" id="TileMapPattern_es3a5"]
 tile_data = PackedInt32Array(0, 393220, 5, 65536, 393220, 14, 131072, 393220, 14, 196608, 524292, 8, 262144, 262148, 10, 327680, 393220, 6, 393216, 262148, 10, 458752, 262148, 11, 1, 720900, 3, 65537, 458756, 11, 131073, 720900, 6, 196609, 589828, 8, 262145, 720900, 4, 327681, 458756, 13, 393217, 786436, 4, 458753, 786436, 6, 2, 327684, 9, 65538, 458756, 14, 131074, 655364, 8, 196610, 786436, 4, 262146, 786436, 5, 327682, 458756, 13, 393218, 720900, 7, 458754, 393220, 11, 3, 458756, 5, 65539, 720900, 7, 131075, 393220, 10, 196611, 327684, 12, 262147, 786436, 4, 327683, 393220, 11, 393219, 393220, 10, 458755, 327684, 10, 4, 983044, 13, 65540, 524292, 6, 131076, 983044, 6, 196612, 983044, 6, 262148, 851972, 8, 327684, 524292, 6, 393220, 983044, 6, 458756, 524292, 10)
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_oiic6"]
+resource_name = "deathbringer"
+scenes/1/scene = ExtResource("1_fdcf1")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aakpr"]
+resource_name = "ground"
 texture = ExtResource("1_k5p64")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -1532,6 +1538,7 @@ terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "ground"
 terrain_set_0/terrain_0/color = Color(0.501961, 0.345098, 1, 1)
 sources/4 = SubResource("TileSetAtlasSource_aakpr")
+sources/0 = SubResource("TileSetScenesCollectionSource_oiic6")
 pattern_0 = SubResource("TileMapPattern_r2ncv")
 pattern_1 = SubResource("TileMapPattern_rtoji")
 pattern_2 = SubResource("TileMapPattern_hy71j")

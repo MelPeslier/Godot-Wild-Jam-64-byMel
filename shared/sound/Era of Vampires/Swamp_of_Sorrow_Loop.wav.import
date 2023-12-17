@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://yxhtgsfpksmw"
+path="res://.godot/imported/Swamp_of_Sorrow_Loop.wav-7760ba2838c6d22b08b3685244ec4403.sample"
+
+[deps]
+
+source_file="res://shared/sound/Era of Vampires/Swamp_of_Sorrow_Loop.wav"
+dest_files=["res://.godot/imported/Swamp_of_Sorrow_Loop.wav-7760ba2838c6d22b08b3685244ec4403.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

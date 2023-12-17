@@ -1,7 +1,7 @@
 class_name EnergyComponent
 extends Node
 
-signal energy_updated()
+signal energy_updated(_energy: int)
 
 @export var max_energy: int
 @export var start_energy: int

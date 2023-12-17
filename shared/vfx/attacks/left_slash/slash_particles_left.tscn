@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://oruwfrpusu6u"]
+[gd_scene load_steps=15 format=3 uid="uid://oruwfrpusu6u"]
 
 [ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_a4xw2"]
 [ext_resource type="Script" path="res://shared/vfx/attacks/attack_particles.gd" id="2_fq521"]
 [ext_resource type="Texture2D" uid="uid://ckyo8xcj8i72v" path="res://shared/art/my_particles/my_slash_03.png" id="3_ug8mw"]
 [ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="4_numbo"]
+[ext_resource type="AudioStream" uid="uid://6dbyfolnm3ly" path="res://game/player/sound/attack_slash.wav" id="5_phons"]
 
 [sub_resource type="Curve" id="Curve_kpbbd"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0898204, 1), 0.0, 0.0, 0, 0, Vector2(0.640719, 1), 0.0, -2.37281, 0, 0, Vector2(1, 0.126179), 0.0, 0.0, 0, 0]
@@ -56,6 +57,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_x4eba"]
 resource_name = "activate"
@@ -98,6 +111,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bi3wa"]
 _data = {
@@ -135,3 +160,6 @@ script = ExtResource("4_numbo")
 position = Vector2(4, 0)
 shape = SubResource("RectangleShape2D_235er")
 disabled = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_phons")

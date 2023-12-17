@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://wwp0yu0jt73k"]
+[gd_scene load_steps=52 format=3 uid="uid://wwp0yu0jt73k"]
 
 [ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
 [ext_resource type="Texture2D" uid="uid://s1dldeyjskp3" path="res://game/player/art/player.png" id="2_g48ii"]
@@ -25,12 +25,16 @@
 [ext_resource type="PackedScene" uid="uid://dldnsnoxo7gg0" path="res://shared/vfx/attacks/burst/burst_particles.tscn" id="12_blfld"]
 [ext_resource type="Script" path="res://game/player/components/attacks/player_attack_input_component.gd" id="12_idt88"]
 [ext_resource type="Script" path="res://shared/components/attacks/attack_data.gd" id="13_wxsv1"]
+[ext_resource type="Script" path="res://shared/components/interactables/interactor_component.gd" id="16_k2s2r"]
 [ext_resource type="Script" path="res://shared/components/move/move_data.gd" id="17_2nqr6"]
+[ext_resource type="Script" path="res://game/player/ball_holder.gd" id="17_ugwip"]
 [ext_resource type="Script" path="res://game/player/components/states/burst.gd" id="20_1oxiy"]
 [ext_resource type="Script" path="res://game/player/components/states/finisher.gd" id="21_hyw5y"]
 [ext_resource type="Script" path="res://game/player/components/states/hit.gd" id="22_kidvi"]
 [ext_resource type="Script" path="res://game/player/components/states/die.gd" id="23_sovo2"]
 [ext_resource type="Script" path="res://shared/components/detectable/detectable_component.gd" id="30_sulrb"]
+[ext_resource type="PackedScene" uid="uid://bly4rdnkc2hy2" path="res://game/enemies/components/souls/soul.tscn" id="33_ktxjp"]
+[ext_resource type="PackedScene" uid="uid://blj0b8y8xa4e7" path="res://game/player/blood_camera.tscn" id="34_bexig"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mjtl5"]
 animations = [{
@@ -136,6 +140,42 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("2DComponents/InteractorComponent/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("2DComponents/DetectableComponent/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_msvre"]
 resource_name = "burst"
@@ -165,6 +205,99 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["dash"]
+}
+
+[sub_resource type="Animation" id="Animation_yf1ta"]
+resource_name = "die"
+length = 2.0
+step = 0.056
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("2DComponents/InteractorComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Components/MovementStateMachine/die")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.95, 1.96),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"spawn_soul"
+}, {
+"args": [],
+"method": &"back"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 0.886275, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("2DComponents/DetectableComponent/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("2DComponents/HurtboxComponent/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Label:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["die"]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Components/MovementStateMachine/die")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_i6lj1"]
@@ -276,6 +409,7 @@ _data = {
 "RESET": SubResource("Animation_2i5om"),
 "burst": SubResource("Animation_msvre"),
 "dash": SubResource("Animation_nma3o"),
+"die": SubResource("Animation_yf1ta"),
 "fall": SubResource("Animation_i6lj1"),
 "finisher": SubResource("Animation_oykij"),
 "hit": SubResource("Animation_gv8qg"),
@@ -291,6 +425,9 @@ height = 116.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_76mxm"]
 radius = 71.4493
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_gsneu"]
+radius = 65.0692
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "animated_sprite", "move_input_component", "health_component", "move_data")]
 process_priority = 1
 process_physics_priority = 1
@@ -304,8 +441,8 @@ animated_sprite = NodePath("AnimatedSprite")
 move_input_component = NodePath("Components/player_movement_component")
 health_component = NodePath("Components/HealthComponent")
 move_data = NodePath("Components/MoveData")
-finisher_time = 5.0
-burst_time = 3.0
+finisher_time = 1.0
+burst_time = 0.5
 
 [node name="bot_pos" type="Marker2D" parent="."]
 position = Vector2(3, 63)
@@ -393,11 +530,10 @@ attack_pattern_1 = [NodePath("left_slash"), NodePath("right_slash"), NodePath("d
 attack_pattern_2 = [NodePath("right_slash"), NodePath("left_slash"), NodePath("big_slash")]
 finisher = NodePath("finisher")
 burst = NodePath("burst")
-attack_interval_time = 0.45
-combo_interval_time = 1.0
+combo_interval_time = 1.5
 
 [node name="left_slash" type="Node2D" parent="2DComponents/Attacks"]
-position = Vector2(126, 0)
+position = Vector2(149, -1)
 script = ExtResource("6_dkdxr")
 cooldown = 0.2
 damage = 1
@@ -405,7 +541,7 @@ knock_back = 400.0
 attack_particles_scene = ExtResource("7_nwp37")
 
 [node name="right_slash" type="Node2D" parent="2DComponents/Attacks"]
-position = Vector2(125, 4)
+position = Vector2(148, 3)
 script = ExtResource("6_dkdxr")
 cooldown = 0.2
 damage = 1
@@ -413,7 +549,7 @@ knock_back = 400.0
 attack_particles_scene = ExtResource("8_usbgr")
 
 [node name="big_slash" type="Node2D" parent="2DComponents/Attacks"]
-position = Vector2(161, 1)
+position = Vector2(184, 0)
 script = ExtResource("6_dkdxr")
 cooldown = 1.0
 damage = 3
@@ -421,7 +557,7 @@ knock_back = 1200.0
 attack_particles_scene = ExtResource("9_katqs")
 
 [node name="double_slash" type="Node2D" parent="2DComponents/Attacks"]
-position = Vector2(125, 2)
+position = Vector2(148, 1)
 script = ExtResource("6_dkdxr")
 cooldown = 0.7
 damage = 5
@@ -433,8 +569,8 @@ script = ExtResource("11_p3xpf")
 state_machine = NodePath("../../../Components/MovementStateMachine")
 state = NodePath("../../../Components/MovementStateMachine/finisher")
 energy_component = NodePath("../../../Components/EnergyComponent")
-energy_cost = 10
-cooldown = 30.0
+energy_cost = 7
+cooldown = 15.0
 damage = 18
 knock_back = 1200.0
 attack_particles_scene = ExtResource("11_c7sml")
@@ -448,8 +584,8 @@ script = ExtResource("11_p3xpf")
 state_machine = NodePath("../../../Components/MovementStateMachine")
 state = NodePath("../../../Components/MovementStateMachine/burst")
 energy_component = NodePath("../../../Components/EnergyComponent")
-energy_cost = 5
-cooldown = 15.0
+energy_cost = 3
+cooldown = 10.0
 damage = 7
 knock_back = 1700.0
 attack_particles_scene = ExtResource("12_blfld")
@@ -475,6 +611,25 @@ parent = NodePath("../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/DetectableComponent"]
 shape = SubResource("CircleShape2D_76mxm")
 
+[node name="InteractorComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("parent")]
+script = ExtResource("16_k2s2r")
+parent = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/InteractorComponent"]
+shape = SubResource("CircleShape2D_gsneu")
+
+[node name="BallLightHolder" type="Node2D" parent="2DComponents" node_paths=PackedStringArray("attack")]
+position = Vector2(76, -85)
+script = ExtResource("17_ugwip")
+color = Color(1, 1, 0.886275, 1)
+attack = NodePath("../Attacks/burst")
+
+[node name="BalCrimsonlHolder" type="Node2D" parent="2DComponents" node_paths=PackedStringArray("attack")]
+position = Vector2(-87, -115)
+script = ExtResource("17_ugwip")
+color = Color(0.882353, 0.0784314, 0.0745098, 1)
+attack = NodePath("../Attacks/finisher")
+
 [node name="Components" type="Node" parent="."]
 
 [node name="EnergyComponent" type="Node" parent="Components"]
@@ -484,8 +639,8 @@ start_energy = 10
 
 [node name="HealthComponent" type="Node" parent="Components"]
 script = ExtResource("10_ky47a")
-max_health = 10
-health = 10
+max_health = 20
+health = 20
 
 [node name="AttackData" type="Node" parent="Components"]
 script = ExtResource("13_wxsv1")
@@ -568,16 +723,19 @@ script = ExtResource("21_hyw5y")
 idle = NodePath("../idle")
 player_movement_state = 6
 
-[node name="hit" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle")]
+[node name="hit" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "die")]
 script = ExtResource("22_kidvi")
 idle = NodePath("../idle")
+die = NodePath("../die")
 player_movement_state = 7
 
 [node name="die" type="Node" parent="Components/MovementStateMachine"]
 script = ExtResource("23_sovo2")
+soul_scene = ExtResource("33_ktxjp")
 player_movement_state = 8
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -53.0
 offset_top = -116.0
 offset_right = 59.0
@@ -586,5 +744,13 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Blood" type="CanvasLayer" parent="."]
+
+[node name="BloodCamera" parent="Blood" node_paths=PackedStringArray("health_component") instance=ExtResource("34_bexig")]
+mouse_filter = 2
+health_component = NodePath("../../Components/HealthComponent")
+
 [connection signal="hit_received" from="2DComponents/HurtboxComponent" to="Components/MovementStateMachine/hit" method="_on_hit_received"]
+[connection signal="health_changed" from="Components/HealthComponent" to="Components/MovementStateMachine/hit" method="_on_health_component_health_changed"]
+[connection signal="health_changed" from="Components/HealthComponent" to="Blood/BloodCamera" method="_on_health_component_health_changed"]
 [connection signal="dir_changed" from="Components/MoveData" to="." method="_on_move_data_dir_changed"]

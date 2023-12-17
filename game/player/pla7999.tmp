@@ -1,0 +1,611 @@
+[gd_scene load_steps=48 format=3 uid="uid://wwp0yu0jt73k"]
+
+[ext_resource type="Script" path="res://game/player/player.gd" id="1_djp00"]
+[ext_resource type="Texture2D" uid="uid://s1dldeyjskp3" path="res://game/player/art/player.png" id="2_g48ii"]
+[ext_resource type="Script" path="res://game/player/camera.gd" id="2_ked2g"]
+[ext_resource type="Script" path="res://game/player/components/movements/ray_casts.gd" id="3_1dr55"]
+[ext_resource type="Script" path="res://game/test/test.gd" id="3_1yxwj"]
+[ext_resource type="Script" path="res://shared/components/states/state_machine.gd" id="3_srg45"]
+[ext_resource type="Script" path="res://game/player/components/states/idle.gd" id="4_5fj6c"]
+[ext_resource type="PackedScene" uid="uid://bly4rdnkc2hy2" path="res://game/enemies/components/souls/soul.tscn" id="4_st5v7"]
+[ext_resource type="Script" path="res://game/player/components/states/walk.gd" id="5_55t5u"]
+[ext_resource type="Script" path="res://game/player/components/states/jump.gd" id="6_afeky"]
+[ext_resource type="Script" path="res://shared/components/attacks/attack.gd" id="6_dkdxr"]
+[ext_resource type="PackedScene" uid="uid://oruwfrpusu6u" path="res://shared/vfx/attacks/left_slash/slash_particles_left.tscn" id="7_nwp37"]
+[ext_resource type="Script" path="res://game/player/components/states/fall.gd" id="7_o7w6p"]
+[ext_resource type="Script" path="res://game/player/components/states/dash.gd" id="8_3twcc"]
+[ext_resource type="PackedScene" uid="uid://cshyqer2qs7x0" path="res://shared/vfx/attacks/right_slash/slash_particles_right.tscn" id="8_usbgr"]
+[ext_resource type="Script" path="res://game/player/components/movements/player_movement_component.gd" id="9_4mvqj"]
+[ext_resource type="PackedScene" uid="uid://dqxr65sa3xf1n" path="res://shared/vfx/attacks/big_slash/big_slash_particles.tscn" id="9_katqs"]
+[ext_resource type="Script" path="res://shared/components/interactables/hurtbox_component.gd" id="10_7jawy"]
+[ext_resource type="Script" path="res://game/player/player_attacks.gd" id="10_ievp6"]
+[ext_resource type="Script" path="res://shared/components/stats/health_component.gd" id="10_ky47a"]
+[ext_resource type="PackedScene" uid="uid://kcarxdi06ddw" path="res://shared/vfx/attacks/double_slash/double_slash_particles.tscn" id="10_mybfi"]
+[ext_resource type="Script" path="res://shared/components/stats/energy_component.gd" id="11_4w2s7"]
+[ext_resource type="PackedScene" uid="uid://3elsp8oerlub" path="res://shared/vfx/attacks/finisher/finisher_particles.tscn" id="11_c7sml"]
+[ext_resource type="Script" path="res://game/player/attacks/state_change_attack.gd" id="11_p3xpf"]
+[ext_resource type="PackedScene" uid="uid://dldnsnoxo7gg0" path="res://shared/vfx/attacks/burst/burst_particles.tscn" id="12_blfld"]
+[ext_resource type="Script" path="res://game/player/components/attacks/player_attack_input_component.gd" id="12_idt88"]
+[ext_resource type="Script" path="res://shared/components/attacks/attack_data.gd" id="13_wxsv1"]
+[ext_resource type="Script" path="res://shared/components/move/move_data.gd" id="17_2nqr6"]
+[ext_resource type="Script" path="res://game/player/components/states/burst.gd" id="20_1oxiy"]
+[ext_resource type="Script" path="res://game/player/components/states/finisher.gd" id="21_hyw5y"]
+[ext_resource type="Script" path="res://game/player/components/states/hit.gd" id="22_kidvi"]
+[ext_resource type="Script" path="res://game/player/components/states/die.gd" id="23_sovo2"]
+[ext_resource type="Script" path="res://shared/components/detectable/detectable_component.gd" id="30_sulrb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mjtl5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"burst",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"finisher",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g48ii")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w0nq"]
+size = Vector2(28, 117)
+
+[sub_resource type="Animation" id="Animation_2i5om"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("2DComponents/HurtboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_msvre"]
+resource_name = "burst"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["burst"]
+}
+
+[sub_resource type="Animation" id="Animation_nma3o"]
+resource_name = "dash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["dash"]
+}
+
+[sub_resource type="Animation" id="Animation_i6lj1"]
+resource_name = "fall"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["fall"]
+}
+
+[sub_resource type="Animation" id="Animation_oykij"]
+resource_name = "finisher"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["finisher"]
+}
+
+[sub_resource type="Animation" id="Animation_gv8qg"]
+resource_name = "hit"
+length = 0.2
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["hit"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("2DComponents/HurtboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.18),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_lcium"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+
+[sub_resource type="Animation" id="Animation_svtjq"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["jump"]
+}
+
+[sub_resource type="Animation" id="Animation_xv3bq"]
+resource_name = "walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["walk"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nb7be"]
+_data = {
+"RESET": SubResource("Animation_2i5om"),
+"burst": SubResource("Animation_msvre"),
+"dash": SubResource("Animation_nma3o"),
+"fall": SubResource("Animation_i6lj1"),
+"finisher": SubResource("Animation_oykij"),
+"hit": SubResource("Animation_gv8qg"),
+"idle": SubResource("Animation_lcium"),
+"jump": SubResource("Animation_svtjq"),
+"walk": SubResource("Animation_xv3bq")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m2cet"]
+radius = 14.0
+height = 116.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76mxm"]
+radius = 71.4493
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("movement_state_machine", "movement_animator", "animated_sprite", "move_input_component", "health_component", "move_data")]
+process_priority = 1
+process_physics_priority = 1
+collision_layer = 16
+collision_priority = 2.0
+safe_margin = 1.0
+script = ExtResource("1_djp00")
+movement_state_machine = NodePath("Components/MovementStateMachine")
+movement_animator = NodePath("movement_animator")
+animated_sprite = NodePath("AnimatedSprite")
+move_input_component = NodePath("Components/player_movement_component")
+health_component = NodePath("Components/HealthComponent")
+move_data = NodePath("Components/MoveData")
+finisher_time = 5.0
+burst_time = 3.0
+
+[node name="bot_pos" type="Marker2D" parent="."]
+position = Vector2(3, 63)
+
+[node name="mid_pos" type="Marker2D" parent="."]
+position = Vector2(3, 5)
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("2_ked2g")
+
+[node name="test" type="Control" parent="Camera"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_1yxwj")
+scene = ExtResource("4_st5v7")
+
+[node name="ColorRect" type="ColorRect" parent="Camera/test"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mjtl5")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 5)
+shape = SubResource("RectangleShape2D_1w0nq")
+
+[node name="movement_animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nb7be")
+}
+
+[node name="2DComponents" type="Node2D" parent="."]
+
+[node name="RayCasts" type="Node2D" parent="2DComponents" node_paths=PackedStringArray("parent")]
+position = Vector2(3, 5)
+script = ExtResource("3_1dr55")
+parent = NodePath("../..")
+
+[node name="ray_x_up_1" type="RayCast2D" parent="2DComponents/RayCasts"]
+position = Vector2(14, -58)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_up_2" type="RayCast2D" parent="2DComponents/RayCasts"]
+position = Vector2(14, -40)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_mid" type="RayCast2D" parent="2DComponents/RayCasts"]
+position = Vector2(14, 0)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_bot_2" type="RayCast2D" parent="2DComponents/RayCasts"]
+position = Vector2(14, 40)
+target_position = Vector2(25, 0)
+
+[node name="ray_x_bot_1" type="RayCast2D" parent="2DComponents/RayCasts"]
+position = Vector2(14, 58)
+target_position = Vector2(25, 0)
+
+[node name="ray_y_left" type="RayCast2D" parent="2DComponents/RayCasts"]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(-14, -58)
+target_position = Vector2(0, -25)
+
+[node name="ray_y_mid" type="RayCast2D" parent="2DComponents/RayCasts"]
+position = Vector2(0, -58)
+target_position = Vector2(0, -25)
+
+[node name="ray_y_right" type="RayCast2D" parent="2DComponents/RayCasts"]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(14, -58)
+target_position = Vector2(0, -25)
+
+[node name="ray_bot_left" type="RayCast2D" parent="2DComponents/RayCasts"]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(-14, 58)
+target_position = Vector2(0, 25)
+
+[node name="ray_bot_mid" type="RayCast2D" parent="2DComponents/RayCasts"]
+position = Vector2(0, 58)
+target_position = Vector2(0, 25)
+
+[node name="ray_bot_right" type="RayCast2D" parent="2DComponents/RayCasts"]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(14, 58)
+target_position = Vector2(0, 25)
+
+[node name="Attacks" type="Node2D" parent="2DComponents" node_paths=PackedStringArray("player", "attack_input_component", "attack_data", "attack_pattern_1", "attack_pattern_2", "finisher", "burst")]
+script = ExtResource("10_ievp6")
+player = NodePath("../..")
+attack_input_component = NodePath("../../Components/player_attack_input_component")
+attack_data = NodePath("../../Components/AttackData")
+attack_pattern_1 = [NodePath("left_slash"), NodePath("right_slash"), NodePath("double_slash")]
+attack_pattern_2 = [NodePath("right_slash"), NodePath("left_slash"), NodePath("big_slash")]
+finisher = NodePath("finisher")
+burst = NodePath("burst")
+attack_interval_time = 0.45
+combo_interval_time = 1.0
+
+[node name="left_slash" type="Node2D" parent="2DComponents/Attacks"]
+position = Vector2(126, 0)
+script = ExtResource("6_dkdxr")
+cooldown = 0.2
+damage = 1
+knock_back = 400.0
+attack_particles_scene = ExtResource("7_nwp37")
+
+[node name="right_slash" type="Node2D" parent="2DComponents/Attacks"]
+position = Vector2(125, 4)
+script = ExtResource("6_dkdxr")
+cooldown = 0.2
+damage = 1
+knock_back = 400.0
+attack_particles_scene = ExtResource("8_usbgr")
+
+[node name="big_slash" type="Node2D" parent="2DComponents/Attacks"]
+position = Vector2(161, 1)
+script = ExtResource("6_dkdxr")
+cooldown = 1.0
+damage = 3
+knock_back = 1200.0
+attack_particles_scene = ExtResource("9_katqs")
+
+[node name="double_slash" type="Node2D" parent="2DComponents/Attacks"]
+position = Vector2(125, 2)
+script = ExtResource("6_dkdxr")
+cooldown = 0.7
+damage = 5
+knock_back = 800.0
+attack_particles_scene = ExtResource("10_mybfi")
+
+[node name="finisher" type="Node2D" parent="2DComponents/Attacks" node_paths=PackedStringArray("state_machine", "state", "energy_component")]
+script = ExtResource("11_p3xpf")
+state_machine = NodePath("../../../Components/MovementStateMachine")
+state = NodePath("../../../Components/MovementStateMachine/finisher")
+energy_component = NodePath("../../../Components/EnergyComponent")
+energy_cost = 10
+cooldown = 30.0
+damage = 18
+knock_back = 1200.0
+attack_particles_scene = ExtResource("11_c7sml")
+light_particles_number = 400
+light_particles_sphere_size = 2500.0
+light_particles_life_time = 10.0
+light_particles_explosiveness = 0.05
+
+[node name="burst" type="Node2D" parent="2DComponents/Attacks" node_paths=PackedStringArray("state_machine", "state", "energy_component")]
+script = ExtResource("11_p3xpf")
+state_machine = NodePath("../../../Components/MovementStateMachine")
+state = NodePath("../../../Components/MovementStateMachine/burst")
+energy_component = NodePath("../../../Components/EnergyComponent")
+energy_cost = 5
+cooldown = 15.0
+damage = 7
+knock_back = 1700.0
+attack_particles_scene = ExtResource("12_blfld")
+light_particles_number = 200
+light_particles_sphere_size = 2000.0
+light_particles_life_time = 10.0
+light_particles_explosiveness = 0.3
+
+[node name="HurtboxComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("receiver_data", "parent", "health_component")]
+script = ExtResource("10_7jawy")
+receiver_data = NodePath("../../Components/AttackData")
+parent = NodePath("../..")
+health_component = NodePath("../../Components/HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/HurtboxComponent"]
+position = Vector2(3, 5)
+shape = SubResource("CapsuleShape2D_m2cet")
+
+[node name="DetectableComponent" type="Area2D" parent="2DComponents" node_paths=PackedStringArray("parent")]
+script = ExtResource("30_sulrb")
+parent = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2DComponents/DetectableComponent"]
+shape = SubResource("CircleShape2D_76mxm")
+
+[node name="Components" type="Node" parent="."]
+
+[node name="EnergyComponent" type="Node" parent="Components"]
+script = ExtResource("11_4w2s7")
+max_energy = 10
+start_energy = 10
+
+[node name="HealthComponent" type="Node" parent="Components"]
+script = ExtResource("10_ky47a")
+max_health = 10
+health = 10
+
+[node name="AttackData" type="Node" parent="Components"]
+script = ExtResource("13_wxsv1")
+owner_type = 1
+
+[node name="player_attack_input_component" type="Node" parent="Components" node_paths=PackedStringArray("player")]
+script = ExtResource("12_idt88")
+player = NodePath("../..")
+can_attack_while_dash = false
+
+[node name="MoveData" type="Node" parent="Components"]
+script = ExtResource("17_2nqr6")
+walk_distance = 500.0
+dash_distance = 1200.0
+
+[node name="player_movement_component" type="Node" parent="Components"]
+script = ExtResource("9_4mvqj")
+
+[node name="MovementStateMachine" type="Node" parent="Components" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_srg45")
+starting_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("walk", "jump", "fall", "dash")]
+script = ExtResource("4_5fj6c")
+walk = NodePath("../walk")
+jump = NodePath("../jump")
+fall = NodePath("../fall")
+dash = NodePath("../dash")
+
+[node name="walk" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "jump", "fall", "dash")]
+script = ExtResource("5_55t5u")
+idle = NodePath("../idle")
+jump = NodePath("../jump")
+fall = NodePath("../fall")
+dash = NodePath("../dash")
+player_movement_state = 3
+
+[node name="jump" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("jump", "fall", "dash", "ray_casts")]
+script = ExtResource("6_afeky")
+jump = NodePath(".")
+fall = NodePath("../fall")
+dash = NodePath("../dash")
+ray_casts = NodePath("../../../2DComponents/RayCasts")
+light_particles_number = 8
+light_particles_sphere_size = 50.0
+light_particles_lifetime = 2.0
+light_particles_explosiveness = 0.7
+player_movement_state = 2
+
+[node name="fall" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "dash", "ray_casts")]
+script = ExtResource("7_o7w6p")
+idle = NodePath("../idle")
+walk = NodePath("../walk")
+jump = NodePath("../jump")
+dash = NodePath("../dash")
+ray_casts = NodePath("../../../2DComponents/RayCasts")
+player_movement_state = 4
+
+[node name="dash" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle", "walk", "jump", "fall", "dash", "ray_casts")]
+script = ExtResource("8_3twcc")
+idle = NodePath("../idle")
+walk = NodePath("../walk")
+jump = NodePath("../jump")
+fall = NodePath("../fall")
+dash = NodePath(".")
+ray_casts = NodePath("../../../2DComponents/RayCasts")
+light_particles_number = 32
+light_particles_sphere_size = 50.0
+light_particles_lifetime = 2.0
+light_particles_explosiveness = 0.9
+player_movement_state = 1
+
+[node name="burst" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle")]
+script = ExtResource("20_1oxiy")
+idle = NodePath("../idle")
+player_movement_state = 5
+
+[node name="finisher" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle")]
+script = ExtResource("21_hyw5y")
+idle = NodePath("../idle")
+player_movement_state = 6
+
+[node name="hit" type="Node" parent="Components/MovementStateMachine" node_paths=PackedStringArray("idle")]
+script = ExtResource("22_kidvi")
+idle = NodePath("../idle")
+player_movement_state = 7
+
+[node name="die" type="Node" parent="Components/MovementStateMachine"]
+script = ExtResource("23_sovo2")
+player_movement_state = 8
+
+[node name="Label" type="Label" parent="."]
+offset_left = -53.0
+offset_top = -116.0
+offset_right = 59.0
+offset_bottom = -71.0
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="hit_received" from="2DComponents/HurtboxComponent" to="Components/MovementStateMachine/hit" method="_on_hit_received"]
+[connection signal="dir_changed" from="Components/MoveData" to="." method="_on_move_data_dir_changed"]

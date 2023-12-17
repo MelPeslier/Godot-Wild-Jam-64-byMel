@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://dldnsnoxo7gg0"]
+[gd_scene load_steps=22 format=3 uid="uid://dldnsnoxo7gg0"]
 
 [ext_resource type="Script" path="res://shared/vfx/attacks/attack_particles.gd" id="1_h1ybs"]
 [ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="2_aojmm"]
 [ext_resource type="Texture2D" uid="uid://b3dbl1hccx3xm" path="res://shared/art/particles/star_01.png" id="3_11mp6"]
 [ext_resource type="Texture2D" uid="uid://co1v7k51qixn7" path="res://shared/art/particles/twirl_03.png" id="3_mhay5"]
 [ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="5_61viv"]
+[ext_resource type="AudioStream" uid="uid://dtvionfb0erq4" path="res://game/player/sound/attack_burst.wav" id="6_ikkgg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jfq2n"]
 radius = 250.0
@@ -59,10 +60,22 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_6vewu"]
 resource_name = "activate"
-length = 2.5
+length = 6.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -94,7 +107,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(2.5),
+"times": PackedFloat32Array(6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -124,6 +137,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4ro33"]
@@ -252,3 +277,6 @@ process_material = SubResource("ParticleProcessMaterial_2nfe4")
 texture = ExtResource("3_11mp6")
 one_shot = true
 explosiveness = 0.67
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_ikkgg")

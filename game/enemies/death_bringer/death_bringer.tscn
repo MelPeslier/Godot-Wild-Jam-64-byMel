@@ -350,6 +350,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("2DComponents/HitboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_ahtpn"]
 resource_name = "cast"
@@ -435,6 +447,18 @@ tracks/3/keys = {
 "args": [],
 "method": &"spawn_soul"
 }]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("2DComponents/HitboxComponent/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_iuyjl"]
@@ -577,7 +601,7 @@ shape = SubResource("RectangleShape2D_medt3")
 position = Vector2(-12, 0)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_rm1fu")
-animation = &"die"
+animation = &"slash"
 offset = Vector2(39, -20)
 flip_h = true
 
@@ -676,11 +700,12 @@ script = ExtResource("60_jhvds")
 idle = NodePath("../idle")
 death_bringer = NodePath("../../..")
 
-[node name="hit" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "die")]
+[node name="hit" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "die", "slash")]
 script = ExtResource("60_y04o2")
 death_bringer = NodePath("../../..")
 walk = NodePath("../walk")
 die = NodePath("../die")
+slash = NodePath("../slash")
 state_time = 0.2
 
 [node name="cast" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("death_bringer", "walk", "attack_holder")]
@@ -725,6 +750,7 @@ min_attack_range = 550.0
 state_time = 1.5
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 self_modulate = Color(0, 1, 0, 0.564706)
 custom_minimum_size = Vector2(200, 200)
 offset_left = -348.0
@@ -813,6 +839,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -79.0
 offset_top = -184.0
 offset_right = 77.0

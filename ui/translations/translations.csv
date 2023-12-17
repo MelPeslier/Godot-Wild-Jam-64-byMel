@@ -1,13 +1,15 @@
 keys,en,fr
 BACK,Back,Retour
-CONTINUE,Continue,Continuer
+CREDIT_TEAM,made by Mel,Créer par Mel
+CREDIT_TEAM_CONTENT,Assets on itch,Liste du ontenu internet utiliser sur itch
 GAME_OVER,You couldn't handle your new powers,Tu n'as pas su gérer tes nouveaux pouvoirs
 GAME_OVER_TRY_AGAIN,Try again,Réessayer
 MAIN_MENU,Main menu,Menu principal
 MAIN_MENU_CREDITS,Credits,Crédits
+PAUSE,Paused,En pause
+PAUSE_RESUME,Resume,Reprendre
 PLAY,Play,Jouer
 QUIT,Quit,Quitter
 SETTINGS,Settings,Réglages
 SETTINGS_LANGUAGES,Languages,Langues
-PAUSE,Paused,En pause
-PAUSE_RESUME,Resume,Reprendre
+JAM_THEME,Jam theme,Thème de la jam

@@ -15,6 +15,9 @@ extends CharacterBody2D
 @export var needs: DeathBringerNeeds
 @export var chase_opponent_state: State
 @export var keep_range_state: State
+@export var fight_time: float = 12
+
+var fight_timer: float
 
 # UtilityAI
 var fighting := false: set = _set_fighting
@@ -29,6 +32,7 @@ var opponent: Node2D
 		preload("res://game/enemies/death_bringer/utility_ai/behaviors/keep_range.tres"), needs, keep_range
 	)
 ]
+
 
 @onready var detector_component: DetectorComponent = $"2DComponents/DetectorComponent"
 @onready var attack_manager: AttackManager = $"2DComponents/AttackManager"
@@ -64,12 +68,9 @@ func _process(delta: float) -> void:
 	if not opponent:
 		return
 
-	if not fighting:
-		var op: Player = opponent as Player
-		print("want disconnect")
-		op.health_component.health_changed.disconnect(_on_opponent_health_changed)
-		opponent = null
-		detector_component.disable.call_deferred(false)
+	fight_timer -= delta
+	if fight_timer < 0:
+		fighting = false
 		return
 
 	if opponent:
@@ -150,6 +151,8 @@ func _on_health_changed(_health: int,  _max_health: int) -> void:
 
 func _on_opponent_health_changed(_health: int, _max_health: int) -> void:
 	needs.opponent_health = remap(_health, 0, _max_health, 0, 1)
+	if _health == 0:
+		fighting = false
 
 
 func _on_spell_holder_attack_up(_can_attack: bool, _damage: int) -> void:
@@ -176,7 +179,13 @@ func _on_slash_holder_attack_up(_can_attack: bool, _damage: int) -> void:
 func _set_fighting(_do_fight: bool) -> void:
 	if _do_fight == fighting: return
 	if not _do_fight:
+		var op: Player = opponent as Player
+		print("want disconnect")
+		op.health_component.health_changed.disconnect(_on_opponent_health_changed)
 		opponent = null
+		detector_component.disable.call_deferred(false)
+	else:
+		fight_timer = fight_time
 	fighting = _do_fight
 
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dqxr65sa3xf1n"]
+[gd_scene load_steps=15 format=3 uid="uid://dqxr65sa3xf1n"]
 
 [ext_resource type="Material" uid="uid://8n6prt7aux1i" path="res://shared/materials/blend_add.tres" id="1_2vybo"]
 [ext_resource type="Script" path="res://shared/vfx/attacks/attack_particles.gd" id="2_opcal"]
 [ext_resource type="Texture2D" uid="uid://djrc0oixgted8" path="res://shared/art/my_particles/my_big_slash_02.png" id="3_vngae"]
 [ext_resource type="Script" path="res://shared/components/interactables/hitbox_component.gd" id="4_hidpu"]
+[ext_resource type="AudioStream" uid="uid://d1gq38xkscbhm" path="res://game/player/sound/attack_big.wav" id="5_6rjhk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ori0"]
 size = Vector2(200, 43)
@@ -33,6 +34,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_u02js"]
@@ -75,6 +88,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2kr46"]
@@ -137,3 +162,6 @@ lifetime = 0.15
 one_shot = true
 explosiveness = 1.0
 local_coords = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6rjhk")

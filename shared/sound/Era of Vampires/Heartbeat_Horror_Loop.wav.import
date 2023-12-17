@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://25p1cu6b71wm"
+path="res://.godot/imported/Heartbeat_Horror_Loop.wav-5707ae2efe03c6e59317ae813943ebb0.sample"
+
+[deps]
+
+source_file="res://shared/sound/Era of Vampires/Heartbeat_Horror_Loop.wav"
+dest_files=["res://.godot/imported/Heartbeat_Horror_Loop.wav-5707ae2efe03c6e59317ae813943ebb0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
